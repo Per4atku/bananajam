@@ -2,7 +2,8 @@ interface SearchContentProps {
   query: string | undefined;
 }
 
-const SearchResults = async ({ query }: SearchContentProps) => {
+//add "async"
+const SearchResults = ({ query }: SearchContentProps) => {
   return <div>{query || null}</div>;
 };
 
