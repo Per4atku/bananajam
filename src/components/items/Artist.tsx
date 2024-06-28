@@ -18,7 +18,7 @@ const Artist = ({ imageURL, name, isAdded }: ArtistProps) => {
     useState<boolean>(isAdded);
   return (
     <>
-      <div className="flex cursor-pointer items-center  w-full">
+      <div className="flex cursor-pointer items-center  w-full my-5">
         <button
           onClick={() => toast(name)}
           className="flex items-center w-full"

@@ -5,8 +5,9 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import { useState } from "react";
+import { useRef } from "react";
 import clsx from "clsx";
+import { useBoolean } from "@/hooks/useBoolean";
 
 interface SearchProps {
   placeholder: string;
@@ -16,7 +17,8 @@ const Search = ({ placeholder }: SearchProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const [isFocused, setIsFocused] = useState<boolean>();
+  const [isTyping, toggleTyping] = useBoolean();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
@@ -24,6 +26,7 @@ const Search = ({ placeholder }: SearchProps) => {
       params.set("query", term);
     } else {
       params.delete("query");
+      toggleTyping(false);
     }
     replace(`${pathname}?${params.toString()}`);
   }, 300);
@@ -32,19 +35,31 @@ const Search = ({ placeholder }: SearchProps) => {
     <div className="flex relative items-center mt-12">
       <SearchIcon className="absolute left-2 h-5 w-5 text-muted-foreground" />
       <Input
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        ref={inputRef}
         defaultValue={searchParams.get("query")?.toString()}
         placeholder={placeholder}
         className="pl-10 py-7 text-lg"
-        onChange={(e) => handleSearch(e.target.value)}
+        onChange={(e) => {
+          toggleTyping(true);
+          handleSearch(e.target.value);
+        }}
       />
       <Button
-        className={clsx("absolute right-2 h-5 w-5", !isFocused && "hidden")}
+        className={clsx("absolute right-3 h-10 w-10", !isTyping && "hidden")}
         size={"icon"}
         variant={"ghost"}
+        onClick={() => {
+          if (inputRef.current) {
+            inputRef.current.value = "";
+            toggleTyping();
+
+            const params = new URLSearchParams(searchParams);
+            params.delete("query");
+            replace(`${pathname}?${params.toString()}`);
+          }
+        }}
       >
-        <X />
+        <X className="w-6 h-6" />
       </Button>
     </div>
   );
