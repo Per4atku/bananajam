@@ -18,10 +18,10 @@ const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
     useState<boolean>(isAdded);
   return (
     <>
-      <div className="flex w-full items-center my-3">
+      <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent">
         <button
           onClick={() => toast(name)}
-          className="flex items-center w-full py-2 overflow-hidden"
+          className="flex items-center w-full py-2  overflow-hidden"
         >
           <Avatar className="h-12 w-12">
             <AvatarImage src={imageURL} alt={name} />

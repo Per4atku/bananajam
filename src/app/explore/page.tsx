@@ -22,6 +22,27 @@ const Explore = ({
             imageURL="https://i.scdn.co/image/f0a39a8a196a87a7236bdcf8a8708f6d5d3547cc"
           />
           <Separator />
+          <Artist
+            isAdded={true}
+            name="Pink Floyd"
+            genres={["Psychedelic Rock", "Prog rock"]}
+            imageURL="https://i.scdn.co/image/f0a39a8a196a87a7236bdcf8a8708f6d5d3547cc"
+          />
+          <Separator />
+          <Artist
+            isAdded={true}
+            name="Pink Floyd"
+            genres={["Psychedelic Rock", "Prog rock"]}
+            imageURL="https://i.scdn.co/image/f0a39a8a196a87a7236bdcf8a8708f6d5d3547cc"
+          />
+          <Separator />
+          <Artist
+            isAdded={true}
+            name="Pink Floyd"
+            genres={["Psychedelic Rock", "Prog rock"]}
+            imageURL="https://i.scdn.co/image/f0a39a8a196a87a7236bdcf8a8708f6d5d3547cc"
+          />
+          <Separator />
         </>
       ) : (
         <>
