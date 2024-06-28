@@ -1,7 +1,6 @@
 "use client";
 
-import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Avatar } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -11,53 +10,60 @@ interface ArtistProps {
   imageURL: string;
   name: string;
   isAdded: boolean;
+  genres: string[];
 }
 
-const Artist = ({ imageURL, name, isAdded }: ArtistProps) => {
+const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
     useState<boolean>(isAdded);
   return (
     <>
-      <div className="flex items-center my-5 ">
-        <div className="flex w-full items-center">
-          <button
-            onClick={() => toast(name)}
-            className="flex items-center w-full py-2 overflow-hidden"
-          >
-            <Avatar className="h-12 w-12">
-              <AvatarImage src={imageURL} alt="Pink Floyd" />
-            </Avatar>
+      <div className="flex w-full items-center my-3">
+        <button
+          onClick={() => toast(name)}
+          className="flex items-center w-full py-2 overflow-hidden"
+        >
+          <Avatar className="h-12 w-12">
+            <AvatarImage src={imageURL} alt={name} />
+            <AvatarFallback>BJ</AvatarFallback>
+          </Avatar>
+          <div className="ml-3 overflow-hidden">
             <h3
-              className="ml-3 text-2xl font-medium whitespace-nowrap 
-                        overflow-hidden overflow-ellipsis text-left
+              className="text-xl font-medium whitespace-nowrap 
+                        overflow-hidden overflow-ellipsis text-left sm:text-2xl
                         
           "
             >
               {name}
             </h3>
-            <p className=" italic text-sm mx-2 ">(artist)</p>
-          </button>
-          <form
-            action={(formData: FormData) => {
-              setIsOptimisticallyAdded((prev) => !prev);
-            }}
+            <p className="text-left text-muted-foreground overflow-hidden overflow-ellipsis whitespace-nowrap italic text-xs sm:text-sm ">
+              {genres.map((genre, index) => {
+                if (index + 1 === genres.length) return <> {genre}</>;
+                return <> {genre},</>;
+              })}
+            </p>
+          </div>
+        </button>
+        <form
+          action={(formData: FormData) => {
+            setIsOptimisticallyAdded((prev) => !prev);
+          }}
+        >
+          <Button
+            variant={isOptimisticallyAdded ? "secondary" : "default"}
+            onClick={() => toast("follow!")}
           >
-            <Button
-              variant={isOptimisticallyAdded ? "secondary" : "default"}
-              onClick={() => toast("follow!")}
-            >
-              {isOptimisticallyAdded ? (
-                <>
-                  <Check /> <p className="ml-1.5">Added to library</p>
-                </>
-              ) : (
-                <>
-                  <BookmarkPlus /> <p className="ml-1.5">Add to library</p>
-                </>
-              )}
-            </Button>
-          </form>
-        </div>
+            {isOptimisticallyAdded ? (
+              <>
+                <Check size={18} /> <p className="ml-1.5">In Library</p>
+              </>
+            ) : (
+              <>
+                <BookmarkPlus size={18} /> <p className="ml-1.5">Add</p>
+              </>
+            )}
+          </Button>
+        </form>
       </div>
     </>
   );
