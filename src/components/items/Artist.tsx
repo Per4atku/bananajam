@@ -18,36 +18,46 @@ const Artist = ({ imageURL, name, isAdded }: ArtistProps) => {
     useState<boolean>(isAdded);
   return (
     <>
-      <div className="flex cursor-pointer items-center  w-full my-5">
-        <button
-          onClick={() => toast(name)}
-          className="flex items-center w-full"
-        >
-          <Avatar className="h-12 w-12">
-            <AvatarImage src={imageURL} alt="Pink Floyd" />
-          </Avatar>
-          <h3 className="ml-3 text-xl font-medium">{name}</h3>
-        </button>
-        <form
-          action={(formData: FormData) => {
-            setIsOptimisticallyAdded((prev) => !prev);
-          }}
-        >
-          <Button
-            variant={isOptimisticallyAdded ? "secondary" : "default"}
-            onClick={() => toast("follow!")}
+      <div className="flex items-center my-5 ">
+        <div className="flex w-full items-center">
+          <button
+            onClick={() => toast(name)}
+            className="flex items-center w-full py-2 overflow-hidden"
           >
-            {isOptimisticallyAdded ? (
-              <>
-                <Check /> <p className="ml-1.5">Added to library</p>
-              </>
-            ) : (
-              <>
-                <BookmarkPlus /> <p className="ml-1.5">Add to library</p>
-              </>
-            )}
-          </Button>
-        </form>
+            <Avatar className="h-12 w-12">
+              <AvatarImage src={imageURL} alt="Pink Floyd" />
+            </Avatar>
+            <h3
+              className="ml-3 text-2xl font-medium whitespace-nowrap 
+                        overflow-hidden overflow-ellipsis text-left
+                        
+          "
+            >
+              {name}
+            </h3>
+            <p className=" italic text-sm mx-2 ">(artist)</p>
+          </button>
+          <form
+            action={(formData: FormData) => {
+              setIsOptimisticallyAdded((prev) => !prev);
+            }}
+          >
+            <Button
+              variant={isOptimisticallyAdded ? "secondary" : "default"}
+              onClick={() => toast("follow!")}
+            >
+              {isOptimisticallyAdded ? (
+                <>
+                  <Check /> <p className="ml-1.5">Added to library</p>
+                </>
+              ) : (
+                <>
+                  <BookmarkPlus /> <p className="ml-1.5">Add to library</p>
+                </>
+              )}
+            </Button>
+          </form>
+        </div>
       </div>
     </>
   );

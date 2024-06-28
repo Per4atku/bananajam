@@ -43,6 +43,7 @@ const Search = ({ placeholder }: SearchProps) => {
           toggleTyping(true);
           handleSearch(e.target.value);
         }}
+        onFocus={() => toggleTyping(true)}
       />
       <Button
         className={clsx("absolute right-3 h-10 w-10", !isTyping && "hidden")}
