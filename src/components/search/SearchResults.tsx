@@ -11,17 +11,18 @@ const SearchResults = async ({ query }: SearchContentProps) => {
   if (query)
     return (
       <>
-        {artists.map((artist, index) => (
-          <>
-            <Artist
-              key={index}
-              name={artist.name}
-              genres={artist.genres}
-              isAdded={false}
-              imageURL={artist.images[2]?.url}
-            />
-          </>
-        ))}
+        {artists &&
+          artists.map((artist, index) => (
+            <>
+              <Artist
+                key={index}
+                name={artist.name}
+                genres={artist.genres}
+                isAdded={false}
+                imageURL={artist?.images[2]?.url}
+              />
+            </>
+          ))}
       </>
     );
   else return <></>;
