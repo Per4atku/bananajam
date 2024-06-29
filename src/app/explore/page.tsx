@@ -4,7 +4,9 @@ import Artist from "@/components/items/Artist";
 import Track from "@/components/items/Track";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Search from "@/components/search/Search";
+import SearchResults from "@/components/search/SearchResults";
 import { Separator } from "@/components/ui/separator";
+import { Suspense } from "react";
 
 const Explore = ({
   searchParams,
@@ -18,33 +20,9 @@ const Explore = ({
       <Search placeholder="Search for..." />
 
       {searchParams?.query ? (
-        <>
-          <Artist
-            isAdded={true}
-            name="Pink Floyd"
-            genres={["Psychedelic Rock", "Prog rock"]}
-            imageURL="https://i.scdn.co/image/f0a39a8a196a87a7236bdcf8a8708f6d5d3547cc"
-          />
-          <Separator />
-          <Album
-            isAdded={true}
-            name={"Wish You Were Here"}
-            artistName={"Pink Floyd"}
-            imageURL={
-              "https://i.scdn.co/image/ab67616d0000b2731a84d71391df7469c5ab8539"
-            }
-          />
-          <Separator />
-          <Track
-            isAdded={true}
-            name={"Wish You Were Here"}
-            artistName={"Pink Floyd"}
-            imageURL={
-              "https://i.scdn.co/image/ab67616d0000b2731a84d71391df7469c5ab8539"
-            }
-            albumName="Wish You Were Here"
-          />
-        </>
+        <Suspense fallback={<>loading...</>}>
+          <SearchResults query={searchParams.query} />
+        </Suspense>
       ) : (
         <>
           <h1 className="font-bold text-3xl mt-12">You might also like...</h1>

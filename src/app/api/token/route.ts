@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export const dynamic = "force-dynamic";
-export const revalidate = 3600;
 
-export async function GET() {
+//TODO: Cache this and revalidate every hour
+
+export const GET = async () => {
   const tokenResponse = await axios.post(
     "https://accounts.spotify.com/api/token",
     {
@@ -20,4 +21,4 @@ export async function GET() {
 
   const token = tokenResponse.data.access_token;
   return Response.json(token);
-}
+};
