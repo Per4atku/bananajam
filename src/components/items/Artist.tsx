@@ -38,8 +38,9 @@ const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
             </h3>
             <p className="text-left text-muted-foreground overflow-hidden overflow-ellipsis whitespace-nowrap italic text-xs sm:text-sm ">
               {genres.map((genre, index) => {
-                if (index + 1 === genres.length) return <> {genre}</>;
-                return <> {genre},</>;
+                if (index + 1 === genres.length)
+                  return <span key={index}> {genre}</span>;
+                return <span key={index}> {genre},</span>;
               })}
             </p>
           </div>

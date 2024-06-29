@@ -7,7 +7,7 @@ interface SearchContentProps {
 
 const SearchResults = async ({ query }: SearchContentProps) => {
   const artists = await musicDataAPI.getArtists(5, query, 0);
-  console.log(artists);
+  console.log(artists[0].images[0]);
   if (query)
     return (
       <>
@@ -18,7 +18,7 @@ const SearchResults = async ({ query }: SearchContentProps) => {
               name={artist.name}
               genres={artist.genres}
               isAdded={false}
-              imageURL={artist.images[0].url}
+              imageURL={artist.images[2]?.url}
             />
           </>
         ))}
