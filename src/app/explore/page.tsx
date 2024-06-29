@@ -1,3 +1,4 @@
+import { musicDataAPI } from "@/apis/musicDataAPI";
 import Album from "@/components/items/Album";
 import Artist from "@/components/items/Artist";
 import Track from "@/components/items/Track";
@@ -15,6 +16,7 @@ const Explore = ({
   return (
     <MaxWidthWrapper>
       <Search placeholder="Search for..." />
+
       {searchParams?.query ? (
         <>
           <Artist
