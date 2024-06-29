@@ -1,5 +1,7 @@
 import axios from "axios";
 
+export const revalidate = 3600;
+
 export async function GET() {
   const tokenResponse = await axios.post(
     "https://accounts.spotify.com/api/token",
