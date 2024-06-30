@@ -1,5 +1,4 @@
 "use client";
-//TODO: REWRITE!!!
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Badge } from "../ui/badge";
@@ -23,7 +22,6 @@ const Filter = () => {
     replace(`${pathname}?${params.toString()}`);
   }, [sortByItem]);
 
-  console.log(searchParams.get("sort_by"));
   return (
     <div className="flex gap-3 my-4">
       <button onClick={() => setSortByItem("artist")}>
