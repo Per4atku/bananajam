@@ -2,13 +2,14 @@ import { musicDataAPI } from "@/apis/musicDataAPI";
 import Artist from "../items/Artist";
 import Album from "../items/Album";
 import Track from "../items/Track";
+import { Separator } from "../ui/separator";
 
 interface SearchContentProps {
   sort_by: string;
   query: string;
 }
 
-const ITEMS_PER_SCROLL = 10;
+const ITEMS_PER_SCROLL = 9;
 
 const SearchResults = async ({ query, sort_by }: SearchContentProps) => {
   if (query)
@@ -26,6 +27,7 @@ const SearchResults = async ({ query, sort_by }: SearchContentProps) => {
                   isAdded={false}
                   imageURL={artist?.images[2]?.url}
                 />
+                <Separator />
               </>
             ))}
         </>
@@ -47,6 +49,7 @@ const SearchResults = async ({ query, sort_by }: SearchContentProps) => {
                   isAdded={false}
                   imageURL={album?.images[2]?.url}
                 />
+                <Separator />
               </>
             ))}
         </>
@@ -69,6 +72,7 @@ const SearchResults = async ({ query, sort_by }: SearchContentProps) => {
                     .toString()}
                   albumName={track.album.name}
                 />
+                <Separator />
               </>
             ))}
         </>
