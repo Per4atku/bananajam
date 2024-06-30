@@ -16,6 +16,13 @@ interface ArtistProps {
 const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
     useState<boolean>(isAdded);
+  const getFirstCapitalLetters = (input: string): string => {
+    const capitalLetters = input.match(/[A-Z]/g);
+    if (capitalLetters && capitalLetters.length >= 2) {
+      return capitalLetters.slice(0, 2).join("");
+    }
+    return "";
+  };
   return (
     <>
       <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent">
@@ -25,7 +32,7 @@ const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
         >
           <Avatar className="h-12 w-12">
             <AvatarImage src={imageURL} alt={name} />
-            <AvatarFallback>BJ</AvatarFallback>
+            <AvatarFallback>{getFirstCapitalLetters(name)}</AvatarFallback>
           </Avatar>
           <div className="ml-3 overflow-hidden">
             <h3

@@ -8,10 +8,12 @@ interface SearchContentProps {
   query: string;
 }
 
+const ITEMS_PER_SCROLL = 10;
+
 const SearchResults = async ({ query, sort_by }: SearchContentProps) => {
   if (query)
     if (sort_by === "artist") {
-      const artists = await musicDataAPI.getArtists(5, query, 0);
+      const artists = await musicDataAPI.getArtists(ITEMS_PER_SCROLL, query, 0);
       return (
         <>
           {artists &&
@@ -29,7 +31,7 @@ const SearchResults = async ({ query, sort_by }: SearchContentProps) => {
         </>
       );
     } else if (sort_by === "album") {
-      const albums = await musicDataAPI.getAlbums(5, query, 0);
+      const albums = await musicDataAPI.getAlbums(ITEMS_PER_SCROLL, query, 0);
 
       return (
         <>
@@ -50,7 +52,7 @@ const SearchResults = async ({ query, sort_by }: SearchContentProps) => {
         </>
       );
     } else if (sort_by === "track") {
-      const tracks = await musicDataAPI.getTracks(5, query, 0);
+      const tracks = await musicDataAPI.getTracks(ITEMS_PER_SCROLL, query, 0);
 
       return (
         <>

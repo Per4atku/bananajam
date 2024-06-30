@@ -16,6 +16,14 @@ interface AlbumProps {
 const Album = ({ imageURL, name, isAdded, artistName }: AlbumProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
     useState<boolean>(isAdded);
+
+  const getFirstCapitalLetters = (input: string): string => {
+    const capitalLetters = input.match(/[A-Z]/g);
+    if (capitalLetters && capitalLetters.length >= 2) {
+      return capitalLetters.slice(0, 2).join("");
+    }
+    return "";
+  };
   return (
     <>
       <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent">
@@ -25,7 +33,9 @@ const Album = ({ imageURL, name, isAdded, artistName }: AlbumProps) => {
         >
           <Avatar className="h-12 w-12 rounded-sm">
             <AvatarImage src={imageURL} alt={name} />
-            <AvatarFallback className="rounded-sm">BJ</AvatarFallback>
+            <AvatarFallback className="rounded-sm">
+              {getFirstCapitalLetters(name)}
+            </AvatarFallback>
           </Avatar>
           <div className="ml-3 overflow-hidden">
             <h3
