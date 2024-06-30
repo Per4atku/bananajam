@@ -2,12 +2,26 @@ import axios from "axios";
 
 const apiRoute = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+export type Images = Array<{ height: Number; url: string; width: string }>;
 export type Item = "artist" | "album" | "track";
 export type Artist = {
   id: string;
   name: string;
-  images: any[];
+  images: Images;
   genres: string[];
+};
+export type Album = {
+  id: string;
+  name: string;
+  images: Images;
+  artists: Artist[];
+};
+
+export type Track = {
+  id: string;
+  name: string;
+  artists: Artist[];
+  album: Album;
 };
 
 export const musicDataAPI = {
@@ -40,6 +54,66 @@ export const musicDataAPI = {
           name: artist.name,
           images: artist.images,
           genres: artist.genres,
+        });
+      });
+
+      return response;
+    } else
+      throw new Error("No NEXT_PUBLIC_BACKEND_URL provided inside .env file");
+  },
+
+  getAlbums: async (limit: number, query: string, offset: number) => {
+    if (apiRoute) {
+      const params = new URLSearchParams([
+        ["q", query],
+        ["limit", limit.toString()],
+        ["type", "album"],
+        ["offset", offset.toString()],
+      ]);
+      console.log(apiRoute + "/search?" + params.toString());
+      const albumsResultRaw = await axios.get(
+        apiRoute + "/search?" + params.toString()
+      );
+      const albumsResult: Array<any> = albumsResultRaw.data.albums.items;
+
+      const response: Array<Album> = [];
+
+      albumsResult.map((album) => {
+        response.push({
+          id: album.id,
+          name: album.name,
+          images: album.images,
+          artists: album.artists,
+        });
+      });
+
+      return response;
+    } else
+      throw new Error("No NEXT_PUBLIC_BACKEND_URL provided inside .env file");
+  },
+
+  getTracks: async (limit: number, query: string, offset: number) => {
+    if (apiRoute) {
+      const params = new URLSearchParams([
+        ["q", query],
+        ["limit", limit.toString()],
+        ["type", "track"],
+        ["offset", offset.toString()],
+      ]);
+      console.log(apiRoute + "/search?" + params.toString());
+      const trackResultRaw = await axios.get(
+        apiRoute + "/search?" + params.toString()
+      );
+      const tracksResult: Array<any> = trackResultRaw.data.tracks.items;
+
+      const response: Array<Track> = [];
+
+      tracksResult.map((track) => {
+        response.push({
+          id: track.id,
+          name: track.name,
+          artists: track.artists,
+          album: track.album,
         });
       });
 

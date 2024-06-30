@@ -3,6 +3,7 @@ import axios from "axios";
 export const dynamic = "force-dynamic";
 
 //TODO: Cache this and revalidate every hour
+//TODO: Secure this route
 
 export const GET = async () => {
   const tokenResponse = await axios.post(

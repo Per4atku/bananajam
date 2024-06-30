@@ -7,7 +7,7 @@ export const GET = async (req: NextRequest) => {
   const params = new URLSearchParams([
     ["q", url.searchParams.get("q") || ""],
     ["type", url.searchParams.get("type") || ""],
-    ["market", "ES"],
+    ["market", "US"],
     ["limit", url.searchParams.get("limit") || "1"],
     ["offset", url.searchParams.get("offset") || "5"],
   ]);

@@ -1,11 +1,7 @@
-import { musicDataAPI } from "@/apis/musicDataAPI";
-import Album from "@/components/items/Album";
-import Artist from "@/components/items/Artist";
-import Track from "@/components/items/Track";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import Filter from "@/components/search/Filter";
 import Search from "@/components/search/Search";
 import SearchResults from "@/components/search/SearchResults";
-import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
 
 const Explore = ({
@@ -13,15 +9,20 @@ const Explore = ({
 }: {
   searchParams?: {
     query?: string;
+    sort_by?: string;
   };
 }) => {
   return (
     <MaxWidthWrapper>
       <Search placeholder="Search for..." />
+      <Filter />
 
       {searchParams?.query ? (
         <Suspense fallback={<>loading...</>}>
-          <SearchResults query={searchParams.query} />
+          <SearchResults
+            sort_by={searchParams.sort_by || "artist"}
+            query={searchParams.query}
+          />
         </Suspense>
       ) : (
         <>
