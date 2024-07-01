@@ -18,7 +18,7 @@ const ITEMS_PER_SCROLL = 9;
 const ArtistResults = ({ query }: { query: string }) => {
   const [offset, setOffset] = useState<number>(0);
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["artists", query],
+    queryKey: ["artists", query, offset],
     queryFn: async () => {
       return await musicDataAPI.getArtists(ITEMS_PER_SCROLL, query, offset);
     },
@@ -50,10 +50,10 @@ const ArtistResults = ({ query }: { query: string }) => {
   );
 };
 
-const AlbumResults = async ({ query }: { query: string }) => {
+const AlbumResults = ({ query }: { query: string }) => {
   const [offset, setOffset] = useState<number>(0);
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["albums", query],
+    queryKey: ["albums", query, offset],
     queryFn: async () => {
       return await musicDataAPI.getAlbums(ITEMS_PER_SCROLL, query, offset);
     },
@@ -84,10 +84,10 @@ const AlbumResults = async ({ query }: { query: string }) => {
   );
 };
 
-const TrackResults = async ({ query }: { query: string }) => {
+const TrackResults = ({ query }: { query: string }) => {
   const [offset, setOffset] = useState<number>(0);
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["tracks", query],
+    queryKey: ["tracks", query, offset],
     queryFn: async () => {
       return await musicDataAPI.getTracks(ITEMS_PER_SCROLL, query, offset);
     },
