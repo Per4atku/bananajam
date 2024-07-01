@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
+import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,10 +24,12 @@ export default function RootLayout({
           "relative h-full font-sans antialiased "
         )}
       >
-        <main className="relative flex flex-col min-h-screen ">
-          <Toaster />
-          <div className="flex-grow flex-1">{children}</div>
-        </main>
+        <Providers>
+          <main className="relative flex flex-col min-h-screen ">
+            <Toaster />
+            <div className="flex-grow flex-1">{children}</div>
+          </main>
+        </Providers>
       </body>
     </html>
   );

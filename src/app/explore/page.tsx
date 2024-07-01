@@ -2,7 +2,6 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import SearchInput from "@/components/search/SearchInput";
 import SearchResults from "@/components/search/SearchResults";
 import SortBy from "@/components/search/SortBy";
-import { Suspense } from "react";
 
 const Explore = ({
   searchParams,
@@ -18,12 +17,10 @@ const Explore = ({
       <SortBy />
 
       {searchParams?.query ? (
-        <Suspense fallback={<>loading...</>}>
-          <SearchResults
-            sort_by={searchParams.sort_by || "artist"}
-            query={searchParams.query}
-          />
-        </Suspense>
+        <SearchResults
+          query={searchParams.query}
+          sort_by={searchParams.sort_by || "artist"}
+        />
       ) : (
         <>
           <h1 className="font-bold text-3xl mt-12">You might also like...</h1>

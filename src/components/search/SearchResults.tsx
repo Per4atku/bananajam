@@ -1,8 +1,12 @@
+"use client";
+
 import { musicDataAPI } from "@/apis/musicDataAPI";
 import Artist from "../items/Artist";
 import Album from "../items/Album";
 import Track from "../items/Track";
 import { Separator } from "../ui/separator";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 interface SearchContentProps {
   sort_by: string;
@@ -11,12 +15,26 @@ interface SearchContentProps {
 
 const ITEMS_PER_SCROLL = 9;
 
-const ArtistResults = async ({ query }: { query: string }) => {
-  const artists = await musicDataAPI.getArtists(ITEMS_PER_SCROLL, query, 0);
+const ArtistResults = ({ query }: { query: string }) => {
+  const [offset, setOffset] = useState<number>(0);
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ["artists", query],
+    queryFn: async () => {
+      return await musicDataAPI.getArtists(ITEMS_PER_SCROLL, query, offset);
+    },
+  });
+  if (isPending) {
+    return <span>Loading artists...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
+
   return (
     <>
-      {artists &&
-        artists.map((artist, index) => (
+      {data &&
+        data.map((artist, index) => (
           <>
             <Artist
               key={index}
@@ -33,12 +51,24 @@ const ArtistResults = async ({ query }: { query: string }) => {
 };
 
 const AlbumResults = async ({ query }: { query: string }) => {
-  const albums = await musicDataAPI.getAlbums(ITEMS_PER_SCROLL, query, 0);
+  const [offset, setOffset] = useState<number>(0);
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ["albums", query],
+    queryFn: async () => {
+      return await musicDataAPI.getAlbums(ITEMS_PER_SCROLL, query, offset);
+    },
+  });
+  if (isPending) {
+    return <span>Loading albums...</span>;
+  }
 
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
   return (
     <>
-      {albums &&
-        albums.map((album, index) => (
+      {data &&
+        data.map((album, index) => (
           <>
             <Album
               key={index}
@@ -55,17 +85,29 @@ const AlbumResults = async ({ query }: { query: string }) => {
 };
 
 const TrackResults = async ({ query }: { query: string }) => {
-  const tracks = await musicDataAPI.getTracks(ITEMS_PER_SCROLL, query, 0);
+  const [offset, setOffset] = useState<number>(0);
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ["tracks", query],
+    queryFn: async () => {
+      return await musicDataAPI.getTracks(ITEMS_PER_SCROLL, query, offset);
+    },
+  });
+  if (isPending) {
+    return <span>Loading tracks...</span>;
+  }
 
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
   return (
     <>
-      {tracks &&
-        tracks.map((track, index) => (
+      {data &&
+        data.map((track, index) => (
           <>
             <Track
               key={index}
               name={track.name}
-              imageURL={track.album.images[2].url}
+              imageURL={track.album?.images[2]?.url}
               isAdded={false}
               artistName={track.artists.map((artist) => artist.name).toString()}
               albumName={track.album.name}
