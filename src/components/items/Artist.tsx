@@ -34,7 +34,7 @@ const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
             <AvatarImage src={imageURL} alt={name} />
             <AvatarFallback>{getFirstCapitalLetters(name)}</AvatarFallback>
           </Avatar>
-          <div className="ml-3 overflow-hidden">
+          <div className="ml-3 overflow-hidden ">
             <h3
               className="text-xl font-medium whitespace-nowrap 
                         overflow-hidden overflow-ellipsis text-left sm:text-2xl

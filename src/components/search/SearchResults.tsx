@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { BeatLoader } from "react-spinners";
+import { useDidUpdate } from "@siberiacancode/reactuse";
 
 interface SearchContentProps {
   sort_by: string;
@@ -25,11 +26,15 @@ const ITEMS_PER_SCROLL = 9;
 const ArtistResults = ({ query }: { query: string }) => {
   const [offset, setOffset] = useState<number>(0);
   const [artists, setArtists] = useState<ArtistType[]>();
-  const { inView, ref, entry } = useInView({
+  const { ref } = useInView({
     onChange: (inView) => {
       inView && setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
   });
+
+  useDidUpdate(() => {
+    setArtists([]);
+  }, [query]);
   const { isPending, isError, error } = useQuery({
     queryKey: ["artists", query, offset],
     queryFn: async () => {
@@ -50,11 +55,22 @@ const ArtistResults = ({ query }: { query: string }) => {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  if (isPending && !artists) return <span>Loading artists...</span>;
-  return (
-    <>
-      {artists &&
-        artists.map((artist, index) => (
+  if (isPending && !artists?.length)
+    return (
+      <>
+        <div
+          className="w-full h-full flex justify-center items-center my-12"
+          ref={ref}
+        >
+          <BeatLoader color="#fff" size={15} className=" " />
+        </div>
+      </>
+    );
+
+  if (artists?.length)
+    return (
+      <>
+        {artists.map((artist, index) => (
           <>
             <Artist
               key={index}
@@ -66,12 +82,11 @@ const ArtistResults = ({ query }: { query: string }) => {
             <Separator />
           </>
         ))}
-
-      <div className="w-full flex justify-center my-4" ref={ref}>
-        <BeatLoader color="#fff" size={15} className=" " />
-      </div>
-    </>
-  );
+        <div className="w-full flex justify-center my-4" ref={ref}>
+          <BeatLoader color="#fff" size={15} className=" " />
+        </div>
+      </>
+    );
 };
 
 const AlbumResults = ({ query }: { query: string }) => {
@@ -98,15 +113,28 @@ const AlbumResults = ({ query }: { query: string }) => {
       return albums;
     },
   });
+  useDidUpdate(() => {
+    setAlbums([]);
+  }, [query]);
 
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  if (isPending && !albums) return <span>Loading albums...</span>;
-  return (
-    <>
-      {albums &&
-        albums.map((album, index) => (
+  if (isPending && !albums?.length)
+    return (
+      <>
+        <div
+          className="w-full h-full flex justify-center items-center my-12"
+          ref={ref}
+        >
+          <BeatLoader color="#fff" size={15} className=" " />
+        </div>
+      </>
+    );
+  if (albums?.length)
+    return (
+      <>
+        {albums.map((album, index) => (
           <>
             <Album
               key={index}
@@ -118,17 +146,17 @@ const AlbumResults = ({ query }: { query: string }) => {
             <Separator />
           </>
         ))}
-      <div className="w-full flex justify-center my-4" ref={ref}>
-        <BeatLoader color="#fff" size={15} className=" " />
-      </div>
-    </>
-  );
+        <div className="w-full flex justify-center my-4" ref={ref}>
+          <BeatLoader color="#fff" size={15} className=" " />
+        </div>
+      </>
+    );
 };
 
 const TrackResults = ({ query }: { query: string }) => {
   const [offset, setOffset] = useState<number>(0);
   const [tracks, setTracks] = useState<TrackType[]>();
-  const { inView, ref, entry } = useInView({
+  const { ref } = useInView({
     onChange: (inView) => {
       inView && setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
@@ -150,14 +178,23 @@ const TrackResults = ({ query }: { query: string }) => {
     },
   });
 
+  useDidUpdate(() => {
+    setTracks([]);
+  }, [query]);
+
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  if (isPending && !tracks) return <span>Loading tracks...</span>;
-  return (
-    <>
-      {tracks &&
-        tracks.map((track, index) => (
+  if (isPending && !tracks?.length)
+    return (
+      <div className="w-full flex justify-center my-12" ref={ref}>
+        <BeatLoader color="#fff" size={15} className=" " />
+      </div>
+    );
+  if (tracks?.length)
+    return (
+      <>
+        {tracks.map((track, index) => (
           <>
             <Track
               key={index}
@@ -170,11 +207,11 @@ const TrackResults = ({ query }: { query: string }) => {
             <Separator />
           </>
         ))}
-      <div className="w-full flex justify-center my-4" ref={ref}>
-        <BeatLoader color="#fff" size={15} className=" " />
-      </div>
-    </>
-  );
+        <div className="w-full flex justify-center my-4" ref={ref}>
+          <BeatLoader color="#fff" size={15} className=" " />
+        </div>
+      </>
+    );
 };
 
 const SearchResults = ({ query, sort_by }: SearchContentProps) => {
