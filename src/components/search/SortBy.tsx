@@ -5,7 +5,7 @@ import { Badge } from "../ui/badge";
 import { useState } from "react";
 import { useDidUpdate } from "@siberiacancode/reactuse";
 
-const Filter = () => {
+const SortBy = () => {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -52,4 +52,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default SortBy;

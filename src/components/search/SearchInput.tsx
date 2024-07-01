@@ -13,7 +13,7 @@ interface SearchProps {
   placeholder: string;
 }
 
-const Search = ({ placeholder }: SearchProps) => {
+const SearchInput = ({ placeholder }: SearchProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -65,4 +65,4 @@ const Search = ({ placeholder }: SearchProps) => {
     </div>
   );
 };
-export default Search;
+export default SearchInput;

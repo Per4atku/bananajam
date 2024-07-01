@@ -1,7 +1,7 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import Filter from "@/components/search/Filter";
-import Search from "@/components/search/Search";
+import SearchInput from "@/components/search/SearchInput";
 import SearchResults from "@/components/search/SearchResults";
+import SortBy from "@/components/search/SortBy";
 import { Suspense } from "react";
 
 const Explore = ({
@@ -14,8 +14,8 @@ const Explore = ({
 }) => {
   return (
     <MaxWidthWrapper>
-      <Search placeholder="Search for..." />
-      <Filter />
+      <SearchInput placeholder="Search for..." />
+      <SortBy />
 
       {searchParams?.query ? (
         <Suspense fallback={<>loading...</>}>
