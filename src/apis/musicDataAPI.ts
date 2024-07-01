@@ -40,7 +40,6 @@ export const musicDataAPI = {
         ["type", "artist"],
         ["offset", offset.toString()],
       ]);
-      console.log(apiRoute + "/search?" + params.toString());
       const artistsResultRaw = await axios.get(
         apiRoute + "/search?" + params.toString()
       );
@@ -70,7 +69,6 @@ export const musicDataAPI = {
         ["type", "album"],
         ["offset", offset.toString()],
       ]);
-      console.log(apiRoute + "/search?" + params.toString());
       const albumsResultRaw = await axios.get(
         apiRoute + "/search?" + params.toString()
       );
@@ -100,7 +98,6 @@ export const musicDataAPI = {
         ["type", "track"],
         ["offset", offset.toString()],
       ]);
-      console.log(apiRoute + "/search?" + params.toString());
       const trackResultRaw = await axios.get(
         apiRoute + "/search?" + params.toString()
       );

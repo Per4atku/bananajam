@@ -1,12 +1,19 @@
 "use client";
 
-import { musicDataAPI } from "@/apis/musicDataAPI";
+import {
+  Album as AlbumType,
+  Artist as ArtistType,
+  musicDataAPI,
+  Track as TrackType,
+} from "@/apis/musicDataAPI";
 import Artist from "../items/Artist";
 import Album from "../items/Album";
 import Track from "../items/Track";
 import { Separator } from "../ui/separator";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { BeatLoader } from "react-spinners";
 
 interface SearchContentProps {
   sort_by: string;
@@ -17,24 +24,37 @@ const ITEMS_PER_SCROLL = 9;
 
 const ArtistResults = ({ query }: { query: string }) => {
   const [offset, setOffset] = useState<number>(0);
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["artists", query, offset],
-    queryFn: async () => {
-      return await musicDataAPI.getArtists(ITEMS_PER_SCROLL, query, offset);
+  const [artists, setArtists] = useState<ArtistType[]>();
+  const { inView, ref, entry } = useInView({
+    onChange: (inView) => {
+      inView && setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
   });
-  if (isPending) {
-    return <span>Loading artists...</span>;
-  }
+  const { isPending, isError, error } = useQuery({
+    queryKey: ["artists", query, offset],
+    queryFn: async () => {
+      const artists = await musicDataAPI.getArtists(
+        ITEMS_PER_SCROLL,
+        query,
+        offset
+      );
+
+      setArtists((prev) => {
+        if (prev) return [...prev, ...artists];
+        else return [...artists];
+      });
+      return artists;
+    },
+  });
 
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-
+  if (isPending && !artists) return <span>Loading artists...</span>;
   return (
     <>
-      {data &&
-        data.map((artist, index) => (
+      {artists &&
+        artists.map((artist, index) => (
           <>
             <Artist
               key={index}
@@ -46,29 +66,47 @@ const ArtistResults = ({ query }: { query: string }) => {
             <Separator />
           </>
         ))}
+
+      <div className="w-full flex justify-center my-4" ref={ref}>
+        <BeatLoader color="#fff" size={15} className=" " />
+      </div>
     </>
   );
 };
 
 const AlbumResults = ({ query }: { query: string }) => {
   const [offset, setOffset] = useState<number>(0);
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["albums", query, offset],
-    queryFn: async () => {
-      return await musicDataAPI.getAlbums(ITEMS_PER_SCROLL, query, offset);
+  const [albums, setAlbums] = useState<AlbumType[]>();
+  const { inView, ref, entry } = useInView({
+    onChange: (inView) => {
+      inView && setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
   });
-  if (isPending) {
-    return <span>Loading albums...</span>;
-  }
+  const { isPending, isError, error } = useQuery({
+    queryKey: ["albums", query, offset],
+    queryFn: async () => {
+      const albums = await musicDataAPI.getAlbums(
+        ITEMS_PER_SCROLL,
+        query,
+        offset
+      );
+
+      setAlbums((prev) => {
+        if (prev) return [...prev, ...albums];
+        else return [...albums];
+      });
+      return albums;
+    },
+  });
 
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
+  if (isPending && !albums) return <span>Loading albums...</span>;
   return (
     <>
-      {data &&
-        data.map((album, index) => (
+      {albums &&
+        albums.map((album, index) => (
           <>
             <Album
               key={index}
@@ -80,29 +118,46 @@ const AlbumResults = ({ query }: { query: string }) => {
             <Separator />
           </>
         ))}
+      <div className="w-full flex justify-center my-4" ref={ref}>
+        <BeatLoader color="#fff" size={15} className=" " />
+      </div>
     </>
   );
 };
 
 const TrackResults = ({ query }: { query: string }) => {
   const [offset, setOffset] = useState<number>(0);
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["tracks", query, offset],
-    queryFn: async () => {
-      return await musicDataAPI.getTracks(ITEMS_PER_SCROLL, query, offset);
+  const [tracks, setTracks] = useState<TrackType[]>();
+  const { inView, ref, entry } = useInView({
+    onChange: (inView) => {
+      inView && setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
   });
-  if (isPending) {
-    return <span>Loading tracks...</span>;
-  }
+  const { isPending, isError, error } = useQuery({
+    queryKey: ["tracks", query, offset],
+    queryFn: async () => {
+      const tracks = await musicDataAPI.getTracks(
+        ITEMS_PER_SCROLL,
+        query,
+        offset
+      );
+
+      setTracks((prev) => {
+        if (prev) return [...prev, ...tracks];
+        else return [...tracks];
+      });
+      return tracks;
+    },
+  });
 
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
+  if (isPending && !tracks) return <span>Loading tracks...</span>;
   return (
     <>
-      {data &&
-        data.map((track, index) => (
+      {tracks &&
+        tracks.map((track, index) => (
           <>
             <Track
               key={index}
@@ -115,6 +170,9 @@ const TrackResults = ({ query }: { query: string }) => {
             <Separator />
           </>
         ))}
+      <div className="w-full flex justify-center my-4" ref={ref}>
+        <BeatLoader color="#fff" size={15} className=" " />
+      </div>
     </>
   );
 };
