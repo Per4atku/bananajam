@@ -28,7 +28,7 @@ const ArtistResults = ({ query, sort_by }: SearchContentProps) => {
   const [artists, setArtists] = useState<ArtistType[]>();
   const { ref } = useInView({
     onChange: (inView) => {
-      inView && setOffset((prev) => ITEMS_PER_SCROLL + prev);
+      inView && artists?.length && setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
   });
 
@@ -95,7 +95,7 @@ const AlbumResults = ({ query, sort_by }: SearchContentProps) => {
   const [albums, setAlbums] = useState<AlbumType[]>();
   const { inView, ref, entry } = useInView({
     onChange: (inView) => {
-      inView && setOffset((prev) => ITEMS_PER_SCROLL + prev);
+      inView && albums?.length && setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
   });
   const { isPending, isError, error } = useQuery({
@@ -160,7 +160,7 @@ const TrackResults = ({ query, sort_by }: SearchContentProps) => {
   const [tracks, setTracks] = useState<TrackType[]>();
   const { ref } = useInView({
     onChange: (inView) => {
-      inView && setOffset((prev) => ITEMS_PER_SCROLL + prev);
+      inView && tracks?.length && setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
   });
   const { isPending, isError, error } = useQuery({
