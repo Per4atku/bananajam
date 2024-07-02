@@ -23,7 +23,7 @@ interface SearchContentProps {
 
 const ITEMS_PER_SCROLL = 9;
 
-const ArtistResults = ({ query }: { query: string }) => {
+const ArtistResults = ({ query, sort_by }: SearchContentProps) => {
   const [offset, setOffset] = useState<number>(0);
   const [artists, setArtists] = useState<ArtistType[]>();
   const { ref } = useInView({
@@ -34,7 +34,8 @@ const ArtistResults = ({ query }: { query: string }) => {
 
   useDidUpdate(() => {
     setArtists([]);
-  }, [query]);
+    setOffset(0);
+  }, [query, sort_by]);
   const { isPending, isError, error } = useQuery({
     queryKey: ["artists", query, offset],
     queryFn: async () => {
@@ -89,7 +90,7 @@ const ArtistResults = ({ query }: { query: string }) => {
     );
 };
 
-const AlbumResults = ({ query }: { query: string }) => {
+const AlbumResults = ({ query, sort_by }: SearchContentProps) => {
   const [offset, setOffset] = useState<number>(0);
   const [albums, setAlbums] = useState<AlbumType[]>();
   const { inView, ref, entry } = useInView({
@@ -115,7 +116,8 @@ const AlbumResults = ({ query }: { query: string }) => {
   });
   useDidUpdate(() => {
     setAlbums([]);
-  }, [query]);
+    setOffset(0);
+  }, [query, sort_by]);
 
   if (isError) {
     return <span>Error: {error.message}</span>;
@@ -153,7 +155,7 @@ const AlbumResults = ({ query }: { query: string }) => {
     );
 };
 
-const TrackResults = ({ query }: { query: string }) => {
+const TrackResults = ({ query, sort_by }: SearchContentProps) => {
   const [offset, setOffset] = useState<number>(0);
   const [tracks, setTracks] = useState<TrackType[]>();
   const { ref } = useInView({
@@ -180,7 +182,8 @@ const TrackResults = ({ query }: { query: string }) => {
 
   useDidUpdate(() => {
     setTracks([]);
-  }, [query]);
+    setOffset(0);
+  }, [query, sort_by]);
 
   if (isError) {
     return <span>Error: {error.message}</span>;
@@ -217,11 +220,11 @@ const TrackResults = ({ query }: { query: string }) => {
 const SearchResults = ({ query, sort_by }: SearchContentProps) => {
   if (query)
     if (sort_by === "artist") {
-      return <ArtistResults query={query} />;
+      return <ArtistResults query={query} sort_by={sort_by} />;
     } else if (sort_by === "album") {
-      return <AlbumResults query={query} />;
+      return <AlbumResults query={query} sort_by={sort_by} />;
     } else if (sort_by === "track") {
-      return <TrackResults query={query} />;
+      return <TrackResults query={query} sort_by={sort_by} />;
     } else return <></>;
 };
 
