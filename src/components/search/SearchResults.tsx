@@ -56,7 +56,7 @@ const ArtistResults = ({ query, sort_by }: SearchContentProps) => {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  if (isPending && !artists?.length)
+  if (!artists?.length)
     return (
       <>
         <div
@@ -67,8 +67,7 @@ const ArtistResults = ({ query, sort_by }: SearchContentProps) => {
         </div>
       </>
     );
-
-  if (artists?.length)
+  else
     return (
       <>
         {artists.map((artist, index) => (
@@ -122,7 +121,7 @@ const AlbumResults = ({ query, sort_by }: SearchContentProps) => {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  if (isPending && !albums?.length)
+  if (!albums?.length)
     return (
       <>
         <div
@@ -133,7 +132,7 @@ const AlbumResults = ({ query, sort_by }: SearchContentProps) => {
         </div>
       </>
     );
-  if (albums?.length)
+  else
     return (
       <>
         {albums.map((album, index) => (
@@ -188,13 +187,13 @@ const TrackResults = ({ query, sort_by }: SearchContentProps) => {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  if (isPending && !tracks?.length)
+  if (!tracks?.length)
     return (
       <div className="w-full flex justify-center my-12" ref={ref}>
         <BeatLoader color="#fff" size={15} className=" " />
       </div>
     );
-  if (tracks?.length)
+  else
     return (
       <>
         {tracks.map((track, index) => (
