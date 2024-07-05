@@ -3,6 +3,7 @@
 import {
   Album as AlbumType,
   Artist as ArtistType,
+  Item,
   musicDataAPI,
   Track as TrackType,
 } from "@/apis/musicDataAPI";
@@ -23,171 +24,70 @@ interface SearchContentProps {
 
 const ITEMS_PER_SCROLL = 9;
 
-const ArtistResults = ({ query, sort_by }: SearchContentProps) => {
+const SearchResults = ({ query, sort_by }: SearchContentProps) => {
   const [offset, setOffset] = useState<number>(0);
-  const [artists, setArtists] = useState<ArtistType[]>();
+  const [items, setItems] = useState<Item[]>([]);
   const { ref } = useInView({
     onChange: (inView) => {
-      inView && artists?.length && setOffset((prev) => ITEMS_PER_SCROLL + prev);
+      inView && items?.length && setOffset((prev) => ITEMS_PER_SCROLL + prev);
+    },
+  });
+  const { isPending, isError, error } = useQuery({
+    queryKey: [sort_by, query, offset],
+    queryFn: async () => {
+      const queryProps = {
+        limit: ITEMS_PER_SCROLL,
+        query: query,
+        offset: offset,
+      };
+      switch (sort_by) {
+        case "artist":
+          const fetchedArtists = await musicDataAPI.getArtists({
+            ...queryProps,
+          });
+          setItems((prev) => {
+            if (prev) return [...prev, ...fetchedArtists];
+            else return [...fetchedArtists];
+          });
+
+          return fetchedArtists;
+
+        case "album":
+          const fetchedAlbums = await musicDataAPI.getAlbums({ ...queryProps });
+          setItems((prev) => {
+            if (prev) return [...prev, ...fetchedAlbums];
+            else return [...fetchedAlbums];
+          });
+
+          return fetchedAlbums;
+
+        case "track":
+          const fetchedTracks = await musicDataAPI.getTracks({ ...queryProps });
+          setItems((prev) => {
+            if (prev) return [...prev, ...fetchedTracks];
+            else return [...fetchedTracks];
+          });
+          return fetchedTracks;
+      }
     },
   });
 
   useDidUpdate(() => {
-    setArtists([]);
-    setOffset(0);
-  }, [query, sort_by]);
-  const { isPending, isError, error } = useQuery({
-    queryKey: ["artists", query, offset],
-    queryFn: async () => {
-      const artists = await musicDataAPI.getArtists(
-        ITEMS_PER_SCROLL,
-        query,
-        offset
-      );
-
-      setArtists((prev) => {
-        if (prev) return [...prev, ...artists];
-        else return [...artists];
-      });
-      return artists;
-    },
-  });
-
-  if (isError) {
-    return <span>Error: {error.message}</span>;
-  }
-  if (!artists?.length)
-    return (
-      <>
-        <div
-          className="w-full h-full flex justify-center items-center my-12"
-          ref={ref}
-        >
-          <BeatLoader color="#fff" size={15} className=" " />
-        </div>
-      </>
-    );
-  else
-    return (
-      <>
-        {artists.map((artist, index) => (
-          <>
-            <Artist
-              key={index}
-              name={artist.name}
-              genres={artist.genres}
-              isAdded={false}
-              imageURL={artist?.images[2]?.url}
-            />
-            <Separator />
-          </>
-        ))}
-        <div className="w-full flex justify-center my-4" ref={ref}>
-          <BeatLoader color="#fff" size={15} className=" " />
-        </div>
-      </>
-    );
-};
-
-const AlbumResults = ({ query, sort_by }: SearchContentProps) => {
-  const [offset, setOffset] = useState<number>(0);
-  const [albums, setAlbums] = useState<AlbumType[]>();
-  const { inView, ref, entry } = useInView({
-    onChange: (inView) => {
-      inView && albums?.length && setOffset((prev) => ITEMS_PER_SCROLL + prev);
-    },
-  });
-  const { isPending, isError, error } = useQuery({
-    queryKey: ["albums", query, offset],
-    queryFn: async () => {
-      const albums = await musicDataAPI.getAlbums(
-        ITEMS_PER_SCROLL,
-        query,
-        offset
-      );
-
-      setAlbums((prev) => {
-        if (prev) return [...prev, ...albums];
-        else return [...albums];
-      });
-      return albums;
-    },
-  });
-  useDidUpdate(() => {
-    setAlbums([]);
+    setItems([]);
     setOffset(0);
   }, [query, sort_by]);
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
-  }
-  if (!albums?.length)
-    return (
-      <>
-        <div
-          className="w-full h-full flex justify-center items-center my-12"
-          ref={ref}
-        >
-          <BeatLoader color="#fff" size={15} className=" " />
+    if (!["artist", "album", "track"].includes(sort_by))
+      return <div>Click any of the filters</div>;
+    else
+      return (
+        <div>
+          Error {error.name}:{error.message}
         </div>
-      </>
-    );
-  else
-    return (
-      <>
-        {albums.map((album, index) => (
-          <>
-            <Album
-              key={index}
-              name={album.name}
-              artistName={album.artists.map((artist) => artist.name).toString()}
-              isAdded={false}
-              imageURL={album?.images[2]?.url}
-            />
-            <Separator />
-          </>
-        ))}
-        <div className="w-full flex justify-center my-4" ref={ref}>
-          <BeatLoader color="#fff" size={15} className=" " />
-        </div>
-      </>
-    );
-};
-
-const TrackResults = ({ query, sort_by }: SearchContentProps) => {
-  const [offset, setOffset] = useState<number>(0);
-  const [tracks, setTracks] = useState<TrackType[]>();
-  const { ref } = useInView({
-    onChange: (inView) => {
-      inView && tracks?.length && setOffset((prev) => ITEMS_PER_SCROLL + prev);
-    },
-  });
-  const { isPending, isError, error } = useQuery({
-    queryKey: ["tracks", query, offset],
-    queryFn: async () => {
-      const tracks = await musicDataAPI.getTracks(
-        ITEMS_PER_SCROLL,
-        query,
-        offset
       );
-
-      setTracks((prev) => {
-        if (prev) return [...prev, ...tracks];
-        else return [...tracks];
-      });
-      return tracks;
-    },
-  });
-
-  useDidUpdate(() => {
-    setTracks([]);
-    setOffset(0);
-  }, [query, sort_by]);
-
-  if (isError) {
-    return <span>Error: {error.message}</span>;
   }
-  if (!tracks?.length)
+  if (!items?.length)
     return (
       <div className="w-full flex justify-center my-12" ref={ref}>
         <BeatLoader color="#fff" size={15} className=" " />
@@ -196,35 +96,66 @@ const TrackResults = ({ query, sort_by }: SearchContentProps) => {
   else
     return (
       <>
-        {tracks.map((track, index) => (
-          <>
-            <Track
-              key={index}
-              name={track.name}
-              imageURL={track.album?.images[2]?.url}
-              isAdded={false}
-              artistName={track.artists.map((artist) => artist.name).toString()}
-              albumName={track.album.name}
-            />
-            <Separator />
-          </>
-        ))}
+        {items.map((item, index) => {
+          switch (sort_by) {
+            case "artist":
+              return (
+                <>
+                  <Artist
+                    key={index}
+                    name={item.name}
+                    genres={"genres" in item ? item.genres : []}
+                    isAdded={false}
+                    imageURL={"images" in item ? item?.images[2]?.url : ""}
+                  />
+                  <Separator />
+                </>
+              );
+
+            case "album":
+              return (
+                <>
+                  <Album
+                    key={index}
+                    name={item.name}
+                    artistName={
+                      "artists" in item
+                        ? item.artists.map((artist) => artist.name).toString()
+                        : ""
+                    }
+                    isAdded={false}
+                    imageURL={"images" in item ? item?.images[2]?.url : ""}
+                  />
+                  <Separator />
+                </>
+              );
+
+            case "track":
+              return (
+                <>
+                  <Track
+                    key={index}
+                    name={item.name}
+                    imageURL={"album" in item ? item.album?.images[2]?.url : ""}
+                    isAdded={false}
+                    artistName={
+                      "artists" in item
+                        ? item.artists.map((artist) => artist.name).toString()
+                        : ""
+                    }
+                    albumName={"album" in item ? item.album.name : ""}
+                  />
+                  <Separator />
+                </>
+              );
+          }
+        })}
+
         <div className="w-full flex justify-center my-4" ref={ref}>
           <BeatLoader color="#fff" size={15} className=" " />
         </div>
       </>
     );
-};
-
-const SearchResults = ({ query, sort_by }: SearchContentProps) => {
-  if (query)
-    if (sort_by === "artist") {
-      return <ArtistResults query={query} sort_by={sort_by} />;
-    } else if (sort_by === "album") {
-      return <AlbumResults query={query} sort_by={sort_by} />;
-    } else if (sort_by === "track") {
-      return <TrackResults query={query} sort_by={sort_by} />;
-    } else return <></>;
 };
 
 export default SearchResults;

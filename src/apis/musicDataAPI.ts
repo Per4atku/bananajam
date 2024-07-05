@@ -2,8 +2,8 @@ import axios from "axios";
 
 const apiRoute = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export type Images = Array<{ height: Number; url: string; width: string }>;
-export type Item = "artist" | "album" | "track";
+export type Images = Array<{ height: Number; url: string; width: Number }>;
+export type Item = Track | Artist | Album;
 export type Artist = {
   id: string;
   name: string;
@@ -23,6 +23,11 @@ export type Track = {
   artists: Artist[];
   album: Album;
 };
+export interface getItemParameters {
+  limit: number;
+  query: string;
+  offset: number;
+}
 
 export const musicDataAPI = {
   getToken: async () => {
@@ -32,7 +37,7 @@ export const musicDataAPI = {
     } else
       throw new Error("No NEXT_PUBLIC_BACKEND_URL provided inside .env file");
   },
-  getArtists: async (limit: number, query: string, offset: number) => {
+  getArtists: async ({ limit, query, offset }: getItemParameters) => {
     if (apiRoute) {
       const params = new URLSearchParams([
         ["q", query],
@@ -61,7 +66,7 @@ export const musicDataAPI = {
       throw new Error("No NEXT_PUBLIC_BACKEND_URL provided inside .env file");
   },
 
-  getAlbums: async (limit: number, query: string, offset: number) => {
+  getAlbums: async ({ limit, query, offset }: getItemParameters) => {
     if (apiRoute) {
       const params = new URLSearchParams([
         ["q", query],
@@ -90,7 +95,7 @@ export const musicDataAPI = {
       throw new Error("No NEXT_PUBLIC_BACKEND_URL provided inside .env file");
   },
 
-  getTracks: async (limit: number, query: string, offset: number) => {
+  getTracks: async ({ limit, query, offset }: getItemParameters) => {
     if (apiRoute) {
       const params = new URLSearchParams([
         ["q", query],
