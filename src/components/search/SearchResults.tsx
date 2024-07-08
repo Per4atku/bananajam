@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Album as AlbumType,
-  Artist as ArtistType,
-  Item,
-  musicDataAPI,
-  Track as TrackType,
-} from "@/apis/musicDataAPI";
+import { Item, musicDataAPI } from "@/apis/musicDataAPI";
 import Artist from "../items/Artist";
 import Album from "../items/Album";
 import Track from "../items/Track";
@@ -22,7 +16,7 @@ interface SearchContentProps {
   query: string;
 }
 
-const ITEMS_PER_SCROLL = 9;
+const ITEMS_PER_SCROLL = 10;
 
 const SearchResults = ({ query, sort_by }: SearchContentProps) => {
   const [offset, setOffset] = useState<number>(0);
@@ -110,7 +104,6 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
                     isAdded={false}
                     imageURL={"images" in item ? item?.images[2]?.url : ""}
                   />
-                  <Separator />
                 </>
               );
 
@@ -128,7 +121,6 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
                     isAdded={false}
                     imageURL={"images" in item ? item?.images[2]?.url : ""}
                   />
-                  <Separator />
                 </>
               );
 
@@ -147,7 +139,6 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
                     }
                     albumName={"album" in item ? item.album.name : ""}
                   />
-                  <Separator />
                 </>
               );
           }
