@@ -33,7 +33,7 @@ const SearchInput = ({ placeholder }: SearchProps) => {
 
   return (
     <div className="flex relative items-center mt-12">
-      <SearchIcon className="absolute left-2 h-5 w-5 text-muted-foreground" />
+      <SearchIcon className="absolute left-2 h-5 w-5 " />
       <Input
         ref={inputRef}
         defaultValue={searchParams.get("query")?.toString()}

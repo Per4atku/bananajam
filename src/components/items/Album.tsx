@@ -26,7 +26,7 @@ const Album = ({ imageURL, name, isAdded, artistName }: AlbumProps) => {
   };
   return (
     <>
-      <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent">
+      <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent/30">
         <button
           onClick={() => toast(name)}
           className="flex items-center w-full py-2  overflow-hidden"

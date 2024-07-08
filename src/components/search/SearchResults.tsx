@@ -28,8 +28,10 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
   const [offset, setOffset] = useState<number>(0);
   const [items, setItems] = useState<Item[]>([]);
   const { ref } = useInView({
-    onChange: (inView) => {
-      inView && items?.length && setOffset((prev) => ITEMS_PER_SCROLL + prev);
+    onChange: (inView, entry) => {
+      entry.isIntersecting &&
+        items?.length &&
+        setOffset((prev) => ITEMS_PER_SCROLL + prev);
     },
   });
   const { isPending, isError, error } = useQuery({
