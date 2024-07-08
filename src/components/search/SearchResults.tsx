@@ -75,8 +75,8 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
   });
 
   useDidUpdate(() => {
-    setItems([]);
     setOffset(0);
+    setItems([]);
   }, [query, sort_by]);
 
   if (isError) {
