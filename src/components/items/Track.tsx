@@ -7,6 +7,7 @@ import { useState } from "react";
 import { BookmarkPlus, Check } from "lucide-react";
 
 interface TrackProps {
+  id: string;
   imageURL: string;
   name: string;
   isAdded: boolean;
@@ -15,6 +16,7 @@ interface TrackProps {
 }
 
 const Track = ({
+  id,
   imageURL,
   name,
   isAdded,

@@ -7,13 +7,14 @@ import { useState } from "react";
 import { BookmarkPlus, Check } from "lucide-react";
 
 interface AlbumProps {
+  id: string;
   imageURL: string;
   name: string;
   isAdded: boolean;
   artistName: string;
 }
 
-const Album = ({ imageURL, name, isAdded, artistName }: AlbumProps) => {
+const Album = ({ id, imageURL, name, isAdded, artistName }: AlbumProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
     useState<boolean>(isAdded);
 

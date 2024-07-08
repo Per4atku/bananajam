@@ -98,6 +98,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
               return (
                 <>
                   <Artist
+                    id={item.id}
                     key={index}
                     name={item.name}
                     genres={"genres" in item ? item.genres : []}
@@ -111,6 +112,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
               return (
                 <>
                   <Album
+                    id={item.id}
                     key={index}
                     name={item.name}
                     artistName={
@@ -128,6 +130,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
               return (
                 <>
                   <Track
+                    id={item.id}
                     key={index}
                     name={item.name}
                     imageURL={"album" in item ? item.album?.images[2]?.url : ""}

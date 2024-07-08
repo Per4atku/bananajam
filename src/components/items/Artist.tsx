@@ -5,15 +5,19 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
 import { BookmarkPlus, Check } from "lucide-react";
+import Link from "next/link";
 
 interface ArtistProps {
+  id: string;
   imageURL: string;
   name: string;
   isAdded: boolean;
   genres: string[];
 }
 
-const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
+const artistPageBaseURL = "/artist/";
+
+const Artist = ({ imageURL, name, isAdded, genres, id }: ArtistProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
     useState<boolean>(isAdded);
   const getFirstCapitalLetters = (input: string): string => {
@@ -26,8 +30,8 @@ const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
   return (
     <>
       <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent/30 ">
-        <button
-          onClick={() => toast(name)}
+        <Link
+          href={artistPageBaseURL + id}
           className="flex items-center w-full py-2  overflow-hidden"
         >
           <Avatar className="h-12 w-12">
@@ -51,7 +55,7 @@ const Artist = ({ imageURL, name, isAdded, genres }: ArtistProps) => {
               })}
             </p>
           </div>
-        </button>
+        </Link>
         <form
           action={(formData: FormData) => {
             setIsOptimisticallyAdded((prev) => !prev);
