@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { BeatLoader } from "react-spinners";
 import { useDidUpdate } from "@siberiacancode/reactuse";
+import Loader from "../Loader";
 
 interface SearchContentProps {
   sort_by: string;
@@ -96,60 +97,52 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
           switch (sort_by) {
             case "artist":
               return (
-                <>
-                  <Artist
-                    id={item.id}
-                    key={index}
-                    name={item.name}
-                    genres={"genres" in item ? item.genres : []}
-                    isAdded={false}
-                    imageURL={"images" in item ? item?.images[2]?.url : ""}
-                  />
-                </>
+                <Artist
+                  id={item.id}
+                  key={index}
+                  name={item.name}
+                  genres={"genres" in item ? item.genres : []}
+                  isAdded={false}
+                  imageURL={"images" in item ? item?.images[2]?.url : ""}
+                />
               );
 
             case "album":
               return (
-                <>
-                  <Album
-                    id={item.id}
-                    key={index}
-                    name={item.name}
-                    artistName={
-                      "artists" in item
-                        ? item.artists.map((artist) => artist.name).toString()
-                        : ""
-                    }
-                    isAdded={false}
-                    imageURL={"images" in item ? item?.images[2]?.url : ""}
-                  />
-                </>
+                <Album
+                  id={item.id}
+                  key={index}
+                  name={item.name}
+                  artistName={
+                    "artists" in item
+                      ? item.artists.map((artist) => artist.name).toString()
+                      : ""
+                  }
+                  isAdded={false}
+                  imageURL={"images" in item ? item?.images[2]?.url : ""}
+                />
               );
 
             case "track":
               return (
-                <>
-                  <Track
-                    id={item.id}
-                    key={index}
-                    name={item.name}
-                    imageURL={"album" in item ? item.album?.images[2]?.url : ""}
-                    isAdded={false}
-                    artistName={
-                      "artists" in item
-                        ? item.artists.map((artist) => artist.name).toString()
-                        : ""
-                    }
-                    albumName={"album" in item ? item.album.name : ""}
-                  />
-                </>
+                <Track
+                  id={item.id}
+                  key={index}
+                  name={item.name}
+                  imageURL={"album" in item ? item.album?.images[2]?.url : ""}
+                  isAdded={false}
+                  artistName={
+                    "artists" in item
+                      ? item.artists.map((artist) => artist.name).toString()
+                      : ""
+                  }
+                  albumName={"album" in item ? item.album.name : ""}
+                />
               );
           }
         })}
 
-        <div className="w-full flex justify-center my-4" ref={ref}>
-          <BeatLoader color="#fff" size={15} className=" " />
-        </div>
+        <Loader loaderRef={ref} />
       </>
     );
 };
