@@ -4,8 +4,7 @@ import { Item, musicDataAPI } from "@/apis/musicDataAPI";
 import Artist from "../items/Artist";
 import Album from "../items/Album";
 import Track from "../items/Track";
-import { Separator } from "../ui/separator";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { BeatLoader } from "react-spinners";
@@ -17,25 +16,30 @@ interface SearchContentProps {
   query: string;
 }
 
+interface Page {
+  data: any;
+  previousCursor?: number;
+  nextCursor?: number;
+}
+
 const ITEMS_PER_SCROLL = 10;
 
 const SearchResults = ({ query, sort_by }: SearchContentProps) => {
-  const [offset, setOffset] = useState<number>(0);
   const [items, setItems] = useState<Item[]>([]);
   const { ref } = useInView({
-    onChange: (inView, entry) => {
-      entry.isIntersecting &&
-        items?.length &&
-        setOffset((prev) => ITEMS_PER_SCROLL + prev);
+    onChange: (_, entry) => {
+      entry.isIntersecting && items?.length && fetchNextPage();
     },
   });
-  const { isPending, isError, error } = useQuery({
-    queryKey: [sort_by, query, offset],
-    queryFn: async () => {
+
+  const { isError, error, fetchNextPage } = useInfiniteQuery({
+    queryKey: ["search-items", sort_by, query],
+    initialPageParam: 0,
+    queryFn: async ({ pageParam }) => {
       const queryProps = {
         limit: ITEMS_PER_SCROLL,
         query: query,
-        offset: offset,
+        offset: pageParam,
       };
       switch (sort_by) {
         case "artist":
@@ -67,10 +71,15 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
           return fetchedTracks;
       }
     },
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      if (lastPage?.length === 0) {
+        return undefined;
+      }
+      return lastPageParam + ITEMS_PER_SCROLL;
+    },
   });
 
   useDidUpdate(() => {
-    setOffset(0);
     setItems([]);
   }, [query, sort_by]);
 
