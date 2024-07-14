@@ -7,7 +7,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useRef } from "react";
 import clsx from "clsx";
-import { useBoolean } from "@/hooks/useBoolean";
+import { useBoolean } from "@siberiacancode/reactuse";
 
 interface SearchProps {
   placeholder: string;

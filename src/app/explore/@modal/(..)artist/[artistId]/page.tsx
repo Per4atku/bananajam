@@ -1,8 +1,6 @@
 "use client";
 
-import { Dialog } from "@/components/ui/dialog";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { DialogContent } from "@radix-ui/react-dialog";
 import { useClickOutside, useKeyPress } from "@siberiacancode/reactuse";
 import { useRouter } from "next/navigation";
 
