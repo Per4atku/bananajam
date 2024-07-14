@@ -1,5 +1,7 @@
 "use client";
 
+import ArtistCard from "@/components/artist-card/ArtistCard";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { useClickOutside, useKeyPress } from "@siberiacancode/reactuse";
 import { useRouter } from "next/navigation";
@@ -19,7 +21,11 @@ const ArtistDrawer = ({ params }: ArtistDrawerProps) => {
 
   return (
     <Drawer open={!pressedKeys} onClose={() => router.back()}>
-      <DrawerContent ref={ref}>{params.artistId}</DrawerContent>
+      <DrawerContent ref={ref}>
+        <MaxWidthWrapper>
+          <ArtistCard artistId={params.artistId} />
+        </MaxWidthWrapper>
+      </DrawerContent>
     </Drawer>
   );
 };

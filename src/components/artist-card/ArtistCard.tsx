@@ -2,7 +2,7 @@ interface ArtistCardProps {
   artistId: string;
 }
 const ArtistCard = ({ artistId }: ArtistCardProps) => {
-  return <div>{artistId}</div>;
+  return <div className="text-red-500">{artistId}</div>;
 };
 
 export default ArtistCard;
