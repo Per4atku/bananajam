@@ -123,4 +123,10 @@ export const musicDataAPI = {
     } else
       throw new Error("No NEXT_PUBLIC_BACKEND_URL provided inside .env file");
   },
+
+  getArtistById: async (artistId: string) => {
+    const response = await axios.get(apiRoute + `/get/artists/${artistId}`);
+
+    return response;
+  },
 };
