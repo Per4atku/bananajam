@@ -1,6 +1,7 @@
 import ArtistCard from "@/components/artist-card/ArtistCard";
 import { InterceptingDrawer } from "@/components/InterceptingDrawer";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { Suspense } from "react";
 
 interface ArtistDrawerProps {
   params: {
@@ -12,7 +13,9 @@ const ArtistDrawer = ({ params }: ArtistDrawerProps) => {
   return (
     <InterceptingDrawer>
       <MaxWidthWrapper>
-        <ArtistCard artistId={params.artistId} />
+        <Suspense fallback={<div>Wait...</div>}>
+          <ArtistCard artistId={params.artistId} />
+        </Suspense>
       </MaxWidthWrapper>
     </InterceptingDrawer>
   );

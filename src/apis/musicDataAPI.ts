@@ -1,19 +1,22 @@
-import axios from "axios";
+import {
+  ArtistResponseAPI,
+  ImagesEntity,
+} from "@/interfaces/spotifyAPI.interface";
+import axios, { AxiosResponse } from "axios";
 
 const apiRoute = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export type Images = Array<{ height: Number; url: string; width: Number }>;
 export type Item = Track | Artist | Album;
 export type Artist = {
   id: string;
   name: string;
-  images: Images;
+  images: ImagesEntity[];
   genres: string[];
 };
 export type Album = {
   id: string;
   name: string;
-  images: Images;
+  images: ImagesEntity[];
   artists: Artist[];
 };
 
@@ -124,7 +127,9 @@ export const musicDataAPI = {
       throw new Error("No NEXT_PUBLIC_BACKEND_URL provided inside .env file");
   },
 
-  getArtistById: async (artistId: string) => {
+  getArtistById: async (
+    artistId: string
+  ): Promise<AxiosResponse<ArtistResponseAPI>> => {
     const response = await axios.get(apiRoute + `/get/artists/${artistId}`);
 
     return response;
