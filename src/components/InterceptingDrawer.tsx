@@ -26,9 +26,7 @@ export const InterceptingDrawer = ({ children }: InterceptingDrawerProps) => {
       }}
     >
       <DrawerContent ref={ref}>
-        <ScrollArea className=" overflow-auto p-4 h-[90dvh]">
-          {children}
-        </ScrollArea>
+        <ScrollArea className=" overflow-auto h-[90dvh]">{children}</ScrollArea>
       </DrawerContent>
     </Drawer>
   );
