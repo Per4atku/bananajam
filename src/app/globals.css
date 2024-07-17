@@ -50,11 +50,6 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0b2543",endColorstr="#224540",GradientType=1);
 }
 
-.swiper {
-  width: 320px;
-  height: 320px;
-}
-
 .swiper-slide {
   display: flex;
   align-items: center;
