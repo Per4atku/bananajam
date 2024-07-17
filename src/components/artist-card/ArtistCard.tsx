@@ -2,6 +2,7 @@ import { musicDataAPI } from "@/apis/musicDataAPI";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Album from "../items/Album";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { getInitials } from "@/lib/utils";
 
 interface ArtistCardProps {
   artistId: string;
@@ -15,7 +16,9 @@ const ArtistCard = async ({ artistId }: ArtistCardProps) => {
       <div className="w-full flex justify-center pt-12 flex-col">
         <div className="flex flex-col items-center gap-4 pb-4">
           <Avatar className="w-40 h-40">
-            <AvatarFallback className="text-5xl">BJ</AvatarFallback>
+            <AvatarFallback className="text-5xl">
+              {getInitials(artist.name)}
+            </AvatarFallback>
             <AvatarImage
               width={160}
               height={160}

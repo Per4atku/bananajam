@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { BookmarkPlus, Check } from "lucide-react";
 import Link from "next/link";
+import { getInitials } from "@/lib/utils";
 
 interface ArtistProps {
   id: string;
@@ -20,13 +21,6 @@ const artistPageBaseURL = "/artist/";
 const Artist = ({ imageURL, name, isAdded, genres, id }: ArtistProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
     useState<boolean>(isAdded);
-  const getFirstCapitalLetters = (input: string): string => {
-    const capitalLetters = input.match(/[A-Z]/g);
-    if (capitalLetters && capitalLetters.length >= 2) {
-      return capitalLetters.slice(0, 2).join("");
-    }
-    return "";
-  };
   return (
     <>
       <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent/30 ">
@@ -36,7 +30,7 @@ const Artist = ({ imageURL, name, isAdded, genres, id }: ArtistProps) => {
         >
           <Avatar className="h-12 w-12">
             <AvatarImage src={imageURL} alt={name} />
-            <AvatarFallback>{getFirstCapitalLetters(name)}</AvatarFallback>
+            <AvatarFallback>{getInitials(name)}</AvatarFallback>
           </Avatar>
           <div className="ml-3 overflow-hidden ">
             <h3
