@@ -14,7 +14,7 @@ const ArtistCard = async ({ artistId }: ArtistCardProps) => {
 
   if (artist)
     return (
-      <div className="w-full flex justify-center pt-12 flex-col gap-16">
+      <div className="w-full flex justify-center pt-12 flex-col gap-4">
         <div className="flex flex-col items-center gap-4 pb-4">
           <Avatar className="w-40 h-40">
             <AvatarFallback className="text-5xl">
