@@ -1,4 +1,5 @@
 import {
+  ArtistAlbumsResponseAPI,
   ArtistResponseAPI,
   ImagesEntity,
 } from "@/interfaces/spotifyAPI.interface";
@@ -131,6 +132,16 @@ export const musicDataAPI = {
     artistId: string
   ): Promise<AxiosResponse<ArtistResponseAPI>> => {
     const response = await axios.get(apiRoute + `/get/artists/${artistId}`);
+
+    return response;
+  },
+
+  getArtistsAlbums: async (
+    artistId: string
+  ): Promise<AxiosResponse<ArtistAlbumsResponseAPI>> => {
+    const response = await axios.get(
+      apiRoute + `/get/artists/${artistId}/albums`
+    );
 
     return response;
   },
