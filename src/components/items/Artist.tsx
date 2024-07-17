@@ -7,6 +7,7 @@ import { useState } from "react";
 import { BookmarkPlus, Check } from "lucide-react";
 import Link from "next/link";
 import { getInitials } from "@/lib/utils";
+import FollowButton from "../FollowButton";
 
 interface ArtistProps {
   id: string;
@@ -19,8 +20,6 @@ interface ArtistProps {
 const artistPageBaseURL = "/artist/";
 
 const Artist = ({ imageURL, name, isAdded, genres, id }: ArtistProps) => {
-  const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
-    useState<boolean>(isAdded);
   return (
     <>
       <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent/30 ">
@@ -50,26 +49,7 @@ const Artist = ({ imageURL, name, isAdded, genres, id }: ArtistProps) => {
             </p>
           </div>
         </Link>
-        <form
-          action={(formData: FormData) => {
-            setIsOptimisticallyAdded((prev) => !prev);
-          }}
-        >
-          <Button
-            variant={isOptimisticallyAdded ? "secondary" : "default"}
-            onClick={() => toast("follow!")}
-          >
-            {isOptimisticallyAdded ? (
-              <>
-                <Check size={18} /> <p className="ml-1.5">In Library</p>
-              </>
-            ) : (
-              <>
-                <BookmarkPlus size={18} /> <p className="ml-1.5">Add</p>
-              </>
-            )}
-          </Button>
-        </form>
+        <FollowButton isAdded={isAdded} />
       </div>
     </>
   );
