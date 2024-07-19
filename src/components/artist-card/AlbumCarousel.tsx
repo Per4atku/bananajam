@@ -22,6 +22,8 @@ export const AlbumCarousel = ({ artistId }: AlbumCarouselProps) => {
   if (data) {
     return (
       <Swiper
+        width={256}
+        height={256}
         className="w-64 h-64"
         grabCursor
         modules={[EffectCards]}
