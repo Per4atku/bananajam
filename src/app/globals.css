@@ -56,13 +56,6 @@
   justify-content: center;
 }
 
-.swiper-container {
-  overflow: hidden;
-}
-
-.swiper-wrapper {
-}
-
 @layer base {
   * {
     @apply border-border;
