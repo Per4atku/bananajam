@@ -10,7 +10,7 @@ import { Button } from "../ui/button";
 
 import "swiper/css";
 import "swiper/css/bundle";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 interface AlbumCarouselProps {
   artistId: string;
@@ -27,16 +27,17 @@ export const AlbumCarousel = ({ artistId }: AlbumCarouselProps) => {
 
   if (data) {
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col sm:flex-row sm:gap-12 sm:items-center ">
         <Swiper
+          speed={1400}
           onRealIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           effect="cards"
           scrollbar={{ draggable: true, dragSize: 30 }}
           width={isSmallScreen ? 192 : 256}
           height={isSmallScreen ? 192 : 256}
-          className=" w-48 h-48 sm:w-64 sm:h-64"
+          className=" w-48 h-48 mb-4 sm:!mr-0 sm:!ml-6 sm:w-64 sm:h-64 "
           keyboard={{ enabled: true }}
-          mousewheel
+          mousewheel={{ sensitivity: 2, forceToAxis: true }}
           grabCursor
           modules={[EffectCards, Scrollbar, Keyboard, Mousewheel]}
         >
@@ -54,8 +55,8 @@ export const AlbumCarousel = ({ artistId }: AlbumCarouselProps) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="flex flex-col gap-3 text-center mt-10 items-center ">
-          <h3 className="text-xl font-bold w-5/6 h-14 overflow-hidden overflow-ellipsis line-clamp-2 ">
+        <div className="flex flex-col gap-3 text-center mt-4 items-center sm:items-start sm:text-start ">
+          <h3 className="text-xl font-bold w-5/6 h-14 overflow-hidden overflow-ellipsis line-clamp-2 sm:text-3xl sm:w-auto sm:h-fit">
             {data.items.at(activeIndex || 0)?.name}
           </h3>
           <div>
