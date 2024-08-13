@@ -1,11 +1,7 @@
 import { musicDataAPI } from "@/apis/musicDataAPI";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import Album from "../items/Album";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { getInitials } from "@/lib/utils";
-import Artist from "../items/Artist";
 import { AlbumCarousel } from "./AlbumCarousel";
-import { useMediaQuery } from "@siberiacancode/reactuse";
 
 interface ArtistCardProps {
   artistId: string;
