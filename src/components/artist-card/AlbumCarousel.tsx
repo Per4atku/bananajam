@@ -29,7 +29,6 @@ export const AlbumCarousel = ({ artistId }: AlbumCarouselProps) => {
     return (
       <div className="flex flex-col sm:flex-row sm:gap-12 sm:items-center ">
         <Swiper
-          speed={1400}
           onRealIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           effect="cards"
           scrollbar={{ draggable: true, dragSize: 30 }}
