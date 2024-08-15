@@ -40,7 +40,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
   }
   if (!items?.length)
     return (
-      <div className="w-full flex justify-center my-12" ref={ref}>
+      <div className="w-full flex justify-center my-12">
         <BeatLoader color="#fff" size={15} className=" " />
       </div>
     );
