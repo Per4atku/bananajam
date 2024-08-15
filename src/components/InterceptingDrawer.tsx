@@ -2,10 +2,11 @@
 
 import { useClickOutside, useKeyPress } from "@siberiacancode/reactuse";
 
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { Drawer, DrawerContent } from "./ui/drawer";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import Loader from "./Loader";
 
 interface InterceptingDrawerProps {
   children: ReactNode;
@@ -26,7 +27,17 @@ export const InterceptingDrawer = ({ children }: InterceptingDrawerProps) => {
       }}
     >
       <DrawerContent ref={ref}>
-        <ScrollArea className=" overflow-auto h-[90dvh]">{children}</ScrollArea>
+        <ScrollArea className=" overflow-auto h-[90dvh]">
+          <Suspense
+            fallback={
+              <div className="w-full h-[90dvh] flex justify-center items-center">
+                <Loader />
+              </div>
+            }
+          >
+            {children}
+          </Suspense>
+        </ScrollArea>
       </DrawerContent>
     </Drawer>
   );
