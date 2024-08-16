@@ -17,7 +17,7 @@ const FollowButton = ({ isAdded }: FollowButtonProps) => {
       }}
     >
       <Button
-        className=" "
+        size={"icon"}
         variant={isOptimisticallyAdded ? "secondary" : "default"}
         onClick={() => toast("follow!")}
       >
