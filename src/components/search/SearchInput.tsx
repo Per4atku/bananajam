@@ -7,7 +7,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useRef } from "react";
 import clsx from "clsx";
-import { useBoolean } from "@siberiacancode/reactuse";
+import { useBoolean, useMount } from "@siberiacancode/reactuse";
 
 interface SearchProps {
   placeholder: string;
@@ -30,6 +30,10 @@ const SearchInput = ({ placeholder }: SearchProps) => {
     }
     replace(`${pathname}?${params.toString()}`);
   }, 300);
+
+  useMount(() => {
+    !!searchParams.get("query") ? toggleTyping(true) : toggleTyping(false);
+  });
 
   return (
     <div className="flex relative items-center mt-12">
