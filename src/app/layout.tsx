@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "BananaJam",
+  manifest: "./manifest.json",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
