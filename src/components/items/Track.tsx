@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
-import { BookmarkPlus, Check } from "lucide-react";
+import { BookmarkPlus, Check, Play } from "lucide-react";
 import { getInitials } from "@/lib/utils";
 import FollowButton from "../FollowButton";
 
@@ -34,12 +34,22 @@ const Track = ({
           onClick={() => toast(name)}
           className="flex items-center w-full py-2  overflow-hidden"
         >
-          <Avatar className="h-12 w-12 rounded-sm">
-            <AvatarImage src={imageURL} alt={name} />
-            <AvatarFallback className="rounded-sm">
-              {getInitials(name)}
-            </AvatarFallback>
-          </Avatar>
+          <div className="relative h-12 w-12">
+            <Avatar className="w-full h-full rounded-sm">
+              <AvatarImage src={imageURL} alt={name} />
+              <AvatarFallback className="rounded-sm">
+                {getInitials(name)}
+              </AvatarFallback>
+            </Avatar>
+            <div className="absolute bottom-0 left-0 w-full h-full flex items-center justify-center ">
+              <div className="bg-card w-full h-full absolute rounded-sm  opacity-30"></div>
+              <Play
+                size={18}
+                className="relative shadow-2xl hover:opacity-90 duration-150"
+                fill={"#fff"}
+              />
+            </div>
+          </div>
           <div className="ml-3 overflow-hidden">
             <h3
               className="text-xl font-medium whitespace-nowrap 
