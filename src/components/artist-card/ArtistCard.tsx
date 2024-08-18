@@ -2,6 +2,7 @@ import { musicDataAPI } from "@/apis/musicDataAPI";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getInitials } from "@/lib/utils";
 import { AlbumCarousel } from "./AlbumCarousel";
+import TopTracks from "./TopTracks";
 
 interface ArtistCardProps {
   artistId: string;
@@ -29,7 +30,7 @@ const ArtistCard = async ({ artistId }: ArtistCardProps) => {
 
         <div className="grid gap-4 grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1">
           <AlbumCarousel artistId={artist.id} />
-          <div className="w-full bg-red-500">Here will be top tracks</div>
+          <TopTracks artistId={artistId} />
         </div>
       </div>
     );

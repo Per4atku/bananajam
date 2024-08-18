@@ -27,17 +27,17 @@ export interface ImagesEntity {
 // /api/get/artists/[id]/albums/
 export interface ArtistAlbumsResponseAPI {
   href: string;
-  items: ItemsEntity[];
+  items: Album[];
   limit: number;
   next: string;
   offset: number;
   previous: null;
   total: number;
 }
-export interface ItemsEntity {
+export interface Album {
   album_group: string;
   album_type: string;
-  artists: ArtistsEntity[];
+  artists: Artist[];
   available_markets: string[];
   external_urls: ExternalUrls;
   href: string;
@@ -50,11 +50,39 @@ export interface ItemsEntity {
   type: string;
   uri: string;
 }
-export interface ArtistsEntity {
+export interface Artist {
   external_urls: ExternalUrls;
   href: string;
   id: string;
   name: string;
   type: string;
   uri: string;
+}
+
+// api/get/artists/[id]/top-tracks
+
+export interface ArtistTopTracksResponseAPI {
+  tracks: Track[];
+}
+export interface Track {
+  album: Album;
+  artists: Artist[];
+  available_markets: string[];
+  disc_number: number;
+  duration_ms: number;
+  explicit: boolean;
+  external_ids: any;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  is_local: boolean;
+  name: string;
+  popularity: number;
+  preview_url: string;
+  track_number: number;
+  type: string;
+  uri: string;
+}
+export interface ExternalUrls {
+  spotify: string;
 }
