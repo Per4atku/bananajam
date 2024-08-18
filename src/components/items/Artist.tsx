@@ -1,15 +1,11 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { toast } from "sonner";
-import { useState } from "react";
-import { BookmarkPlus, Check } from "lucide-react";
 import Link from "next/link";
-import { getInitials } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 import FollowButton from "../FollowButton";
 
-interface ArtistProps {
+interface ArtistProps extends React.HTMLAttributes<HTMLDivElement> {
   id: string;
   imageURL: string;
   name: string;
@@ -19,10 +15,24 @@ interface ArtistProps {
 
 const artistPageBaseURL = "/artist/";
 
-const Artist = ({ imageURL, name, isAdded, genres, id }: ArtistProps) => {
+const Artist = ({
+  imageURL,
+  name,
+  isAdded,
+  genres,
+  id,
+  className,
+  ...props
+}: ArtistProps) => {
   return (
     <>
-      <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent/30 ">
+      <div
+        className={cn(
+          "flex w-full rounded-md duration-200 items-center hover:bg-accent/30 ",
+          className
+        )}
+        {...props}
+      >
         <Link
           href={artistPageBaseURL + id}
           className="flex items-center w-full py-2  overflow-hidden"
@@ -34,8 +44,7 @@ const Artist = ({ imageURL, name, isAdded, genres, id }: ArtistProps) => {
           <div className="ml-3 overflow-hidden ">
             <h3
               className="text-xl font-medium whitespace-nowrap 
-                        overflow-hidden overflow-ellipsis text-left sm:text-2xl
-                        
+                        overflow-hidden overflow-ellipsis text-left sm:text-2xl           
           "
             >
               {name}

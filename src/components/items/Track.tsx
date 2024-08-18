@@ -3,12 +3,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { BookmarkPlus, Check, Play } from "lucide-react";
-import { getInitials } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 import FollowButton from "../FollowButton";
 
-interface TrackProps {
+interface TrackProps extends React.HTMLAttributes<HTMLDivElement> {
   id: string;
   imageURL: string;
   name: string;
@@ -24,12 +24,20 @@ const Track = ({
   isAdded,
   artistName,
   albumName,
+  className,
+  ...props
 }: TrackProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
     useState<boolean>(isAdded);
   return (
     <>
-      <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent/30">
+      <div
+        className={cn(
+          "flex w-full rounded-md duration-200 items-center hover:bg-accent/30",
+          className
+        )}
+        {...props}
+      >
         <button
           onClick={() => toast(name)}
           className="flex items-center w-full py-2  overflow-hidden"

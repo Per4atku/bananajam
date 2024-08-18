@@ -1,14 +1,12 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
 import { toast } from "sonner";
-import { useState } from "react";
-import { BookmarkPlus, Check } from "lucide-react";
-import { getInitials } from "@/lib/utils";
+import React from "react";
+import { cn, getInitials } from "@/lib/utils";
 import FollowButton from "../FollowButton";
 
-interface AlbumProps {
+interface AlbumProps extends React.HTMLAttributes<HTMLDivElement> {
   id: string;
   imageURL: string;
   name: string;
@@ -16,10 +14,24 @@ interface AlbumProps {
   artistName: string;
 }
 
-const Album = ({ id, imageURL, name, isAdded, artistName }: AlbumProps) => {
+const Album = ({
+  id,
+  imageURL,
+  name,
+  isAdded,
+  artistName,
+  className,
+  ...props
+}: AlbumProps) => {
   return (
     <>
-      <div className="flex w-full rounded-md p-2 duration-200 items-center my-3 hover:bg-accent/30">
+      <div
+        className={cn(
+          "flex w-full rounded-md duration-200 items-center hover:bg-accent/30",
+          className
+        )}
+        {...props}
+      >
         <button
           onClick={() => toast(name)}
           className="flex items-center w-full py-2  overflow-hidden"

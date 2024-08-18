@@ -58,6 +58,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
                   genres={"genres" in item ? item.genres : []}
                   isAdded={false}
                   imageURL={"images" in item ? item?.images[2]?.url : ""}
+                  className="my-3 p-2"
                 />
               );
 
@@ -74,6 +75,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
                   }
                   isAdded={false}
                   imageURL={"images" in item ? item?.images[2]?.url : ""}
+                  className="my-3 p-2"
                 />
               );
 
@@ -91,6 +93,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
                       : ""
                   }
                   albumName={"album" in item ? item.album.name : ""}
+                  className="my-3 p-2"
                 />
               );
           }
