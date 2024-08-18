@@ -62,7 +62,7 @@ export const AlbumCarousel = ({ artistId }: AlbumCarouselProps) => {
             <Button>Play</Button>{" "}
             <Button variant={"secondary"}>View Album</Button>
           </div>
-          <h3 className="text-xl font-bold w-5/6 overflow-hidden overflow-ellipsis line-clamp-2 sm:text-2xl ">
+          <h3 className="text-xl font-bold w-5/6 overflow-hidden h-14 overflow-ellipsis line-clamp-2 sm:text-2xl sm:h-16 ">
             {data.items.at(activeIndex || 0)?.name}
           </h3>
         </div>

@@ -43,7 +43,7 @@ const Track = ({
           className="flex items-center w-full py-2  overflow-hidden"
         >
           <div className="relative h-12 w-12">
-            <Avatar className="w-full h-full rounded-sm">
+            <Avatar className="w-full h-full rounded-sm flex-shrink-0">
               <AvatarImage src={imageURL} alt={name} />
               <AvatarFallback className="rounded-sm">
                 {getInitials(name)}
@@ -58,16 +58,19 @@ const Track = ({
               />
             </div>
           </div>
-          <div className="ml-3 overflow-hidden">
+          <div className="ml-3 overflow-hidden overflow-ellipsis line-clamp-1 w-[calc(100%-48px)]">
             <h3
-              className="text-xl font-medium whitespace-nowrap 
-                        overflow-hidden overflow-ellipsis text-left sm:text-2xl
+              className="text-xl font-medium line-clamp-1
+                        overflow-hidden overflow-ellipsis text-left lg::text-2xl
                         
           "
             >
               {name}
             </h3>
-            <p className="text-left text-muted-foreground overflow-hidden overflow-ellipsis whitespace-nowrap w-full flex justify-between  text-xs sm:text-sm ">
+            <p
+              className="text-left line-clamp-1 text-muted-foreground overflow-hidden overflow-ellipsis 
+              whitespace-nowrap w-full flex justify-between h-4 text-xs sm:text-sm sm:h-5 "
+            >
               {artistName} • {albumName}
             </p>
           </div>

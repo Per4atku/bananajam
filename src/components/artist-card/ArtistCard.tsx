@@ -28,7 +28,7 @@ const ArtistCard = async ({ artistId }: ArtistCardProps) => {
           </p>
         </div>
 
-        <div className="grid gap-4 grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1">
+        <div className="grid gap-4 grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1">
           <AlbumCarousel artistId={artist.id} />
           <TopTracks artistId={artistId} />
         </div>
