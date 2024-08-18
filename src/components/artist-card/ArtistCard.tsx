@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getInitials } from "@/lib/utils";
 import { AlbumCarousel } from "./AlbumCarousel";
 import TopTracks from "./TopTracks";
+import Loader from "../Loader";
 
 interface ArtistCardProps {
   artistId: string;
@@ -29,7 +30,7 @@ const ArtistCard = async ({ artistId }: ArtistCardProps) => {
         </div>
 
         <div className="grid gap-4 grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1">
-          <AlbumCarousel artistId={artist.id} />
+          <AlbumCarousel fallback={<Loader />} artistId={artist.id} />
           <TopTracks artistId={artistId} />
         </div>
       </div>
