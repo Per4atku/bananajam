@@ -69,7 +69,7 @@ const Track = ({
             </h3>
             <p
               className="text-left line-clamp-1 text-muted-foreground overflow-hidden overflow-ellipsis 
-              whitespace-nowrap w-full flex justify-between h-4 text-xs sm:text-sm sm:h-5 "
+             flex justify-between h-4 text-xs sm:text-sm sm:h-5 "
             >
               {artistName} • {albumName}
             </p>
