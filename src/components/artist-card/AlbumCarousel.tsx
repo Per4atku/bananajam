@@ -31,7 +31,7 @@ export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
   if (!data) return fallback;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center ">
       <Swiper
         initialSlide={Math.floor(data.items.length / 2)}
         onRealIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
