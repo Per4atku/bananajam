@@ -28,7 +28,8 @@ const SearchInput = ({ placeholder }: SearchProps) => {
   const resetButtonRef = useRef<HTMLButtonElement | null>(null);
 
   useDidUpdate(() => {
-    if (pressedKeys) resetButtonRef.current?.click();
+    if (pressedKeys && searchParams.get("query"))
+      resetButtonRef.current?.click();
   }, [pressedKeys]);
 
   const handleSearch = useDebouncedCallback((term) => {
