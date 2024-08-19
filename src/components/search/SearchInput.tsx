@@ -7,18 +7,29 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useRef } from "react";
 import clsx from "clsx";
-import { useBoolean, useMount } from "@siberiacancode/reactuse";
+import {
+  useBoolean,
+  useDidUpdate,
+  useKeyPress,
+  useMount,
+} from "@siberiacancode/reactuse";
 
 interface SearchProps {
   placeholder: string;
 }
 
 const SearchInput = ({ placeholder }: SearchProps) => {
+  const pressedKeys = useKeyPress("Escape");
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const [isTyping, toggleTyping] = useBoolean();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const resetButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useDidUpdate(() => {
+    if (pressedKeys) resetButtonRef.current?.click();
+  }, [pressedKeys]);
 
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
@@ -50,6 +61,7 @@ const SearchInput = ({ placeholder }: SearchProps) => {
         onFocus={() => toggleTyping(true)}
       />
       <Button
+        ref={resetButtonRef}
         className={clsx("absolute right-3 h-10 w-10", !isTyping && "hidden")}
         size={"icon"}
         variant={"ghost"}

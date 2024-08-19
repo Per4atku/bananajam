@@ -3,7 +3,7 @@
 import { useClickOutside, useKeyPress } from "@siberiacancode/reactuse";
 
 import { ReactNode, Suspense } from "react";
-import { Drawer, DrawerContent } from "./ui/drawer";
+import { Drawer, DrawerContent, DrawerTitle } from "./ui/drawer";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Loader from "./Loader";
@@ -26,6 +26,7 @@ export const InterceptingDrawer = ({ children }: InterceptingDrawerProps) => {
         router.back();
       }}
     >
+      <DrawerTitle className=" sr-only">Artist Card</DrawerTitle>
       <DrawerContent ref={ref}>
         <ScrollArea className=" overflow-auto h-[90dvh]">
           <Suspense
