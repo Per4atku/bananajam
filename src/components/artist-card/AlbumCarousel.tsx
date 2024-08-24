@@ -10,9 +10,7 @@ import { Button } from "../ui/button";
 
 import "swiper/css";
 import "swiper/css/bundle";
-import { ReactNode, useRef, useState } from "react";
-import { Play } from "lucide-react";
-import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
+import { ReactNode, useState } from "react";
 
 interface AlbumCarouselProps {
   artistId: string;
