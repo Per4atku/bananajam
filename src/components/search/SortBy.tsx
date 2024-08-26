@@ -1,26 +1,21 @@
 "use client"
 
+import useParams from "@/hooks/useParams"
 import { useDidUpdate } from "@siberiacancode/reactuse"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Badge } from "../ui/badge"
 
 const SortBy = () => {
-  const { replace } = useRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+  const searchParams = useParams()
 
   const [sortByItem, setSortByItem] = useState<string>(
     searchParams.get("sort_by") || "artist",
   )
 
-  useDidUpdate(() => {
-    const params = new URLSearchParams([
-      ["sort_by", sortByItem],
-      ["query", searchParams.get("query") || ""],
-    ])
-    replace(`${pathname}?${params.toString()}`)
+  useEffect(() => {
+    searchParams.set("sort_by", sortByItem)
   }, [sortByItem])
 
   return (

@@ -1,5 +1,6 @@
 "use client"
 
+import useParams from "@/hooks/useParams"
 import {
   useBoolean,
   useDidUpdate,
@@ -21,12 +22,12 @@ interface SearchProps {
 
 const SearchInput = ({ placeholder }: SearchProps) => {
   const pressedKeys = useKeyPress("Escape")
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const { replace } = useRouter()
   const [isTyping, toggleTyping] = useBoolean()
+
   const inputRef = useRef<HTMLInputElement | null>(null)
   const resetButtonRef = useRef<HTMLButtonElement | null>(null)
+
+  const searchParams = useParams()
 
   useDidUpdate(() => {
     if (pressedKeys && searchParams.get("query"))
@@ -34,14 +35,12 @@ const SearchInput = ({ placeholder }: SearchProps) => {
   }, [pressedKeys])
 
   const handleSearch = useDebouncedCallback((term) => {
-    const params = new URLSearchParams(searchParams)
     if (term) {
-      params.set("query", term)
+      searchParams.set("query", term)
     } else {
-      params.delete("query")
+      searchParams.remove("query")
       toggleTyping(false)
     }
-    replace(`${pathname}?${params.toString()}`)
   }, 300)
 
   useMount(() => {
@@ -72,9 +71,7 @@ const SearchInput = ({ placeholder }: SearchProps) => {
             inputRef.current.value = ""
             toggleTyping()
 
-            const params = new URLSearchParams(searchParams)
-            params.delete("query")
-            replace(`${pathname}?${params.toString()}`)
+            searchParams.remove("query")
           }
         }}
       >
