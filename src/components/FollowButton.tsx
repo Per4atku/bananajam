@@ -1,19 +1,20 @@
-import { BookmarkPlus, Check } from "lucide-react";
-import { Button } from "./ui/button";
-import { useState } from "react";
-import { toast } from "sonner";
+import { BookmarkPlus, Check } from "lucide-react"
+import { useState } from "react"
+import { toast } from "sonner"
+
+import { Button } from "./ui/button"
 
 interface FollowButtonProps {
-  isAdded: boolean;
+  isAdded: boolean
 }
 
 const FollowButton = ({ isAdded }: FollowButtonProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
-    useState<boolean>(isAdded);
+    useState<boolean>(isAdded)
   return (
     <form
       action={(formData: FormData) => {
-        setIsOptimisticallyAdded((prev) => !prev);
+        setIsOptimisticallyAdded((prev) => !prev)
       }}
     >
       <Button
@@ -32,7 +33,7 @@ const FollowButton = ({ isAdded }: FollowButtonProps) => {
         )}
       </Button>
     </form>
-  );
-};
+  )
+}
 
-export default FollowButton;
+export default FollowButton

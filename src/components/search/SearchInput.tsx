@@ -1,51 +1,52 @@
-"use client";
+"use client"
 
-import { Search as SearchIcon, X } from "lucide-react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
-import { useRef } from "react";
-import clsx from "clsx";
 import {
   useBoolean,
   useDidUpdate,
   useKeyPress,
   useMount,
-} from "@siberiacancode/reactuse";
+} from "@siberiacancode/reactuse"
+import clsx from "clsx"
+import { Search as SearchIcon, X } from "lucide-react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useRef } from "react"
+import { useDebouncedCallback } from "use-debounce"
+
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
 
 interface SearchProps {
-  placeholder: string;
+  placeholder: string
 }
 
 const SearchInput = ({ placeholder }: SearchProps) => {
-  const pressedKeys = useKeyPress("Escape");
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const [isTyping, toggleTyping] = useBoolean();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const resetButtonRef = useRef<HTMLButtonElement | null>(null);
+  const pressedKeys = useKeyPress("Escape")
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
+  const [isTyping, toggleTyping] = useBoolean()
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const resetButtonRef = useRef<HTMLButtonElement | null>(null)
 
   useDidUpdate(() => {
     if (pressedKeys && searchParams.get("query"))
-      resetButtonRef.current?.click();
-  }, [pressedKeys]);
+      resetButtonRef.current?.click()
+  }, [pressedKeys])
 
   const handleSearch = useDebouncedCallback((term) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams)
     if (term) {
-      params.set("query", term);
+      params.set("query", term)
     } else {
-      params.delete("query");
-      toggleTyping(false);
+      params.delete("query")
+      toggleTyping(false)
     }
-    replace(`${pathname}?${params.toString()}`);
-  }, 300);
+    replace(`${pathname}?${params.toString()}`)
+  }, 300)
 
   useMount(() => {
-    !!searchParams.get("query") ? toggleTyping(true) : toggleTyping(false);
-  });
+    !!searchParams.get("query") ? toggleTyping(true) : toggleTyping(false)
+  })
 
   return (
     <div className="flex relative items-center mt-12">
@@ -56,8 +57,8 @@ const SearchInput = ({ placeholder }: SearchProps) => {
         placeholder={placeholder}
         className="pl-10 py-7 text-lg"
         onChange={(e) => {
-          toggleTyping(true);
-          handleSearch(e.target.value);
+          toggleTyping(true)
+          handleSearch(e.target.value)
         }}
         onFocus={() => toggleTyping(true)}
       />
@@ -68,18 +69,18 @@ const SearchInput = ({ placeholder }: SearchProps) => {
         variant={"ghost"}
         onClick={() => {
           if (inputRef.current) {
-            inputRef.current.value = "";
-            toggleTyping();
+            inputRef.current.value = ""
+            toggleTyping()
 
-            const params = new URLSearchParams(searchParams);
-            params.delete("query");
-            replace(`${pathname}?${params.toString()}`);
+            const params = new URLSearchParams(searchParams)
+            params.delete("query")
+            replace(`${pathname}?${params.toString()}`)
           }
         }}
       >
         <X className="w-6 h-6" />
       </Button>
     </div>
-  );
-};
-export default SearchInput;
+  )
+}
+export default SearchInput
