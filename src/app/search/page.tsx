@@ -1,15 +1,15 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import SearchInput from "@/components/search/SearchInput";
-import SearchResults from "@/components/search/SearchResults";
-import SortBy from "@/components/search/SortBy";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper"
+import SearchInput from "@/components/search/SearchInput"
+import SearchResults from "@/components/search/SearchResults"
+import SortBy from "@/components/search/SortBy"
 
 const Explore = ({
   searchParams,
 }: {
   searchParams?: {
-    query?: string;
-    sort_by?: string;
-  };
+    query?: string
+    sort_by?: string
+  }
 }) => {
   return (
     <MaxWidthWrapper>
@@ -28,7 +28,7 @@ const Explore = ({
         </>
       )}
     </MaxWidthWrapper>
-  );
-};
+  )
+}
 
-export default Explore;
+export default Explore
