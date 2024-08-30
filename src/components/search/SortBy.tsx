@@ -1,8 +1,6 @@
 "use client"
 
 import useParams from "@/hooks/useParams"
-import { useDidUpdate } from "@siberiacancode/reactuse"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import { Badge } from "../ui/badge"
@@ -15,7 +13,10 @@ const SortBy = () => {
   )
 
   useEffect(() => {
-    searchParams.set("sort_by", sortByItem)
+    if (sortByItem == "artist") searchParams.remove("sort_by")
+    else {
+      searchParams.set("sort_by", sortByItem)
+    }
   }, [sortByItem])
 
   return (
