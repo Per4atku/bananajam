@@ -15,11 +15,15 @@ const useParams = () => {
     replace(`${pathname}?${searchParams.toString()}`)
   }
 
+  const reset = () => {
+    replace(pathname)
+  }
+
   const get = (key: string) => {
     return searchParams.get(key)
   }
 
-  return { set, remove, get }
+  return { set, remove, get, reset }
 }
 
 export default useParams
