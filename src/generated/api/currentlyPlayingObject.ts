@@ -12,10 +12,25 @@ Need help? See our <a href="https://developer.spotify.com/documentation/web-api/
 
  * OpenAPI spec version: 2024.6.16
  */
-import type { QueryAlbumIdsParameter } from './queryAlbumIdsParameter';
-import type { QueryMarketParameter } from './queryMarketParameter';
+import type { DisallowsObject } from './disallowsObject';
+import type { ContextObject } from './contextObject';
+import type { CurrentlyPlayingObjectItem } from './currentlyPlayingObjectItem';
 
-export type GetMultipleAlbumsParams = {
-ids: QueryAlbumIdsParameter;
-market?: QueryMarketParameter;
-};
+export interface CurrentlyPlayingObject {
+  /** Allows to update the user interface based on which playback actions are available within the current context.
+ */
+  actions?: DisallowsObject;
+  /** A Context Object. Can be `null`. */
+  context?: ContextObject;
+  /** The object type of the currently playing item. Can be one of `track`, `episode`, `ad` or `unknown`.
+ */
+  currently_playing_type?: string;
+  /** If something is currently playing, return `true`. */
+  is_playing?: boolean;
+  /** The currently playing track or episode. Can be `null`. */
+  item?: CurrentlyPlayingObjectItem;
+  /** Progress into the currently playing track or episode. Can be `null`. */
+  progress_ms?: number;
+  /** Unix Millisecond Timestamp when data was fetched */
+  timestamp?: number;
+}

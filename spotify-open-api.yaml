@@ -1,4 +1,4 @@
-openapi: "3.0.3"
+openapi: 3.0.3
 info:
   description: |
     You can use Spotify's Web API to discover music and podcasts, manage your Spotify library, control audio playback, and much more. Browse our available Web API endpoints using the sidebar at left, or via the navigation bar on top of this page on smaller screens.
@@ -8,12 +8,12 @@ info:
     The base URI for all Web API requests is `https://api.spotify.com/v1`.
 
     Need help? See our <a href="https://developer.spotify.com/documentation/web-api/guides/">Web API guides</a> for more information, or visit the <a href="https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer">Spotify for Developers community forum</a> to ask questions and connect with other developers.
-  version: "1.0.0"
-  title: "Spotify Web API"
-  termsOfService: "https://developer.spotify.com/terms/"
+  version: 2024.6.16
+  title: Spotify Web API with fixes and improvements from sonallux
+  termsOfService: https://developer.spotify.com/terms/
   contact:
-    name: Spotify for Developers Community
-    url: https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer
+    name: sonallux
+    url: https://github.com/sonallux/spotify-web-api
 servers:
   - url: https://api.spotify.com/v1
 tags:
@@ -36,8 +36,6 @@ paths:
   /albums/{id}:
     get:
       operationId: get-an-album
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       tags:
         - Albums
       summary: |
@@ -61,8 +59,6 @@ paths:
   /albums:
     get:
       operationId: get-multiple-albums
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       tags:
         - Albums
       summary: |
@@ -86,8 +82,6 @@ paths:
   /albums/{id}/tracks:
     get:
       operationId: get-an-albums-tracks
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       tags:
         - Albums
         - Tracks
@@ -117,8 +111,6 @@ paths:
       tags:
         - Artists
       operationId: get-an-artist
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Artist
       description: |
@@ -141,8 +133,6 @@ paths:
       tags:
         - Artists
       operationId: get-multiple-artists
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Several Artists
       description: |
@@ -154,8 +144,8 @@ paths:
           schema:
             title: Spotify Artist IDs
             description: |
-              A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the artists. Maximum: 50 IDs.
-            example: 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6
+              A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the artists. Maximum: 100 IDs.
+            example: "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6"
             type: string
       responses:
         "200":
@@ -174,8 +164,6 @@ paths:
         - Artists
         - Albums
       operationId: get-an-artists-albums
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Artist's Albums
       description: |
@@ -203,8 +191,6 @@ paths:
         - Artists
         - Tracks
       operationId: get-an-artists-top-tracks
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Artist's Top Tracks
       description: |
@@ -228,8 +214,6 @@ paths:
       tags:
         - Artists
       operationId: get-an-artists-related-artists
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Artist's Related Artists
       description: |
@@ -252,8 +236,6 @@ paths:
       tags:
         - Shows
       operationId: get-a-show
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Show
       description: |
@@ -279,8 +261,6 @@ paths:
       tags:
         - Shows
       operationId: get-multiple-shows
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Several Shows
       description: |
@@ -305,8 +285,6 @@ paths:
         - Shows
         - Episodes
       operationId: get-a-shows-episodes
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Show Episodes
       description: |
@@ -333,8 +311,6 @@ paths:
       tags:
         - Episodes
       operationId: get-an-episode
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Episode
       description: |
@@ -347,8 +323,8 @@ paths:
           schema:
             title: Get an Episode
             description:
-              The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)
-              for the episode.
+              "The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)\
+              \ for the episode."
             example: 512ojhOuo1ktJprKbVcKyQ
             type: string
         - $ref: "#/components/parameters/QueryMarket"
@@ -369,8 +345,6 @@ paths:
       tags:
         - Episodes
       operationId: get-multiple-episodes
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       summary: |
         Get Several Episodes
       description: |
@@ -383,7 +357,7 @@ paths:
             title: Ids
             description: |
               A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the episodes. Maximum: 50 IDs.
-            example: 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf
+            example: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"
             type: string
         - $ref: "#/components/parameters/QueryMarket"
       responses:
@@ -401,8 +375,6 @@ paths:
   /audiobooks/{id}:
     get:
       operationId: get-an-audiobook
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       tags:
         - Audiobooks
       summary: |
@@ -430,8 +402,6 @@ paths:
   /audiobooks:
     get:
       operationId: get-multiple-audiobooks
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       tags:
         - Audiobooks
       summary: |
@@ -455,8 +425,6 @@ paths:
   /audiobooks/{id}/chapters:
     get:
       operationId: get-audiobook-chapters
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       tags:
         - Audiobooks
         - Chapters
@@ -495,7 +463,7 @@ paths:
         - $ref: "#/components/parameters/QueryOffset"
       responses:
         "200":
-          $ref: "#/components/responses/PagingSimplifiedAudiobookObject"
+          $ref: "#/components/responses/PagingSavedAudiobookObject"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -578,8 +546,6 @@ paths:
   /chapters/{id}:
     get:
       operationId: get-a-chapter
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       tags:
         - Chapters
       summary: |
@@ -603,8 +569,6 @@ paths:
   /chapters:
     get:
       operationId: get-several-chapters
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataPolicyList"
       tags:
         - Chapters
       summary: |
@@ -630,8 +594,6 @@ paths:
       tags:
         - Tracks
       operationId: get-track
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataWithMachineLearningPolicyList"
       summary: |
         Get Track
       description: |
@@ -665,8 +627,6 @@ paths:
       tags:
         - Tracks
       operationId: get-several-tracks
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataWithMachineLearningPolicyList"
       summary: |
         Get Several Tracks
       description: |
@@ -679,8 +639,8 @@ paths:
           schema:
             title: Spotify Track IDs
             description: |
-              A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.
-            example: 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B
+              A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 100 IDs.
+            example: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"
             type: string
       responses:
         "200":
@@ -698,8 +658,6 @@ paths:
       tags:
         - Search
       operationId: search
-      x-spotify-policy-list:
-        - $ref: "#/components/x-spotify-policy/policies/MachineLearning"
       summary: |
         Search for Item
       description: |
@@ -721,7 +679,6 @@ paths:
               The `genre` filter can be used while searching artists and tracks.<br />
               The `isrc` and `track` filters can be used while searching tracks.<br />
               The `upc`, `tag:new` and `tag:hipster` filters can only be used while searching albums. The `tag:new` filter will return albums released in the past two weeks and `tag:hipster` can be used to return only albums with the lowest 10% popularity.<br />
-
             example: remaster%20track:Doxy%20artist:Miles%20Davis
             type: string
         - name: type
@@ -756,7 +713,7 @@ paths:
             default: 20
             example: 10
             type: integer
-            minimum: 0
+            minimum: 1
             maximum: 50
         - name: offset
           required: false
@@ -821,8 +778,6 @@ paths:
       tags:
         - Playlists
       operationId: get-playlist
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataWithMachineLearningPolicyList"
       summary: |
         Get Playlist
       description: |
@@ -845,7 +800,7 @@ paths:
               Use multiple parentheses to drill down into nested objects, for example: `fields=tracks.items(track(name,href,album(name,href)))`.
               Fields can be excluded by prefixing them with an exclamation mark, for example:
               `fields=tracks.items(track(name,href,album(!name,href)))`
-            example: items(added_by.id,track(name,href,album(name,href)))
+            example: "items(added_by.id,track(name,href,album(name,href)))"
             type: string
         - $ref: "#/components/parameters/QueryAdditionalTypes"
       responses:
@@ -918,8 +873,6 @@ paths:
         - Playlists
         - Tracks
       operationId: get-playlists-tracks
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataWithMachineLearningPolicyList"
       summary: |
         Get Playlist Items
       description: |
@@ -941,9 +894,20 @@ paths:
               get just the added date and user ID of the adder:<br/>`fields=items(added_at,added_by.id)`<br/>Use
               multiple parentheses to drill down into nested objects, for example:<br/>`fields=items(track(name,href,album(name,href)))`<br/>Fields
               can be excluded by prefixing them with an exclamation mark, for example:<br/>`fields=items.track.album(!external_urls,images)`
-            example: items(added_by.id,track(name,href,album(name,href)))
+            example: "items(added_by.id,track(name,href,album(name,href)))"
             type: string
-        - $ref: "#/components/parameters/QueryLimit"
+        - name: limit
+          required: false
+          in: query
+          schema:
+            title: Limit
+            description: |
+              The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 100.
+            default: 20
+            example: 10
+            type: integer
+            minimum: 1
+            maximum: 100
         - $ref: "#/components/parameters/QueryOffset"
         - $ref: "#/components/parameters/QueryAdditionalTypes"
       responses:
@@ -986,7 +950,7 @@ paths:
             description: |
               A comma-separated list of [Spotify URIs](/documentation/web-api/concepts/spotify-uris-ids) to add, can be track or episode URIs. For example:<br/>`uris=spotify:track:4iV5W9uYEdYUVa79Axb7Rh, spotify:track:1301WleyT98MSxVHPZCA6M, spotify:episode:512ojhOuo1ktJprKbVcKyQ`<br/>A maximum of 100 items can be added in one request. <br/>
               _**Note**: it is likely that passing a large number of item URIs as a query parameter will exceed the maximum length of the request URI. When adding a large number of items, it is recommended to pass them in the request body, see below._
-            example: spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M
+            example: "spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M"
             type: string
       requestBody:
         content:
@@ -1098,7 +1062,7 @@ paths:
         Remove one or more items from a user's playlist.
       parameters:
         - $ref: "#/components/parameters/PathPlaylistId"
-      requestBody: # Request body in DELETE is allowed, but discouraged (https://github.com/OAI/OpenAPI-Specification/pull/2117).
+      requestBody:
         content:
           application/json:
             schema:
@@ -1339,7 +1303,7 @@ paths:
               type: object
               additionalProperties: true
               required:
-                - uris
+                - ids
               properties:
                 ids:
                   type: array
@@ -1465,7 +1429,7 @@ paths:
             title: Spotify Episodes IDs
             description: |
               A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). Maximum: 50 IDs.
-            example: 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf
+            example: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"
             type: string
       requestBody:
         content:
@@ -1474,7 +1438,7 @@ paths:
               type: object
               additionalProperties: true
               required:
-                - uris
+                - ids
               properties:
                 ids:
                   type: array
@@ -1550,7 +1514,7 @@ paths:
             title: Spotify Episode IDs
             description: |
               A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the episodes. Maximum: 50 IDs.
-            example: 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf
+            example: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"
             type: string
       responses:
         "200":
@@ -1612,6 +1576,21 @@ paths:
       security:
         - oauth_2_0:
             - user-library-modify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  description:
+                    "A JSON array of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).\
+                    \  \nA maximum of 50 items can be specified in one request. *Note:\
+                    \ if the `ids` parameter is present in the query string, any IDs\
+                    \ listed here in the body will be ignored.*"
+                  items:
+                    type: string
     delete:
       tags:
         - Shows
@@ -1636,6 +1615,21 @@ paths:
       security:
         - oauth_2_0:
             - user-library-modify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  description:
+                    "A JSON array of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).\
+                    \  \nA maximum of 50 items can be specified in one request. *Note:\
+                    \ if the `ids` parameter is present in the query string, any IDs\
+                    \ listed here in the body will be ignored.*"
+                  items:
+                    type: string
   /me/shows/contains:
     get:
       tags:
@@ -1660,51 +1654,6 @@ paths:
       security:
         - oauth_2_0:
             - user-library-read
-  /me/top/{type}:
-    get:
-      tags:
-        - Users
-        - Tracks
-        - Library
-      operationId: get-users-top-artists-and-tracks
-      summary: |
-        Get User's Top Items
-      description: |
-        Get the current user's top artists or tracks based on calculated affinity.
-      parameters:
-        - name: type
-          required: true
-          in: path
-          schema:
-            title: Type
-            description: |
-              The type of entity to return. Valid values: `artists` or `tracks`
-            enum: ["artists", "tracks"]
-            type: string
-        - name: time_range
-          required: false
-          in: query
-          schema:
-            title: Time Range
-            description: |
-              Over what time frame the affinities are computed. Valid values: `long_term` (calculated from ~1 year of data and including all new data as it becomes available), `medium_term` (approximately last 6 months), `short_term` (approximately last 4 weeks). Default: `medium_term`
-            default: medium_term
-            example: medium_term
-            type: string
-        - $ref: "#/components/parameters/QueryLimit"
-        - $ref: "#/components/parameters/QueryOffset"
-      responses:
-        "200":
-          $ref: "#/components/responses/PagingArtistOrTrackObject"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "429":
-          $ref: "#/components/responses/TooManyRequests"
-      security:
-        - oauth_2_0:
-            - user-top-read
   /users/{user_id}:
     get:
       tags:
@@ -1887,8 +1836,6 @@ paths:
       tags:
         - Playlists
       operationId: get-featured-playlists
-      x-spotify-policy-list:
-        - $ref: "#/components/x-spotify-policy/policies/MultipleIntegrations"
       summary: |
         Get Featured Playlists
       description: |
@@ -2025,8 +1972,6 @@ paths:
       tags:
         - Playlists
       operationId: get-playlist-cover
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/metadataWithMachineLearningPolicyList"
       summary: |
         Get Playlist Cover Image
       description: |
@@ -2059,10 +2004,12 @@ paths:
           image/jpeg:
             schema:
               example: /9j/2wCEABoZGSccJz4lJT5CLy8vQkc9Ozs9R0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0cBHCcnMyYzPSYmPUc9Mj1HR0dEREdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR//dAAQAAf/uAA5BZG9iZQBkwAAAAAH/wAARCAABAAEDACIAAREBAhEB/8QASwABAQAAAAAAAAAAAAAAAAAAAAYBAQAAAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwAAARECEQA/AJgAH//Z
-              format: byte
               type: string
-              required: true
-              description: Base64 encoded JPEG image data, maximum payload size is 256 KB.
+              format: base64
+              description:
+                "Base64 encoded JPEG image data, maximum payload size is\
+                \ 256 KB."
+        required: true
       responses:
         "202":
           description: Image uploaded
@@ -2082,8 +2029,6 @@ paths:
       tags:
         - Albums
       operationId: get-new-releases
-      x-spotify-policy-list:
-        - $ref: "#/components/x-spotify-policy/policies/MultipleIntegrations"
       summary: |
         Get New Releases
       description: |
@@ -2134,18 +2079,7 @@ paths:
               The last artist ID retrieved from the previous request.
             example: 0I2XqVXqHScXjHhk6AYYRe
             type: string
-        - name: limit
-          required: false
-          in: query
-          schema:
-            title: Limit
-            description: |
-              The maximum number of items to return. Default: 20\. Minimum: 1\. Maximum: 50\.
-            default: 20
-            example: 10
-            type: integer
-            minimum: 0
-            maximum: 50
+        - $ref: "#/components/parameters/QueryLimit"
       responses:
         "200":
           $ref: "#/components/responses/CursorPagedArtists"
@@ -2189,7 +2123,7 @@ paths:
             description: |
               A comma-separated list of the artist or the user [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids).
               A maximum of 50 IDs can be sent in one request.
-            example: 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6
+            example: "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6"
             type: string
       requestBody:
         content:
@@ -2207,7 +2141,6 @@ paths:
                     For example: `{ids:["74ASZWbe4lXaubB36ztrGX", "08td7MxkoHQkXnWAYD8d6Q"]}`. A maximum of 50 IDs can be sent in one request. _**Note**: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored._
                   items:
                     type: string
-
       responses:
         "204":
           description: Artist or user followed
@@ -2250,7 +2183,7 @@ paths:
             title: Spotify IDs
             description: |
               A comma-separated list of the artist or the user [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=74ASZWbe4lXaubB36ztrGX,08td7MxkoHQkXnWAYD8d6Q`. A maximum of 50 IDs can be sent in one request.
-            example: 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6
+            example: "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6"
             type: string
       requestBody:
         content:
@@ -2308,7 +2241,7 @@ paths:
             title: Spotify IDs
             description: |
               A comma-separated list of the artist or the user [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) to check. For example: `ids=74ASZWbe4lXaubB36ztrGX,08td7MxkoHQkXnWAYD8d6Q`. A maximum of 50 IDs can be sent in one request.
-            example: 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6
+            example: "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6"
             type: string
       responses:
         "200":
@@ -2359,8 +2292,6 @@ paths:
       tags:
         - Tracks
       operationId: get-several-audio-features
-      x-spotify-policy-list:
-        - $ref: "#/components/x-spotify-policy/policies/MachineLearning"
       summary: |
         Get Several Tracks' Audio Features
       description: |
@@ -2374,7 +2305,7 @@ paths:
             description: |
               A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids)
               for the tracks. Maximum: 100 IDs.
-            example: 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B
+            example: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"
             type: string
       responses:
         "200":
@@ -2392,8 +2323,6 @@ paths:
       tags:
         - Tracks
       operationId: get-audio-features
-      x-spotify-policy-list:
-        - $ref: "#/components/x-spotify-policy/policies/MachineLearning"
       summary: |
         Get Track's Audio Features
       description: |
@@ -2456,8 +2385,6 @@ paths:
       tags:
         - Tracks
       operationId: get-recommendations
-      x-spotify-policy-list:
-        - $ref: "#/components/x-spotify-policy/policies/MachineLearning"
       summary: |
         Get Recommendations
       description: |
@@ -2479,7 +2406,7 @@ paths:
             maximum: 100
         - $ref: "#/components/parameters/QueryMarket"
         - name: seed_artists
-          required: true
+          required: false
           in: query
           schema:
             title: Spotify Artist ID Seeds
@@ -2488,16 +2415,16 @@ paths:
             example: 4NHQUGzhtTLFvgF5SZesLK
             type: string
         - name: seed_genres
-          required: true
+          required: false
           in: query
           schema:
             title: Genres Seeds
             description: |
               A comma separated list of any genres in the set of [available genre seeds](/documentation/web-api/reference/get-recommendation-genres). Up to 5 seed values may be provided in any combination of `seed_artists`, `seed_tracks` and `seed_genres`.<br/> _**Note**: only required if `seed_artists` and `seed_tracks` are not set_.
-            example: classical,country
+            example: "classical,country"
             type: string
         - name: seed_tracks
-          required: true
+          required: false
           in: query
           schema:
             title: Spotify Track ID Seeds
@@ -2936,8 +2863,6 @@ paths:
       tags:
         - Player
       operationId: get-information-about-the-users-current-playback
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Get Playback State
       description: |
@@ -2963,8 +2888,6 @@ paths:
       tags:
         - Player
       operationId: transfer-a-users-playback
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Transfer Playback
       description: |
@@ -2991,7 +2914,6 @@ paths:
                   type: boolean
                   description: |
                     **true**: ensure playback happens on new device.<br/>**false** or not provided: keep the current playback state.
-                  additionalProperties: true
       responses:
         "204":
           description: Playback transferred
@@ -3030,8 +2952,6 @@ paths:
       tags:
         - Player
       operationId: get-the-users-currently-playing-track
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Get Currently Playing Track
       description: |
@@ -3051,14 +2971,11 @@ paths:
       security:
         - oauth_2_0:
             - user-read-currently-playing
-
   /me/player/play:
     put:
       tags:
         - Player
       operationId: start-a-users-playback
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Start/Resume Playback
       description: |
@@ -3069,8 +2986,9 @@ paths:
           in: query
           schema:
             title: Device ID
-            description: The id of the device this command is targeting. If
-              not supplied, the user's currently active device is the target.
+            description:
+              "The id of the device this command is targeting. If not supplied,\
+              \ the user's currently active device is the target."
             example: 0d1841b0976bae2a3a310dd74c0f3df354899bc8
             type: string
       requestBody:
@@ -3091,7 +3009,6 @@ paths:
                     Optional. Spotify URI of the context to play.
                     Valid contexts are albums, artists & playlists.
                     `{context_uri:"spotify:album:1Je1IMUlBXcx1Fz0WE7oPT"}`
-                  additionalProperties: true
                 uris:
                   type: array
                   description: |
@@ -3108,8 +3025,8 @@ paths:
                   additionalProperties: true
                 position_ms:
                   type: integer
-                  description: integer
-                  additionalProperties: true
+                  description: |
+                    Indicates from what position to start playback. Must be a positive number. Passing in a position that is greater than the length of the track will cause the player to start playing the next song.
       responses:
         "204":
           description: Playback started
@@ -3127,8 +3044,6 @@ paths:
       tags:
         - Player
       operationId: pause-a-users-playback
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Pause Playback
       description: |
@@ -3160,8 +3075,6 @@ paths:
       tags:
         - Player
       operationId: skip-users-playback-to-next-track
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Skip To Next
       description: |
@@ -3172,8 +3085,9 @@ paths:
           in: query
           schema:
             title: Device ID
-            description: The id of the device this command is targeting. If
-              not supplied, the user's currently active device is the target.
+            description:
+              "The id of the device this command is targeting. If not supplied,\
+              \ the user's currently active device is the target."
             example: 0d1841b0976bae2a3a310dd74c0f3df354899bc8
             type: string
       responses:
@@ -3193,8 +3107,6 @@ paths:
       tags:
         - Player
       operationId: skip-users-playback-to-previous-track
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Skip To Previous
       description: |
@@ -3227,8 +3139,6 @@ paths:
       tags:
         - Player
       operationId: seek-to-position-in-currently-playing-track
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Seek To Position
       description: |
@@ -3398,26 +3308,13 @@ paths:
       tags:
         - Player
       operationId: get-recently-played
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Get Recently Played Tracks
       description: |
         Get tracks from the current user's recently played tracks.
         _**Note**: Currently doesn't support podcast episodes._
       parameters:
-        - name: limit
-          required: false
-          in: query
-          schema:
-            title: Limit
-            description: |
-              The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-            default: 20
-            example: 10
-            type: integer
-            minimum: 0
-            maximum: 50
+        - $ref: "#/components/parameters/QueryLimit"
         - name: after
           required: false
           in: query
@@ -3456,8 +3353,6 @@ paths:
       tags:
         - Player
       operationId: get-queue
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Get the User's Queue
       description: |
@@ -3479,8 +3374,6 @@ paths:
       tags:
         - Player
       operationId: add-to-queue
-      x-spotify-policy-list:
-        $ref: "#/components/x-spotify-policy/playerPolicyList"
       summary: |
         Add Item to Playback Queue
       description: |
@@ -3528,17 +3421,7 @@ paths:
         Get the list of markets where Spotify is available.
       responses:
         "200":
-          description: A markets object with an array of country codes
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  markets:
-                    type: array
-                    items:
-                      type: string
-                    example: ["CA", "BR", "IT"]
+          $ref: "#/components/responses/Markets"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -3547,7 +3430,78 @@ paths:
           $ref: "#/components/responses/TooManyRequests"
       security:
         - oauth_2_0: []
-
+  /me/top/artists:
+    get:
+      tags:
+        - Users
+        - Artists
+        - Library
+      operationId: get-users-top-artists
+      summary: |
+        Get User's Top Artists
+      description: |
+        Get the current user's top artists based on calculated affinity.
+      parameters:
+        - name: time_range
+          required: false
+          in: query
+          schema:
+            title: Time Range
+            description: |
+              Over what time frame the affinities are computed. Valid values: `long_term` (calculated from ~1 year of data and including all new data as it becomes available), `medium_term` (approximately last 6 months), `short_term` (approximately last 4 weeks). Default: `medium_term`
+            default: medium_term
+            example: medium_term
+            type: string
+        - $ref: "#/components/parameters/QueryLimit"
+        - $ref: "#/components/parameters/QueryOffset"
+      responses:
+        "200":
+          $ref: "#/components/responses/PagingArtistObject"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+      security:
+        - oauth_2_0:
+            - user-top-read
+  /me/top/tracks:
+    get:
+      tags:
+        - Users
+        - Tracks
+        - Library
+      operationId: get-users-top-tracks
+      summary: |
+        Get User's Top Tracks
+      description: |
+        Get the current user's top tracks based on calculated affinity.
+      parameters:
+        - name: time_range
+          required: false
+          in: query
+          schema:
+            title: Time Range
+            description: |
+              Over what time frame the affinities are computed. Valid values: `long_term` (calculated from ~1 year of data and including all new data as it becomes available), `medium_term` (approximately last 6 months), `short_term` (approximately last 4 weeks). Default: `medium_term`
+            default: medium_term
+            example: medium_term
+            type: string
+        - $ref: "#/components/parameters/QueryLimit"
+        - $ref: "#/components/parameters/QueryOffset"
+      responses:
+        "200":
+          $ref: "#/components/responses/PagingTrackObject"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+      security:
+        - oauth_2_0:
+            - user-top-read
 components:
   securitySchemes:
     oauth_2_0:
@@ -3596,25 +3550,6 @@ components:
               Upload images to Spotify on your behalf.
             streaming: |
               Play content and control playback on your other devices.
-  x-spotify-policy:
-    policies:
-      $ref: "../policies.yaml"
-    metadataPolicyList:
-      - $ref: "#/components/x-spotify-policy/policies/Downloading"
-      - $ref: "#/components/x-spotify-policy/policies/VisualAlteration"
-      - $ref: "#/components/x-spotify-policy/policies/Attribution"
-    metadataWithMachineLearningPolicyList:
-      - $ref: "#/components/x-spotify-policy/policies/Downloading"
-      - $ref: "#/components/x-spotify-policy/policies/VisualAlteration"
-      - $ref: "#/components/x-spotify-policy/policies/Attribution"
-      - $ref: "#/components/x-spotify-policy/policies/MachineLearning"
-    playerPolicyList:
-      - $ref: "#/components/x-spotify-policy/policies/CommercialStreaming"
-      - $ref: "#/components/x-spotify-policy/policies/ContentAlteration"
-      - $ref: "#/components/x-spotify-policy/policies/Synchronization"
-      - $ref: "#/components/x-spotify-policy/policies/Broadcasting"
-    downloading:
-      $ref: "#/components/x-spotify-policy/policies/Downloading"
   responses:
     Unauthorized:
       description: |
@@ -3629,7 +3564,6 @@ components:
             properties:
               error:
                 $ref: "#/components/schemas/ErrorObject"
-
     Forbidden:
       description: |
         Bad OAuth request (wrong consumer key, bad nonce, expired
@@ -3643,7 +3577,6 @@ components:
             properties:
               error:
                 $ref: "#/components/schemas/ErrorObject"
-
     NotFound:
       description: |
         The requested resource cannot be found.
@@ -3656,7 +3589,6 @@ components:
             properties:
               error:
                 $ref: "#/components/schemas/ErrorObject"
-
     BadRequest:
       description: |
         The request contains malformed data in path, query parameters, or body.
@@ -3669,7 +3601,6 @@ components:
             properties:
               error:
                 $ref: "#/components/schemas/ErrorObject"
-
     TooManyRequests:
       description: |
         The app has exceeded its rate limits.
@@ -3682,7 +3613,6 @@ components:
             properties:
               error:
                 $ref: "#/components/schemas/ErrorObject"
-
     ManyAlbums:
       description: A set of albums
       content:
@@ -3696,9 +3626,11 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/AlbumObject"
-
     ManyAudiobooks:
-      description: A set of audiobooks. If one of the requested audiobooks is unavailable then you'll find a `null` item in the `audiobooks` array where the audiobook object would otherwise be.
+      description:
+        A set of audiobooks. If one of the requested audiobooks is unavailable
+        then you'll find a `null` item in the `audiobooks` array where the audiobook
+        object would otherwise be.
       content:
         application/json:
           schema:
@@ -3710,7 +3642,6 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/AudiobookObject"
-
     ManyChapters:
       description: A set of chapters
       content:
@@ -3724,7 +3655,6 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/ChapterObject"
-
     ManyDevices:
       description: A set of devices
       content:
@@ -3738,7 +3668,6 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/DeviceObject"
-
     PagedAlbums:
       description: A paged set of albums
       content:
@@ -3750,21 +3679,18 @@ components:
             properties:
               albums:
                 $ref: "#/components/schemas/PagingSimplifiedAlbumObject"
-
     PagedPlaylists:
       description: A paged set of playlists
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingPlaylistObject"
-
     PagedFeaturedPlaylists:
       description: A paged set of playlists
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingFeaturedPlaylistObject"
-
     PagedCategories:
       description: A paged set of categories
       content:
@@ -3784,7 +3710,6 @@ components:
                         type: array
                         items:
                           $ref: "#/components/schemas/CategoryObject"
-
     CursorPagedArtists:
       description: A paged set of artists
       content:
@@ -3796,14 +3721,12 @@ components:
             properties:
               artists:
                 $ref: "#/components/schemas/CursorPagingSimplifiedArtistObject"
-
     CursorPagedPlayHistory:
       description: A paged set of tracks
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/CursorPagingPlayHistoryObject"
-
     ManyArtists:
       description: A set of artists
       content:
@@ -3817,7 +3740,6 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/ArtistObject"
-
     ManyAudioFeatures:
       description: A set of audio features
       content:
@@ -3831,7 +3753,6 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/AudioFeaturesObject"
-
     ManyEpisodes:
       description: A set of episodes
       content:
@@ -3845,7 +3766,6 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/EpisodeObject"
-
     ManyGenres:
       description: A set of genres
       content:
@@ -3857,38 +3777,35 @@ components:
             properties:
               genres:
                 type: array
-                example: ["alternative", "samba"]
+                example:
+                  - alternative
+                  - samba
                 items:
                   type: string
-
     OneEpisode:
       description: An episode
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/EpisodeObject"
-
     OneChapter:
       description: A Chapter
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ChapterObject"
-
     OneAudiobook:
       description: An Audiobook
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/AudiobookObject"
-
     OneAlbum:
       description: An album
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/AlbumObject"
-
     ArrayOfImages:
       description: A set of images
       content:
@@ -3897,70 +3814,60 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/ImageObject"
-
     OnePrivateUser:
       description: A user
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PrivateUserObject"
-
     OnePublicUser:
       description: A user
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PublicUserObject"
-
     OneTrack:
       description: A track
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/TrackObject"
-
     OneShow:
       description: A show
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ShowObject"
-
     OneCategory:
       description: A category
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/CategoryObject"
-
     OnePlaylist:
       description: A playlist
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PlaylistObject"
-
     OneAudioFeatures:
       description: Audio features for one track
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/AudioFeaturesObject"
-
     OneAudioAnalysis:
       description: Audio analysis for one track
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/AudioAnalysisObject"
-
     OneArtist:
       description: An artist
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ArtistObject"
-
     ManyTracks:
       description: A set of tracks
       content:
@@ -3974,7 +3881,6 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/TrackObject"
-
     ManySimplifiedShows:
       description: A set of shows
       content:
@@ -3988,97 +3894,66 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/SimplifiedShowObject"
-
     PagingSimplifiedTrackObject:
       description: Pages of tracks
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingSimplifiedTrackObject"
-
     PagingSavedTrackObject:
       description: Pages of tracks
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingSavedTrackObject"
-
     PagingPlaylistTrackObject:
       description: Pages of tracks
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingPlaylistTrackObject"
-
     PagingArtistDiscographyAlbumObject:
       description: Pages of albums
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingArtistDiscographyAlbumObject"
-
     PagingSavedAlbumObject:
       description: Pages of albums
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingSavedAlbumObject"
-
     PagingSavedShowObject:
       description: Pages of shows
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingSavedShowObject"
-
     PagingSimplifiedEpisodeObject:
       description: Pages of episodes
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingSimplifiedEpisodeObject"
-
     PagingSavedEpisodeObject:
       description: Pages of episodes
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingSavedEpisodeObject"
-
     PagingSimplifiedAudiobookObject:
       description: Pages of audiobooks
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingSimplifiedAudiobookObject"
-
     PagingSimplifiedChapterObject:
       description: Pages of chapters
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/PagingSimplifiedChapterObject"
-
-    PagingArtistOrTrackObject:
-      description: Pages of artists or tracks
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-              - $ref: "#/components/schemas/PagingObject"
-              - type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      type: object
-                      oneOf:
-                        - $ref: "#/components/schemas/ArtistObject"
-                        - $ref: "#/components/schemas/TrackObject"
-                      discriminator:
-                        propertyName: type
-
     SearchItems:
       description: Search response
       content:
@@ -4100,55 +3975,51 @@ components:
                 $ref: "#/components/schemas/PagingSimplifiedEpisodeObject"
               audiobooks:
                 $ref: "#/components/schemas/PagingSimplifiedAudiobookObject"
-
     OneRecommendations:
       description: A set of recommendations
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/RecommendationsObject"
-
     ArrayOfBooleans:
       description: Array of booleans
       content:
         application/json:
           schema:
             type: array
-            example: [false, true]
+            example:
+              - false
+              - true
             items:
               type: boolean
-
     SingletonArrayOfBoolean:
-      description: Array of boolean, containing a single boolean
+      description: "Array of boolean, containing a single boolean"
       content:
         application/json:
           schema:
             type: array
-            example: [true]
+            example:
+              - true
             items:
               type: boolean
-
     Queue:
       description: Information about the queue
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/QueueObject"
-
     OneCurrentlyPlaying:
       description: Information about playback
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/CurrentlyPlayingContextObject"
-
     OneCurrentlyPlayingTrack:
       description: Information about the currently playing track
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CurrentlyPlayingContextObject"
-
+            $ref: "#/components/schemas/CurrentlyPlayingObject"
     PlaylistSnapshotId:
       description: A snapshot ID for the playlist
       content:
@@ -4158,11 +4029,40 @@ components:
             properties:
               snapshot_id:
                 type: string
-                example: "abc"
-
-  #-------------------------------
-  # Reusable schemas (data models)
-  #-------------------------------
+                example: abc
+    Markets:
+      description: A markets object with an array of country codes
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              markets:
+                type: array
+                items:
+                  type: string
+                example:
+                  - CA
+                  - BR
+                  - IT
+    PagingArtistObject:
+      description: Pages of artists
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PagingArtistObject"
+    PagingSavedAudiobookObject:
+      description: Pages of saved audiobooks
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PagingSavedAudiobookObject"
+    PagingTrackObject:
+      description: Pages of tracks
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PagingTrackObject"
   schemas:
     LinkedTrackObject:
       type: object
@@ -4189,7 +4089,6 @@ components:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the track.
-
     TrackRestrictionObject:
       type: object
       x-spotify-docs-type: TrackRestrictionObject
@@ -4204,18 +4103,19 @@ components:
 
             Additional reasons may be added in the future.
             **Note**: If you use this field, make sure that your application safely handles unknown values.
-
     AlbumRestrictionObject:
       type: object
       x-spotify-docs-type: AlbumRestrictionObject
       properties:
         reason:
           type: string
-          enum: ["market", "product", "explicit"]
+          enum:
+            - market
+            - product
+            - explicit
           description: |
             The reason for the restriction. Albums may be restricted if the content is not available in a given market, to the user's subscription type, or when the user's account is set to not play explicit content.
             Additional reasons may be added in the future.
-
     EpisodeRestrictionObject:
       type: object
       x-spotify-docs-type: EpisodeRestrictionObject
@@ -4230,7 +4130,6 @@ components:
 
             Additional reasons may be added in the future.
             **Note**: If you use this field, make sure that your application safely handles unknown values.
-
     ChapterRestrictionObject:
       type: object
       x-spotify-docs-type: ChapterRestrictionObject
@@ -4246,7 +4145,6 @@ components:
 
             Additional reasons may be added in the future.
             **Note**: If you use this field, make sure that your application safely handles unknown values.
-
     ArtistObject:
       type: object
       x-spotify-docs-type: ArtistObject
@@ -4265,7 +4163,9 @@ components:
           type: array
           items:
             type: string
-          example: ["Prog rock", "Grunge"]
+          example:
+            - Prog rock
+            - Grunge
           description: |
             A list of the genres the artist is associated with. If not yet classified, the array is empty.
         href:
@@ -4292,14 +4192,14 @@ components:
             The popularity of the artist. The value will be between 0 and 100, with 100 being the most popular. The artist's popularity is calculated from the popularity of all the artist's tracks.
         type:
           type: string
-          enum: ["artist"]
+          enum:
+            - artist
           description: |
             The object type.
         uri:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the artist.
-
     SimplifiedArtistObject:
       type: object
       x-spotify-docs-type: SimplifiedArtistObject
@@ -4323,14 +4223,14 @@ components:
             The name of the artist.
         type:
           type: string
-          enum: ["artist"]
+          enum:
+            - artist
           description: |
             The object type.
         uri:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the artist.
-
     PlayHistoryObject:
       type: object
       x-spotify-docs-type: PlayHistoryObject
@@ -4348,7 +4248,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/ContextObject"
           description: The context the track was played from.
-
     PlaylistTrackObject:
       type: object
       x-spotify-docs-type: PlaylistTrackObject
@@ -4376,7 +4275,6 @@ components:
           description: Information about the track or episode.
           discriminator:
             propertyName: type
-
     QueueObject:
       type: object
       x-spotify-docs-type: QueueObject
@@ -4399,7 +4297,6 @@ components:
               propertyName: type
             x-spotify-docs-type: TrackObject | EpisodeObject
           description: The tracks or episodes in the queue. Can be empty.
-
     CurrentlyPlayingContextObject:
       type: object
       x-spotify-docs-type: CurrentlyPlayingContextObject
@@ -4411,7 +4308,7 @@ components:
             The device that is currently active.
         repeat_state:
           type: string
-          description: off, track, context
+          description: "off, track, context"
         shuffle_state:
           type: boolean
           description: If shuffle is on or off.
@@ -4421,13 +4318,18 @@ components:
           description: A Context Object. Can be `null`.
         timestamp:
           type: integer
-          description: Unix Millisecond Timestamp when playback state was last changed (play, pause, skip, scrub, new song, etc.).
+          description:
+            "Unix Millisecond Timestamp when playback state was last changed\
+            \ (play, pause, skip, scrub, new song, etc.)."
+          format: int64
         progress_ms:
           type: integer
-          description: Progress into the currently playing track or episode. Can be `null`.
+          description:
+            Progress into the currently playing track or episode. Can be
+            `null`.
         is_playing:
           type: boolean
-          description: If something is currently playing, return `true`.
+          description: "If something is currently playing, return `true`."
         item:
           oneOf:
             - $ref: "#/components/schemas/TrackObject"
@@ -4445,7 +4347,6 @@ components:
             - $ref: "#/components/schemas/DisallowsObject"
           description: |
             Allows to update the user interface based on which playback actions are available within the current context.
-
     DisallowsObject:
       type: object
       x-spotify-docs-type: DisallowsObject
@@ -4480,7 +4381,6 @@ components:
         transferring_playback:
           type: boolean
           description: Transfering playback between devices. Optional field.
-
     ErrorObject:
       type: object
       x-spotify-docs-type: ErrorObject
@@ -4498,7 +4398,6 @@ components:
           type: string
           description: |
             A short description of the cause of the error.
-
     PrivateUserObject:
       type: object
       x-spotify-docs-type: PrivateUserObject
@@ -4553,7 +4452,6 @@ components:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the user.
-
     PublicUserObject:
       type: object
       x-spotify-docs-type: PublicUserObject
@@ -4589,14 +4487,14 @@ components:
             The user's profile image.
         type:
           type: string
-          enum: ["user"]
+          enum:
+            - user
           description: |
             The object type.
         uri:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for this user.
-
     AudioAnalysisObject:
       type: object
       x-spotify-docs-type: AudioAnalysisObject
@@ -4606,24 +4504,31 @@ components:
           properties:
             analyzer_version:
               type: string
-              example: "4.0.0"
+              example: 4.0.0
               description: The version of the Analyzer used to analyze this track.
             platform:
               type: string
-              example: "Linux"
+              example: Linux
               description: The platform used to read the track's audio data.
             detailed_status:
               type: string
-              example: "OK"
-              description: A detailed status code for this track. If analysis data is missing, this code may explain why.
+              example: OK
+              description:
+                "A detailed status code for this track. If analysis data\
+                \ is missing, this code may explain why."
             status_code:
               type: integer
               example: 0
-              description: The return code of the analyzer process. 0 if successful, 1 if any errors occurred.
+              description:
+                "The return code of the analyzer process. 0 if successful,\
+                \ 1 if any errors occurred."
             timestamp:
               type: integer
               example: 1495193577
-              description: The Unix timestamp (in seconds) at which this track was analyzed.
+              description:
+                The Unix timestamp (in seconds) at which this track was
+                analyzed.
+              format: int64
             analysis_time:
               type: number
               example: 6.93906
@@ -4638,7 +4543,9 @@ components:
             num_samples:
               type: integer
               example: 4585515
-              description: The exact number of audio samples analyzed from this track. See also `analysis_sample_rate`.
+              description:
+                The exact number of audio samples analyzed from this track.
+                See also `analysis_sample_rate`.
             duration:
               type: number
               description: Length of the track in seconds.
@@ -4649,27 +4556,43 @@ components:
             offset_seconds:
               type: integer
               example: 0
-              description: An offset to the start of the region of the track that was analyzed. (As the entire track is analyzed, this should always be 0.)
+              description:
+                "An offset to the start of the region of the track that\
+                \ was analyzed. (As the entire track is analyzed, this should always\
+                \ be 0.)"
             window_seconds:
               type: integer
               example: 0
-              description: The length of the region of the track was analyzed, if a subset of the track was analyzed. (As the entire track is analyzed, this should always be 0.)
+              description:
+                "The length of the region of the track was analyzed, if\
+                \ a subset of the track was analyzed. (As the entire track is analyzed,\
+                \ this should always be 0.)"
             analysis_sample_rate:
               type: integer
               example: 22050
-              description: The sample rate used to decode and analyze this track. May differ from the actual sample rate of this track available on Spotify.
+              description:
+                The sample rate used to decode and analyze this track.
+                May differ from the actual sample rate of this track available on
+                Spotify.
             analysis_channels:
               type: integer
               example: 1
-              description: The number of channels used for analysis. If 1, all channels are summed together to mono before analysis.
+              description:
+                "The number of channels used for analysis. If 1, all channels\
+                \ are summed together to mono before analysis."
             end_of_fade_in:
               type: number
               example: 0.0
-              description: The time, in seconds, at which the track's fade-in period ends. If the track has no fade-in, this will be 0.0.
+              description:
+                "The time, in seconds, at which the track's fade-in period\
+                \ ends. If the track has no fade-in, this will be 0.0."
             start_of_fade_out:
               type: number
               example: 201.13705
-              description: The time, in seconds, at which the track's fade-out period starts. If the track has no fade-out, this should match the track's length.
+              description:
+                "The time, in seconds, at which the track's fade-out period\
+                \ starts. If the track has no fade-out, this should match the track's\
+                \ length."
             loudness:
               $ref: "#/components/schemas/Loudness"
             tempo:
@@ -4679,7 +4602,9 @@ components:
               example: 0.73
               minimum: 0
               maximum: 1
-              description: The confidence, from 0.0 to 1.0, of the reliability of the `tempo`.
+              description:
+                "The confidence, from 0.0 to 1.0, of the reliability of\
+                \ the `tempo`."
             time_signature:
               $ref: "#/components/schemas/TimeSignature"
             time_signature_confidence:
@@ -4687,7 +4612,9 @@ components:
               example: 0.994
               minimum: 0
               maximum: 1
-              description: The confidence, from 0.0 to 1.0, of the reliability of the `time_signature`.
+              description:
+                "The confidence, from 0.0 to 1.0, of the reliability of\
+                \ the `time_signature`."
             key:
               $ref: "#/components/schemas/Key"
             key_confidence:
@@ -4695,7 +4622,9 @@ components:
               example: 0.408
               minimum: 0
               maximum: 1
-              description: The confidence, from 0.0 to 1.0, of the reliability of the `key`.
+              description:
+                "The confidence, from 0.0 to 1.0, of the reliability of\
+                \ the `key`."
             mode:
               $ref: "#/components/schemas/Mode"
             mode_confidence:
@@ -4703,61 +4632,90 @@ components:
               example: 0.485
               minimum: 0
               maximum: 1
-              description: The confidence, from 0.0 to 1.0, of the reliability of the `mode`.
+              description:
+                "The confidence, from 0.0 to 1.0, of the reliability of\
+                \ the `mode`."
             codestring:
               type: string
-              description: An [Echo Nest Musical Fingerprint (ENMFP)](https://academiccommons.columbia.edu/doi/10.7916/D8Q248M4) codestring for this track.
+              description:
+                "An [Echo Nest Musical Fingerprint (ENMFP)](https://academiccommons.columbia.edu/doi/10.7916/D8Q248M4)\
+                \ codestring for this track."
             code_version:
               type: number
               example: 3.15
-              description: A version number for the Echo Nest Musical Fingerprint format used in the codestring field.
+              description:
+                A version number for the Echo Nest Musical Fingerprint
+                format used in the codestring field.
             echoprintstring:
               type: string
-              description: An [EchoPrint](https://github.com/spotify/echoprint-codegen) codestring for this track.
+              description:
+                "An [EchoPrint](https://github.com/spotify/echoprint-codegen)\
+                \ codestring for this track."
             echoprint_version:
               type: number
               example: 4.15
-              description: A version number for the EchoPrint format used in the echoprintstring field.
+              description:
+                A version number for the EchoPrint format used in the echoprintstring
+                field.
             synchstring:
               type: string
-              description: A [Synchstring](https://github.com/echonest/synchdata) for this track.
+              description:
+                "A [Synchstring](https://github.com/echonest/synchdata)\
+                \ for this track."
             synch_version:
               type: number
               example: 1.0
-              description: A version number for the Synchstring used in the synchstring field.
+              description:
+                A version number for the Synchstring used in the synchstring
+                field.
             rhythmstring:
               type: string
-              description: A Rhythmstring for this track. The format of this string is similar to the Synchstring.
+              description:
+                A Rhythmstring for this track. The format of this string
+                is similar to the Synchstring.
             rhythm_version:
               type: number
               example: 1.0
-              description: A version number for the Rhythmstring used in the rhythmstring field.
+              description:
+                A version number for the Rhythmstring used in the rhythmstring
+                field.
         bars:
           type: array
-          description: The time intervals of the bars throughout the track. A bar (or measure) is a segment of time defined as a given number of beats.
+          description:
+            The time intervals of the bars throughout the track. A bar
+            (or measure) is a segment of time defined as a given number of beats.
           items:
             $ref: "#/components/schemas/TimeIntervalObject"
         beats:
           type: array
-          description: The time intervals of beats throughout the track. A beat is the basic time unit of a piece of music; for example, each tick of a metronome. Beats are typically multiples of tatums.
+          description:
+            "The time intervals of beats throughout the track. A beat is\
+            \ the basic time unit of a piece of music; for example, each tick of a\
+            \ metronome. Beats are typically multiples of tatums."
           items:
             $ref: "#/components/schemas/TimeIntervalObject"
         sections:
           type: array
-          description: Sections are defined by large variations in rhythm or timbre, e.g. chorus, verse, bridge, guitar solo, etc. Each section contains its own descriptions of tempo, key, mode, time_signature, and loudness.
+          description:
+            "Sections are defined by large variations in rhythm or timbre,\
+            \ e.g. chorus, verse, bridge, guitar solo, etc. Each section contains\
+            \ its own descriptions of tempo, key, mode, time_signature, and loudness."
           items:
             $ref: "#/components/schemas/SectionObject"
         segments:
           type: array
-          description: Each segment contains a roughly conisistent sound throughout its duration.
+          description:
+            Each segment contains a roughly conisistent sound throughout
+            its duration.
           items:
             $ref: "#/components/schemas/SegmentObject"
         tatums:
           type: array
-          description: A tatum represents the lowest regular pulse train that a listener intuitively infers from the timing of perceived musical events (segments).
+          description:
+            A tatum represents the lowest regular pulse train that a listener
+            intuitively infers from the timing of perceived musical events (segments).
           items:
             $ref: "#/components/schemas/TimeIntervalObject"
-
     TimeIntervalObject:
       type: object
       properties:
@@ -4771,11 +4729,12 @@ components:
           example: 2.18749
         confidence:
           type: number
-          description: The confidence, from 0.0 to 1.0, of the reliability of the interval.
+          description:
+            "The confidence, from 0.0 to 1.0, of the reliability of the\
+            \ interval."
           example: 0.925
           minimum: 0
           maximum: 1
-
     SectionObject:
       type: object
       properties:
@@ -4789,44 +4748,70 @@ components:
           example: 6.97092
         confidence:
           type: number
-          description: The confidence, from 0.0 to 1.0, of the reliability of the section's "designation".
+          description:
+            "The confidence, from 0.0 to 1.0, of the reliability of the\
+            \ section's \"designation\"."
           example: 1.0
           minimum: 0
           maximum: 1
         loudness:
           type: number
-          description: The overall loudness of the section in decibels (dB). Loudness values are useful for comparing relative loudness of sections within tracks.
+          description:
+            The overall loudness of the section in decibels (dB). Loudness
+            values are useful for comparing relative loudness of sections within tracks.
           example: -14.938
         tempo:
           type: number
-          description: The overall estimated tempo of the section in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.
+          description:
+            "The overall estimated tempo of the section in beats per minute\
+            \ (BPM). In musical terminology, tempo is the speed or pace of a given\
+            \ piece and derives directly from the average beat duration."
           example: 113.178
         tempo_confidence:
           type: number
-          description: The confidence, from 0.0 to 1.0, of the reliability of the tempo. Some tracks contain tempo changes or sounds which don't contain tempo (like pure speech) which would correspond to a low value in this field.
+          description:
+            "The confidence, from 0.0 to 1.0, of the reliability of the\
+            \ tempo. Some tracks contain tempo changes or sounds which don't contain\
+            \ tempo (like pure speech) which would correspond to a low value in this\
+            \ field."
           example: 0.647
           minimum: 0
           maximum: 1
         key:
           type: integer
-          description: The estimated overall key of the section. The values in this field ranging from 0 to 11 mapping to pitches using standard Pitch Class notation (E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on). If no key was detected, the value is -1.
+          description:
+            "The estimated overall key of the section. The values in this\
+            \ field ranging from 0 to 11 mapping to pitches using standard Pitch Class\
+            \ notation (E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on). If no key was detected,\
+            \ the value is -1."
           example: 9
         key_confidence:
           type: number
-          description: The confidence, from 0.0 to 1.0, of the reliability of the key. Songs with many key changes may correspond to low values in this field.
+          description:
+            "The confidence, from 0.0 to 1.0, of the reliability of the\
+            \ key. Songs with many key changes may correspond to low values in this\
+            \ field."
           example: 0.297
           minimum: 0
           maximum: 1
         mode:
           type: number
-          description: Indicates the modality (major or minor) of a section, the type of scale from which its melodic content is derived. This field will contain a 0 for "minor", a 1 for "major", or a -1 for no result. Note that the major key (e.g. C major) could more likely be confused with the minor key at 3 semitones lower (e.g. A minor) as both keys carry the same pitches.
+          description:
+            "Indicates the modality (major or minor) of a section, the\
+            \ type of scale from which its melodic content is derived. This field\
+            \ will contain a 0 for \"minor\", a 1 for \"major\", or a -1 for no result.\
+            \ Note that the major key (e.g. C major) could more likely be confused\
+            \ with the minor key at 3 semitones lower (e.g. A minor) as both keys\
+            \ carry the same pitches."
           enum:
             - -1
             - 0
             - 1
         mode_confidence:
           type: number
-          description: The confidence, from 0.0 to 1.0, of the reliability of the `mode`.
+          description:
+            "The confidence, from 0.0 to 1.0, of the reliability of the\
+            \ `mode`."
           example: 0.471
           minimum: 0
           maximum: 1
@@ -4834,11 +4819,13 @@ components:
           $ref: "#/components/schemas/TimeSignature"
         time_signature_confidence:
           type: number
-          description: The confidence, from 0.0 to 1.0, of the reliability of the `time_signature`. Sections with time signature changes may correspond to low values in this field.
+          description:
+            "The confidence, from 0.0 to 1.0, of the reliability of the\
+            \ `time_signature`. Sections with time signature changes may correspond\
+            \ to low values in this field."
           example: 1.0
           minimum: 0
           maximum: 1
-
     SegmentObject:
       type: object
       properties:
@@ -4859,19 +4846,30 @@ components:
             The confidence, from 0.0 to 1.0, of the reliability of the segmentation. Segments of the song which are difficult to logically segment (e.g: noise) may correspond to low values in this field.
         loudness_start:
           type: number
-          description: The onset loudness of the segment in decibels (dB). Combined with `loudness_max` and `loudness_max_time`, these components can be used to describe the "attack" of the segment.
+          description:
+            "The onset loudness of the segment in decibels (dB). Combined\
+            \ with `loudness_max` and `loudness_max_time`, these components can be\
+            \ used to describe the \"attack\" of the segment."
           example: -23.053
         loudness_max:
           type: number
-          description: The peak loudness of the segment in decibels (dB). Combined with `loudness_start` and `loudness_max_time`, these components can be used to describe the "attack" of the segment.
+          description:
+            "The peak loudness of the segment in decibels (dB). Combined\
+            \ with `loudness_start` and `loudness_max_time`, these components can\
+            \ be used to describe the \"attack\" of the segment."
           example: -14.25
         loudness_max_time:
           type: number
-          description: The segment-relative offset of the segment peak loudness in seconds. Combined with `loudness_start` and `loudness_max`, these components can be used to desctibe the "attack" of the segment.
+          description:
+            "The segment-relative offset of the segment peak loudness in\
+            \ seconds. Combined with `loudness_start` and `loudness_max`, these components\
+            \ can be used to desctibe the \"attack\" of the segment."
           example: 0.07305
         loudness_end:
           type: number
-          description: The offset loudness of the segment in decibels (dB). This value should be equivalent to the loudness_start of the following segment.
+          description:
+            The offset loudness of the segment in decibels (dB). This value
+            should be equivalent to the loudness_start of the following segment.
           example: 0.0
         pitches:
           type: array
@@ -4885,7 +4883,10 @@ components:
             type: number
             minimum: 0
             maximum: 1
-          example: [0.212, 0.141, 0.294]
+          example:
+            - 0.212
+            - 0.141
+            - 0.294
         timbre:
           type: array
           description: |
@@ -4897,15 +4898,20 @@ components:
             The actual timbre of the segment is best described as a linear combination of these 12 basis functions weighted by the coefficient values: timbre = c1 x b1 + c2 x b2 + ... + c12 x b12, where c1 to c12 represent the 12 coefficients and b1 to b12 the 12 basis functions as displayed below. Timbre vectors are best used in comparison with each other.
           items:
             type: number
-          example: [42.115, 64.373, -0.233]
-
+          example:
+            - 42.115
+            - 64.373
+            - -0.233
     TimeSignature:
       type: integer
-      description: An estimated time signature. The time signature (meter) is a notational convention to specify how many beats are in each bar (or measure). The time signature ranges from 3 to 7 indicating time signatures of "3/4", to "7/4".
+      description:
+        "An estimated time signature. The time signature (meter) is a notational\
+        \ convention to specify how many beats are in each bar (or measure). The time\
+        \ signature ranges from 3 to 7 indicating time signatures of \"3/4\", to \"\
+        7/4\"."
       example: 4
       minimum: 3
       maximum: 7
-
     Tempo:
       type: number
       example: 118.211
@@ -4913,7 +4919,6 @@ components:
       x-spotify-docs-type: Float
       description: |
         The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.
-
     Loudness:
       type: number
       example: -5.883
@@ -4921,7 +4926,6 @@ components:
       x-spotify-docs-type: Float
       description: |
         The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.
-
     Key:
       type: integer
       example: 9
@@ -4929,13 +4933,11 @@ components:
       maximum: 11
       description: |
         The key the track is in. Integers map to pitches using standard [Pitch Class notation](https://en.wikipedia.org/wiki/Pitch_class). E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.
-
     Mode:
       type: integer
       example: 0
       description: |
         Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.
-
     AudioFeaturesObject:
       type: object
       x-spotify-docs-type: AudioFeaturesObject
@@ -5018,7 +5020,8 @@ components:
             A link to the Web API endpoint providing full details of the track.
         type:
           type: string
-          enum: ["audio_features"]
+          enum:
+            - audio_features
           description: |
             The object type.
         uri:
@@ -5035,7 +5038,6 @@ components:
           x-spotify-docs-type: Float
           description: |
             A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
-
     SimplifiedTrackObject:
       type: object
       x-spotify-docs-type: SimplifiedTrackObject
@@ -5044,7 +5046,9 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SimplifiedArtistObject"
-          description: The artists who performed the track. Each artist object includes a link in `href` to more detailed information about the artist.
+          description:
+            The artists who performed the track. Each artist object includes
+            a link in `href` to more detailed information about the artist.
         available_markets:
           type: array
           items:
@@ -5053,13 +5057,17 @@ components:
             A list of the countries in which the track can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
         disc_number:
           type: integer
-          description: The disc number (usually `1` unless the album consists of more than one disc).
+          description:
+            The disc number (usually `1` unless the album consists of more
+            than one disc).
         duration_ms:
           type: integer
           description: The track length in milliseconds.
         explicit:
           type: boolean
-          description: Whether or not the track has explicit lyrics ( `true` = yes it does; `false` = no it does not OR unknown).
+          description:
+            Whether or not the track has explicit lyrics ( `true` = yes
+            it does; `false` = no it does not OR unknown).
         external_urls:
           allOf:
             - $ref: "#/components/schemas/ExternalUrlObject"
@@ -5067,7 +5075,9 @@ components:
             External URLs for this track.
         href:
           type: string
-          description: A link to the Web API endpoint providing full details of the track.
+          description:
+            A link to the Web API endpoint providing full details of the
+            track.
         id:
           type: string
           description: |
@@ -5079,7 +5089,12 @@ components:
         linked_from:
           allOf:
             - $ref: "#/components/schemas/LinkedTrackObject"
-          description: Part of the response when [Track Relinking](/documentation/web-api/concepts/track-relinking/) is applied and is only part of the response if the track linking, in fact, exists. The requested track has been replaced with a different track. The track in the `linked_from` object contains information about the originally requested track.
+          description:
+            "Part of the response when [Track Relinking](/documentation/web-api/concepts/track-relinking/)\
+            \ is applied and is only part of the response if the track linking, in\
+            \ fact, exists. The requested track has been replaced with a different\
+            \ track. The track in the `linked_from` object contains information about\
+            \ the originally requested track."
         restrictions:
           allOf:
             - $ref: "#/components/schemas/TrackRestrictionObject"
@@ -5093,8 +5108,6 @@ components:
           nullable: true
           description: |
             A URL to a 30 second preview (MP3 format) of the track.
-          x-spotify-policy-list:
-            - $ref: "#/components/x-spotify-policy/policies/StandalonePreview"
         track_number:
           type: integer
           description: |
@@ -5111,7 +5124,6 @@ components:
           type: boolean
           description: |
             Whether or not the track is from a local file.
-
     DeviceObject:
       type: object
       x-spotify-docs-type: DeviceObject
@@ -5119,7 +5131,10 @@ components:
         id:
           type: string
           nullable: true
-          description: The device ID. This ID is unique and persistent to some extent. However, this is not guaranteed and any cached `device_id` should periodically be cleared out and refetched as necessary.
+          description:
+            "The device ID. This ID is unique and persistent to some extent.\
+            \ However, this is not guaranteed and any cached `device_id` should periodically\
+            \ be cleared out and refetched as necessary."
         is_active:
           type: boolean
           description: If this device is the currently active device.
@@ -5128,15 +5143,22 @@ components:
           description: If this device is currently in a private session.
         is_restricted:
           type: boolean
-          description: Whether controlling this device is restricted. At present if this is "true" then no Web API commands will be accepted by this device.
+          description:
+            Whether controlling this device is restricted. At present if
+            this is "true" then no Web API commands will be accepted by this device.
         name:
           type: string
-          example: "Kitchen speaker"
-          description: A human-readable name for the device. Some devices have a name that the user can configure (e.g. \"Loudest speaker\") and some devices have a generic name associated with the manufacturer or device model.
+          example: Kitchen speaker
+          description:
+            A human-readable name for the device. Some devices have a name
+            that the user can configure (e.g. \"Loudest speaker\") and some devices
+            have a generic name associated with the manufacturer or device model.
         type:
           type: string
-          example: "computer"
-          description: Device type, such as "computer", "smartphone" or "speaker".
+          example: computer
+          description:
+            "Device type, such as \"computer\", \"smartphone\" or \"speaker\"\
+            ."
         volume_percent:
           type: integer
           minimum: 0
@@ -5147,7 +5169,6 @@ components:
         supports_volume:
           type: boolean
           description: If this device can be used to set the volume.
-
     CursorObject:
       type: object
       x-spotify-docs-type: CursorObject
@@ -5158,18 +5179,20 @@ components:
         before:
           type: string
           description: The cursor to use as key to find the previous page of items.
-
-    # CursorPagingObject must be part of an allOf which defines the items property as an array
     CursorPagingObject:
       type: object
       x-spotify-docs-type: CursorPagingObject
       properties:
         href:
           type: string
-          description: A link to the Web API endpoint returning the full result of the request.
+          description:
+            A link to the Web API endpoint returning the full result of
+            the request.
         limit:
           type: integer
-          description: The maximum number of items in the response (as set in the query or by default).
+          description:
+            The maximum number of items in the response (as set in the
+            query or by default).
         next:
           type: string
           description: URL to the next page of items. ( `null` if none)
@@ -5180,7 +5203,6 @@ components:
         total:
           type: integer
           description: The total number of items available to return.
-
     CursorPagingPlayHistoryObject:
       type: object
       x-spotify-docs-type: PagingTrackObject
@@ -5192,7 +5214,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/PlayHistoryObject"
-
     CursorPagingSimplifiedArtistObject:
       type: object
       x-spotify-docs-type: PagingArtistObject
@@ -5204,8 +5225,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/ArtistObject"
-
-    # PagingObject must be part of an allOf which defines the items property as an array
     PagingObject:
       type: object
       x-spotify-docs-type: PagingObject
@@ -5251,7 +5270,6 @@ components:
           example: 4
           description: |
             The total number of items available to return.
-
     PagingPlaylistObject:
       type: object
       x-spotify-docs-type: PagingPlaylistObject
@@ -5263,7 +5281,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SimplifiedPlaylistObject"
-
     PagingFeaturedPlaylistObject:
       type: object
       x-spotify-docs-type: PagingFeaturedPlaylistObject
@@ -5275,7 +5292,6 @@ components:
           example: Popular Playlists
         playlists:
           $ref: "#/components/schemas/PagingPlaylistObject"
-
     PagingArtistDiscographyAlbumObject:
       type: object
       x-spotify-docs-type: PagingArtistDiscographyAlbumObject
@@ -5287,7 +5303,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/ArtistDiscographyAlbumObject"
-
     PagingSimplifiedAlbumObject:
       type: object
       x-spotify-docs-type: PagingAlbumObject
@@ -5299,7 +5314,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SimplifiedAlbumObject"
-
     PagingSavedAlbumObject:
       type: object
       x-spotify-docs-type: PagingSavedAlbumObject
@@ -5311,7 +5325,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SavedAlbumObject"
-
     PagingSimplifiedTrackObject:
       type: object
       x-spotify-docs-type: PagingTrackObject
@@ -5323,7 +5336,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SimplifiedTrackObject"
-
     PagingSavedTrackObject:
       type: object
       x-spotify-docs-type: PagingTrackObject
@@ -5335,7 +5347,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SavedTrackObject"
-
     PagingTrackObject:
       type: object
       x-spotify-docs-type: PagingTrackObject
@@ -5347,7 +5358,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/TrackObject"
-
     PagingPlaylistTrackObject:
       type: object
       x-spotify-docs-type: PagingPlaylistTrackObject
@@ -5359,7 +5369,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/PlaylistTrackObject"
-
     PagingSimplifiedShowObject:
       type: object
       x-spotify-docs-type: PagingShowObject
@@ -5371,7 +5380,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SimplifiedShowObject"
-
     PagingSavedShowObject:
       type: object
       x-spotify-docs-type: PagingShowObject
@@ -5383,7 +5391,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SavedShowObject"
-
     PagingSimplifiedEpisodeObject:
       type: object
       x-spotify-docs-type: PagingEpisodeObject
@@ -5395,7 +5402,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SimplifiedEpisodeObject"
-
     PagingSavedEpisodeObject:
       type: object
       x-spotify-docs-type: PagingEpisodeObject
@@ -5407,7 +5413,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SavedEpisodeObject"
-
     PagingSimplifiedAudiobookObject:
       type: object
       x-spotify-docs-type: PagingAudiobookObject
@@ -5419,7 +5424,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SimplifiedAudiobookObject"
-
     PagingArtistObject:
       type: object
       x-spotify-docs-type: PagingArtistObject
@@ -5431,7 +5435,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/ArtistObject"
-
     PagingSimplifiedChapterObject:
       type: object
       x-spotify-docs-type: PagingSimplifiedChapterObject
@@ -5443,7 +5446,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SimplifiedChapterObject"
-
     RecommendationsObject:
       type: object
       x-spotify-docs-type: RecommendationsObject
@@ -5462,8 +5464,7 @@ components:
           items:
             $ref: "#/components/schemas/TrackObject"
           description: |
-            An array of track object (simplified) ordered according to the parameters supplied.
-
+            An array of track objects ordered according to the parameters supplied.
     RecommendationSeedObject:
       type: object
       x-spotify-docs-type: RecommendationSeedObject
@@ -5492,7 +5493,6 @@ components:
           type: string
           description: |
             The entity type of this seed. One of `artist`, `track` or `genre`.
-
     SavedAlbumObject:
       type: object
       x-spotify-docs-type: SavedAlbumObject
@@ -5509,7 +5509,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/AlbumObject"
           description: Information about the album.
-
     SavedTrackObject:
       type: object
       x-spotify-docs-type: SavedTrackObject
@@ -5526,7 +5525,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/TrackObject"
           description: Information about the track.
-
     SavedEpisodeObject:
       type: object
       x-spotify-docs-type: SavedEpisodeObject
@@ -5542,7 +5540,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/EpisodeObject"
           description: Information about the episode.
-
     SavedShowObject:
       type: object
       x-spotify-docs-type: SavedShowObject
@@ -5559,7 +5556,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/SimplifiedShowObject"
           description: Information about the show.
-
     PlaylistObject:
       type: object
       x-spotify-docs-type: PlaylistObject
@@ -5627,7 +5623,6 @@ components:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the playlist.
-
     SimplifiedPlaylistObject:
       type: object
       x-spotify-docs-type: SimplifiedPlaylistObject
@@ -5689,7 +5684,6 @@ components:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the playlist.
-
     PlaylistTracksRefObject:
       type: object
       x-spotify-docs-type: PlaylistTracksRefObject
@@ -5702,7 +5696,6 @@ components:
           type: integer
           description: |
             Number of tracks in the playlist.
-
     PlaylistUserObject:
       type: object
       x-spotify-docs-type: PlaylistUserObject
@@ -5727,14 +5720,14 @@ components:
             The [Spotify user ID](/documentation/web-api/concepts/spotify-uris-ids) for this user.
         type:
           type: string
-          enum: ["user"]
+          enum:
+            - user
           description: |
             The object type.
         uri:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for this user.
-
     PlaylistOwnerObject:
       allOf:
         - $ref: "#/components/schemas/PlaylistUserObject"
@@ -5745,7 +5738,6 @@ components:
               nullable: true
               description: |
                 The name displayed on the user's profile. `null` if not available.
-
     CategoryObject:
       type: object
       x-spotify-docs-type: CategoryObject
@@ -5775,7 +5767,6 @@ components:
           example: EQUAL
           description: |
             The name of the category.
-
     TrackObject:
       type: object
       x-spotify-docs-type: TrackObject
@@ -5832,9 +5823,13 @@ components:
           description: |
             Part of the response when [Track Relinking](/documentation/web-api/concepts/track-relinking) is applied. If `true`, the track is playable in the given market. Otherwise `false`.
         linked_from:
-          type: object
-          description: |
-            Part of the response when [Track Relinking](/documentation/web-api/concepts/track-relinking) is applied, and the requested track has been replaced with different track. The track in the `linked_from` object contains information about the originally requested track.
+          allOf:
+            - $ref: "#/components/schemas/LinkedTrackObject"
+          description:
+            "Part of the response when [Track Relinking](/documentation/web-api/concepts/track-relinking)\
+            \ is applied, and the requested track has been replaced with different\
+            \ track. The track in the `linked_from` object contains information about\
+            \ the originally requested track."
         restrictions:
           allOf:
             - $ref: "#/components/schemas/TrackRestrictionObject"
@@ -5853,8 +5848,6 @@ components:
           nullable: true
           description: |
             A link to a 30 second preview (MP3 format) of the track. Can be `null`
-          x-spotify-policy-list:
-            - $ref: "#/components/x-spotify-policy/policies/StandalonePreview"
         track_number:
           type: integer
           description: |
@@ -5863,7 +5856,8 @@ components:
           type: string
           description: |
             The object type: "track".
-          enum: ["track"]
+          enum:
+            - track
         uri:
           type: string
           description: |
@@ -5872,7 +5866,6 @@ components:
           type: boolean
           description: |
             Whether or not the track is from a local file.
-
     EpisodeObject:
       x-spotify-docs-type: EpisodeObject
       type: object
@@ -5887,14 +5880,11 @@ components:
                 - $ref: "#/components/schemas/SimplifiedShowObject"
               description: |
                 The show on which the episode belongs.
-
     SimplifiedEpisodeObject:
       x-spotify-docs-type: SimplifiedEpisodeObject
       type: object
       allOf:
         - $ref: "#/components/schemas/EpisodeBase"
-        - type: object
-
     EpisodeBase:
       type: object
       required:
@@ -5922,8 +5912,6 @@ components:
           example: https://p.scdn.co/mp3-preview/2f37da1d4221f40b9d1a98cd191f4d6f1646ad17
           description: |
             A URL to a 30 second preview (MP3 format) of the episode. `null` if not available.
-          x-spotify-policy-list:
-            - $ref: "#/components/x-spotify-policy/policies/StandalonePreview"
         description:
           type: string
           example: |
@@ -5984,7 +5972,9 @@ components:
           type: array
           items:
             type: string
-          example: ["fr", "en"]
+          example:
+            - fr
+            - en
           description: |
             A list of the languages used in the episode, identified by their [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
         name:
@@ -5995,13 +5985,16 @@ components:
             The name of the episode.
         release_date:
           type: string
-          example: "1981-12-15"
+          example: 1981-12-15
           description: |
             The date the episode was first released, for example `"1981-12-15"`. Depending on the precision, it might be shown as `"1981"` or `"1981-12"`.
         release_date_precision:
           type: string
           example: day
-          enum: ["year", "month", "day"]
+          enum:
+            - year
+            - month
+            - day
           description: |
             The precision with which `release_date` value is known.
         resume_point:
@@ -6011,7 +6004,8 @@ components:
             The user's most recent position in the episode. Set if the supplied access token is a user token and has the scope 'user-read-playback-position'.
         type:
           type: string
-          enum: ["episode"]
+          enum:
+            - episode
           description: |
             The object type.
         uri:
@@ -6024,7 +6018,6 @@ components:
             - $ref: "#/components/schemas/EpisodeRestrictionObject"
           description: |
             Included in the response when a content restriction is applied.
-
     ResumePointObject:
       type: object
       x-spotify-docs-type: ResumePointObject
@@ -6037,7 +6030,6 @@ components:
           type: integer
           description: |
             The user's most recent position in the episode in milliseconds.
-
     ShowBase:
       type: object
       required:
@@ -6126,7 +6118,8 @@ components:
             The publisher of the show.
         type:
           type: string
-          enum: ["show"]
+          enum:
+            - show
           description: |
             The object type.
         uri:
@@ -6137,7 +6130,6 @@ components:
           type: integer
           description: |
             The total number of episodes in the show.
-
     ShowObject:
       x-spotify-docs-type: ShowObject
       allOf:
@@ -6152,13 +6144,10 @@ components:
                 - $ref: "#/components/schemas/PagingSimplifiedEpisodeObject"
               description: |
                 The episodes of the show.
-
     SimplifiedShowObject:
       x-spotify-docs-type: SimplifiedShowObject
       allOf:
         - $ref: "#/components/schemas/ShowBase"
-        - type: object
-
     AudiobookBase:
       type: object
       required:
@@ -6211,7 +6200,7 @@ components:
           type: string
           description: |
             The edition of the audiobook.
-          example: "Unabridged"
+          example: Unabridged
         explicit:
           type: boolean
           description: |
@@ -6261,7 +6250,8 @@ components:
             The publisher of the audiobook.
         type:
           type: string
-          enum: ["audiobook"]
+          enum:
+            - audiobook
           description: |
             The object type.
         uri:
@@ -6272,7 +6262,6 @@ components:
           type: integer
           description: |
             The number of chapters in this audiobook.
-
     AudiobookObject:
       x-spotify-docs-type: AudiobookObject
       allOf:
@@ -6287,13 +6276,10 @@ components:
                 - $ref: "#/components/schemas/PagingSimplifiedChapterObject"
               description: |
                 The chapters of the audiobook.
-
     SimplifiedAudiobookObject:
       x-spotify-docs-type: SimplifiedAudiobookObject
       allOf:
         - $ref: "#/components/schemas/AudiobookBase"
-        - type: object
-
     AlbumBase:
       type: object
       required:
@@ -6314,7 +6300,10 @@ components:
           type: string
           description: |
             The type of the album.
-          enum: [album, single, compilation]
+          enum:
+            - album
+            - single
+            - compilation
           example: compilation
         total_tracks:
           type: integer
@@ -6324,7 +6313,10 @@ components:
           type: array
           items:
             type: string
-          example: ["CA", "BR", "IT"]
+          example:
+            - CA
+            - BR
+            - IT
           description: |
             The markets in which the album is available: [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). _**NOTE**: an album is considered available in a market when at least 1 of its tracks is available in that market._
         external_urls:
@@ -6353,13 +6345,16 @@ components:
             The name of the album. In case of an album takedown, the value may be an empty string.
         release_date:
           type: string
-          example: "1981-12"
+          example: 1981-12
           description: |
             The date the album was first released.
         release_date_precision:
           type: string
-          enum: ["year", "month", "day"]
-          example: "year"
+          enum:
+            - year
+            - month
+            - day
+          example: year
           description: |
             The precision with which `release_date` value is known.
         restrictions:
@@ -6369,15 +6364,15 @@ components:
             Included in the response when a content restriction is applied.
         type:
           type: string
-          enum: ["album"]
+          enum:
+            - album
           description: |
             The object type.
         uri:
           type: string
-          example: "spotify:album:2up3OPMp9Tb4dAKM2erWXQ"
+          example: spotify:album:2up3OPMp9Tb4dAKM2erWXQ
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the album.
-
     SimplifiedAlbumObject:
       x-spotify-docs-type: SimplifiedAlbumObject
       allOf:
@@ -6392,7 +6387,6 @@ components:
                 $ref: "#/components/schemas/SimplifiedArtistObject"
               description: |
                 The artists of the album. Each artist object includes a link in `href` to more detailed information about the artist.
-
     ArtistDiscographyAlbumObject:
       x-spotify-docs-type: ArtistDiscographyAlbumObject
       allOf:
@@ -6403,11 +6397,14 @@ components:
           properties:
             album_group:
               type: string
-              enum: [album, single, compilation, appears_on]
+              enum:
+                - album
+                - single
+                - compilation
+                - appears_on
               example: compilation
               description: |
                 This field describes the relationship between the artist and the album.
-
     ChapterObject:
       x-spotify-docs-type: ChapterObject
       type: object
@@ -6422,14 +6419,11 @@ components:
                 - $ref: "#/components/schemas/SimplifiedAudiobookObject"
               description: |
                 The audiobook for which the chapter belongs.
-
     SimplifiedChapterObject:
       x-spotify-docs-type: SimplifiedChapterObject
       type: object
       allOf:
         - $ref: "#/components/schemas/ChapterBase"
-        - type: object
-
     ChapterBase:
       type: object
       required:
@@ -6457,8 +6451,6 @@ components:
           example: https://p.scdn.co/mp3-preview/2f37da1d4221f40b9d1a98cd191f4d6f1646ad17
           description: |
             A URL to a 30 second preview (MP3 format) of the chapter. `null` if not available.
-          x-spotify-policy-list:
-            - $ref: "#/components/x-spotify-policy/policies/StandalonePreview"
         available_markets:
           type: array
           items:
@@ -6520,7 +6512,9 @@ components:
           type: array
           items:
             type: string
-          example: ["fr", "en"]
+          example:
+            - fr
+            - en
           description: |
             A list of the languages used in the chapter, identified by their [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
         name:
@@ -6531,13 +6525,16 @@ components:
             The name of the chapter.
         release_date:
           type: string
-          example: "1981-12-15"
+          example: 1981-12-15
           description: |
             The date the chapter was first released, for example `"1981-12-15"`. Depending on the precision, it might be shown as `"1981"` or `"1981-12"`.
         release_date_precision:
           type: string
           example: day
-          enum: ["year", "month", "day"]
+          enum:
+            - year
+            - month
+            - day
           description: |
             The precision with which `release_date` value is known.
         resume_point:
@@ -6547,7 +6544,8 @@ components:
             The user's most recent position in the chapter. Set if the supplied access token is a user token and has the scope 'user-read-playback-position'.
         type:
           type: string
-          enum: ["episode"]
+          enum:
+            - episode
           description: |
             The object type.
         uri:
@@ -6560,7 +6558,6 @@ components:
             - $ref: "#/components/schemas/ChapterRestrictionObject"
           description: |
             Included in the response when a content restriction is applied.
-
     AlbumObject:
       x-spotify-docs-type: AlbumObject
       required:
@@ -6601,7 +6598,9 @@ components:
               type: array
               items:
                 type: string
-              example: ["Egg punk", "Noise rock"]
+              example:
+                - Egg punk
+                - Noise rock
               description: |
                 A list of the genres the album is associated with. If not yet classified, the array is empty.
             label:
@@ -6612,7 +6611,6 @@ components:
               type: integer
               description: |
                 The popularity of the album. The value will be between 0 and 100, with 100 being the most popular.
-
     ContextObject:
       type: object
       x-spotify-docs-type: ContextObject
@@ -6623,7 +6621,9 @@ components:
             The object type, e.g. "artist", "playlist", "album", "show".
         href:
           type: string
-          description: A link to the Web API endpoint providing full details of the track.
+          description:
+            A link to the Web API endpoint providing full details of the
+            track.
         external_urls:
           allOf:
             - $ref: "#/components/schemas/ExternalUrlObject"
@@ -6632,7 +6632,6 @@ components:
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the context.
-
     CopyrightObject:
       type: object
       x-spotify-docs-type: CopyrightObject
@@ -6645,7 +6644,6 @@ components:
           type: string
           description: |
             The type of copyright: `C` = the copyright, `P` = the sound recording (performance) copyright.
-
     AuthorObject:
       type: object
       x-spotify-docs-type: AuthorObject
@@ -6654,7 +6652,6 @@ components:
           type: string
           description: |
             The name of the author.
-
     NarratorObject:
       type: object
       x-spotify-docs-type: NarratorObject
@@ -6663,7 +6660,6 @@ components:
           type: string
           description: |
             The name of the Narrator.
-
     ExternalIdObject:
       type: object
       x-spotify-docs-type: ExternalIdObject
@@ -6680,7 +6676,6 @@ components:
           type: string
           description: |
             [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code)
-
     ExternalUrlObject:
       type: object
       x-spotify-docs-type: ExternalUrlObject
@@ -6689,7 +6684,6 @@ components:
           type: string
           description: |
             The [Spotify URL](/documentation/web-api/concepts/spotify-uris-ids) for the object.
-
     FollowersObject:
       type: object
       x-spotify-docs-type: FollowersObject
@@ -6703,7 +6697,6 @@ components:
           type: integer
           description: |
             The total number of followers.
-
     ImageObject:
       type: object
       x-spotify-docs-type: ImageObject
@@ -6730,7 +6723,6 @@ components:
           nullable: true
           description: |
             The image width in pixels.
-
     ExplicitContentSettingsObject:
       type: object
       x-spotify-docs-type: ExplicitContentSettingsObject
@@ -6743,6 +6735,69 @@ components:
           type: boolean
           description: |
             When `true`, indicates that the explicit content setting is locked and can't be changed by the user.
+    CurrentlyPlayingObject:
+      type: object
+      x-spotify-docs-type: CurrentlyPlayingObject
+      properties:
+        context:
+          allOf:
+            - $ref: "#/components/schemas/ContextObject"
+          description: A Context Object. Can be `null`.
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix Millisecond Timestamp when data was fetched
+        progress_ms:
+          type: integer
+          description:
+            Progress into the currently playing track or episode. Can be
+            `null`.
+        is_playing:
+          type: boolean
+          description: "If something is currently playing, return `true`."
+        item:
+          oneOf:
+            - $ref: "#/components/schemas/TrackObject"
+            - $ref: "#/components/schemas/EpisodeObject"
+          discriminator:
+            propertyName: type
+          x-spotify-docs-type: TrackObject | EpisodeObject
+          description: The currently playing track or episode. Can be `null`.
+        currently_playing_type:
+          type: string
+          description: |
+            The object type of the currently playing item. Can be one of `track`, `episode`, `ad` or `unknown`.
+        actions:
+          allOf:
+            - $ref: "#/components/schemas/DisallowsObject"
+          description: |
+            Allows to update the user interface based on which playback actions are available within the current context.
+    SavedAudiobookObject:
+      type: object
+      x-spotify-docs-type: SavedAudiobookObject
+      properties:
+        added_at:
+          type: string
+          format: date-time
+          x-spotify-docs-type: Timestamp
+          description: |
+            The date and time the audiobook was saved
+            Timestamps are returned in ISO 8601 format as Coordinated Universal Time (UTC) with a zero offset: YYYY-MM-DDTHH:MM:SSZ.
+            If the time is imprecise (for example, the date/time of an album release), an additional field indicates the precision; see for example, release_date in an album object.
+        audiobook:
+          allOf:
+            - $ref: "#/components/schemas/AudiobookObject"
+          description: Information about the audiobook.
+    PagingSavedAudiobookObject:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/PagingObject"
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/SavedAudiobookObject"
   parameters:
     PathAlbumId:
       in: path
@@ -6790,7 +6845,7 @@ components:
         default: 20
         example: 10
         type: integer
-        minimum: 0
+        minimum: 1
         maximum: 50
     QueryOffset:
       name: offset
@@ -6822,7 +6877,7 @@ components:
         title: Spotify Album IDs
         description: |
           A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the albums. Maximum: 20 IDs.
-        example: 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc
+        example: "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"
         type: string
     PathArtistId:
       name: id
@@ -6864,7 +6919,7 @@ components:
         title: Spotify Audiobook IDs
         description: |
           A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ`. Maximum: 50 IDs.
-        example: 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe
+        example: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"
         type: string
     PathChapterId:
       name: id
@@ -6885,7 +6940,7 @@ components:
         title: Spotify Chapter IDs
         description: |
           A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU`. Maximum: 50 IDs.
-        example: 0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29
+        example: "0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29"
         type: string
     QueryTrackIds:
       name: ids
@@ -6895,18 +6950,18 @@ components:
         title: Spotify Track IDs
         description: |
           A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.
-        example: 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B
+        example: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"
         type: string
     QueryIncludeGroups:
       name: include_groups
       required: false
       in: query
       schema:
-        title: Groups to include (single, album, appears_on, compilation)
+        title: "Groups to include (single, album, appears_on, compilation)"
         description: |
           A comma-separated list of keywords that will be used to filter the response. If not supplied, all album types will be returned. <br/>
           Valid values are:<br/>- `album`<br/>- `single`<br/>- `appears_on`<br/>- `compilation`<br/>For example: `include_groups=album,single`.
-        example: single,appears_on
+        example: "single,appears_on"
         type: string
     QueryShowIds:
       name: ids
@@ -6916,7 +6971,7 @@ components:
         title: Ids
         description: |
           A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the shows. Maximum: 50 IDs.
-        example: 5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ
+        example: "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ"
         type: string
     PathUserId:
       name: user_id

@@ -12,10 +12,7 @@ Need help? See our <a href="https://developer.spotify.com/documentation/web-api/
 
  * OpenAPI spec version: 2024.6.16
  */
-import type { QueryAlbumIdsParameter } from './queryAlbumIdsParameter';
-import type { QueryMarketParameter } from './queryMarketParameter';
+import type { PagingObject } from './pagingObject';
+import type { PagingSavedAudiobookObjectAllOf } from './pagingSavedAudiobookObjectAllOf';
 
-export type GetMultipleAlbumsParams = {
-ids: QueryAlbumIdsParameter;
-market?: QueryMarketParameter;
-};
+export type PagingSavedAudiobookObject = PagingObject & PagingSavedAudiobookObjectAllOf;
