@@ -1,6 +1,7 @@
 "use client"
 
 import { useSearchItem } from "@/hooks/useSearchItem"
+import React from "react"
 import { useInView } from "react-intersection-observer"
 import { BeatLoader } from "react-spinners"
 
@@ -17,7 +18,16 @@ interface SearchContentProps {
 const ITEMS_PER_SCROLL = 10
 
 const SearchResults = ({ query, sort_by }: SearchContentProps) => {
-  const { items, fetchMore, isError, error } = useSearchItem({
+  const {
+    artists,
+    albums,
+    tracks,
+    fetchMore,
+    isError,
+    error,
+    isSuccess,
+    isLoading,
+  } = useSearchItem({
     query,
     sort_by,
     itemsPerSroll: ITEMS_PER_SCROLL,
@@ -25,7 +35,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
 
   const { ref } = useInView({
     onChange: (_, entry) => {
-      entry.isIntersecting && items?.length && fetchMore()
+      entry.isIntersecting && isSuccess && fetchMore()
     },
   })
 
@@ -39,70 +49,76 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
         </div>
       )
   }
-  if (!items?.length)
+  if (!artists?.length && !albums?.length && !tracks?.length)
     return (
       <div className="w-full flex justify-center my-12">
-        <BeatLoader color="#fff" size={15} className=" " />
+        <BeatLoader color="#fff" size={15} className="" />
       </div>
     )
-  else
+
+  if (artists?.length) {
     return (
       <>
-        {items.map((item, index) => {
-          switch (sort_by) {
-            case "artist":
-              return (
-                <Artist
-                  id={item.id}
-                  key={index}
-                  name={item.name}
-                  genres={"genres" in item ? item.genres : []}
-                  isAdded={false}
-                  imageURL={"images" in item ? item?.images[2]?.url : ""}
-                  className="my-3 p-2"
-                />
-              )
-
-            case "album":
-              return (
-                <Album
-                  id={item.id}
-                  key={index}
-                  name={item.name}
-                  artistName={
-                    "artists" in item
-                      ? item.artists.map((artist) => artist.name).toString()
-                      : ""
-                  }
-                  isAdded={false}
-                  imageURL={"images" in item ? item?.images[2]?.url : ""}
-                  className="my-3 p-2"
-                />
-              )
-
-            case "track":
-              return (
-                <Track
-                  id={item.id}
-                  key={index}
-                  name={item.name}
-                  imageURL={"album" in item ? item.album?.images[2]?.url : ""}
-                  isAdded={false}
-                  artistName={
-                    "artists" in item
-                      ? item.artists.map((artist) => artist.name).toString()
-                      : ""
-                  }
-                  albumName={"album" in item ? item.album.name : ""}
-                  className="my-3 p-2"
-                />
-              )
-          }
-        })}
-
+        {artists.map((artist, index) => (
+          <React.Fragment key={index}>
+            <Artist
+              id={artist.id!}
+              name={artist.name!}
+              genres={artist.genres!}
+              isAdded={false}
+              imageURL={artist.images![2].url}
+              className="my-3 p-2"
+            />
+          </React.Fragment>
+        ))}
         <Loader loaderRef={ref} />
       </>
     )
+  }
+
+  if (albums?.length) {
+    return (
+      <>
+        {albums.map((album, index) => (
+          <React.Fragment key={index}>
+            <Album
+              id={album.id}
+              name={album.name}
+              artistName={album
+                .artists!.map((artist) => artist.name)
+                .toString()}
+              isAdded={false}
+              imageURL={album.images[2].url}
+              className="my-3 p-2"
+            />
+          </React.Fragment>
+        ))}
+        <Loader loaderRef={ref} />
+      </>
+    )
+  }
+  if (tracks?.length) {
+    return (
+      <>
+        {tracks.map((track, index) => (
+          <React.Fragment key={index}>
+            <Track
+              id={track.id!}
+              name={track.name!}
+              imageURL={track.album?.images[2]?.url!}
+              isAdded={false}
+              artistName={track
+                .artists!.map((artist) => artist.name)
+                .toString()}
+              albumName={track.album?.name!}
+              className="my-3 p-2"
+            />
+          </React.Fragment>
+        ))}
+        <Loader loaderRef={ref} />
+      </>
+    )
+  }
 }
 
 export default SearchResults
