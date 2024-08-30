@@ -1,37 +1,51 @@
-"use client";
+"use client"
 
-import { musicDataAPI } from "@/apis/musicDataAPI";
-import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCards, Keyboard, Mousewheel, Scrollbar } from "swiper/modules";
-import { useMediaQuery } from "@siberiacancode/reactuse";
-import { Button } from "../ui/button";
+import { PagingArtistDiscographyAlbumObject } from "@/generated/api"
+import { spotifyApi } from "@/utils/api/instance"
+import { useMediaQuery } from "@siberiacancode/reactuse"
+import { useQuery } from "@tanstack/react-query"
+import Image from "next/image"
+import { ReactNode, useState } from "react"
+import { useCookies } from "react-cookie"
+import "swiper/css"
+import "swiper/css/bundle"
+import { EffectCards, Keyboard, Mousewheel, Scrollbar } from "swiper/modules"
+import { Swiper, SwiperSlide } from "swiper/react"
 
-import "swiper/css";
-import "swiper/css/bundle";
-import { ReactNode, useState } from "react";
+import { Button } from "../ui/button"
 
 interface AlbumCarouselProps {
-  artistId: string;
-  fallback?: ReactNode;
+  artistId: string
+  fallback?: ReactNode
 }
 
 export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
-  const isSmallScreen = useMediaQuery("(max-width: 640px)");
-  const [activeIndex, setActiveIndex] = useState<number>();
+  const isSmallScreen = useMediaQuery("(max-width: 640px)")
+  const [activeIndex, setActiveIndex] = useState<number>()
+  const [cookies] = useCookies(["spotify_access_token"])
 
   const { data } = useQuery({
     queryKey: [artistId, "get-artists-albums"],
-    queryFn: async () => (await musicDataAPI.getArtistsAlbums(artistId)).data,
-  });
+    queryFn: async () => {
+      const response: PagingArtistDiscographyAlbumObject = await spotifyApi.get(
+        `artists/${artistId}/albums`,
+        {
+          cache: "no-cache",
+          headers: {
+            Authorization: `Bearer ${cookies.spotify_access_token}`,
+          },
+        },
+      )
+      return response
+    },
+  })
 
-  if (!data) return fallback;
+  if (!data) return fallback
 
   return (
     <div className="flex flex-col items-center ">
       <Swiper
-        initialSlide={Math.floor(data.items.length / 2)}
+        initialSlide={Math.floor(data.items!.length / 2)}
         onRealIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         effect="cards"
         scrollbar={{ draggable: true, dragSize: 30 }}
@@ -43,7 +57,7 @@ export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
         grabCursor
         modules={[EffectCards, Scrollbar, Keyboard, Mousewheel]}
       >
-        {data.items.map((album, index) => (
+        {data.items!.map((album, index) => (
           <SwiperSlide key={index} className="rounded-lg ">
             <div className="flex bg-card flex-col items-center w-48 h-48 justify-center overflow-hidden overflow-ellipsis sm:w-64 sm:h-64">
               <Image
@@ -63,9 +77,9 @@ export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
           <Button variant={"secondary"}>View Album</Button>
         </div>
         <h3 className="text-xl font-bold w-5/6 overflow-hidden h-14 overflow-ellipsis line-clamp-2 sm:text-2xl sm:h-16 ">
-          {data.items.at(activeIndex || 0)?.name}
+          {data.items!.at(activeIndex || 0)?.name}
         </h3>
       </div>
     </div>
-  );
-};
+  )
+}

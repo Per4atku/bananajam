@@ -1,14 +1,26 @@
-import { musicDataAPI } from "@/apis/musicDataAPI";
-import Track from "../items/Track";
-import { Separator } from "../ui/separator";
-import React from "react";
+import { ManyTracksResponse } from "@/generated/api"
+import { spotifyApi } from "@/utils/api/instance"
+import { cookies } from "next/headers"
+import React from "react"
+
+import Track from "../items/Track"
+import { Separator } from "../ui/separator"
 
 interface TopTracksProps {
-  artistId: string;
+  artistId: string
 }
 
 const TopTracks = async ({ artistId }: TopTracksProps) => {
-  const topTracks = (await musicDataAPI.getArtistTopTracks(artistId)).data;
+  const cookieStore = cookies()
+  const topTracks: ManyTracksResponse = await spotifyApi.get(
+    `artists/${artistId}/top-tracks`,
+    {
+      headers: {
+        Authorization: `Bearer ${cookieStore.get("spotify_access_token")?.value}`,
+      },
+      cache: "no-cache",
+    },
+  )
 
   return (
     <div className="w-full flex justify-center">
@@ -18,14 +30,14 @@ const TopTracks = async ({ artistId }: TopTracksProps) => {
             <div className="flex items-center" key={index}>
               <p className=" font-bold text-lg mr-2">{index + 1}</p>
               <Track
-                id={track.id}
-                imageURL={track.album.images.at(2)?.url || ""}
-                name={track.name}
+                id={track.id!}
+                imageURL={track.album!.images.at(2)?.url!}
+                name={track.name!}
                 isAdded={false}
-                artistName={track.artists
-                  .map((artist) => artist.name)
+                artistName={track
+                  .artists!.map((artist) => artist.name)
                   .toString()}
-                albumName={track.album.name}
+                albumName={track.album!.name}
                 className="px-2 my-1.5"
               />
             </div>
@@ -36,7 +48,7 @@ const TopTracks = async ({ artistId }: TopTracksProps) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TopTracks;
+export default TopTracks
