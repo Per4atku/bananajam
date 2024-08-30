@@ -56,7 +56,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
       </div>
     )
 
-  if (artists?.length) {
+  if (artists?.length && sort_by === "artist") {
     return (
       <>
         {artists.map((artist, index) => (
@@ -76,7 +76,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
     )
   }
 
-  if (albums?.length) {
+  if (albums?.length && sort_by === "album") {
     return (
       <>
         {albums.map((album, index) => (
@@ -97,7 +97,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
       </>
     )
   }
-  if (tracks?.length) {
+  if (tracks?.length && sort_by === "track") {
     return (
       <>
         {tracks.map((track, index) => (
