@@ -1,3 +1,4 @@
+import { auth } from "@/auth"
 import { OneArtistResponse } from "@/generated/api"
 import { getInitials } from "@/lib/utils"
 import { spotifyApi } from "@/utils/api/instance"
@@ -13,11 +14,13 @@ interface ArtistCardProps {
 }
 const ArtistCard = async ({ artistId }: ArtistCardProps) => {
   const cookieStore = cookies()
+  const session = await auth()
+
   const artist: OneArtistResponse = await spotifyApi.get(
     `artists/${artistId}`,
     {
       headers: {
-        Authorization: `Bearer ${cookieStore.get("spotify_access_token")?.value}`,
+        Authorization: `Bearer ${session.accessToken}`,
       },
       cache: "no-cache",
     },

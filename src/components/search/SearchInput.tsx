@@ -9,7 +9,6 @@ import {
 } from "@siberiacancode/reactuse"
 import clsx from "clsx"
 import { Search as SearchIcon, X } from "lucide-react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useRef } from "react"
 import { useDebouncedCallback } from "use-debounce"
 

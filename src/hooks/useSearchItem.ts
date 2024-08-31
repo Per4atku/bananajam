@@ -1,3 +1,4 @@
+import { auth } from "@/auth"
 import {
   AlbumObject,
   ArtistObject,
@@ -7,6 +8,7 @@ import {
 import { spotifyApi } from "@/utils/api/instance"
 import { useDidUpdate } from "@siberiacancode/reactuse"
 import { useInfiniteQuery } from "@tanstack/react-query"
+import { useSession } from "next-auth/react"
 import { useState } from "react"
 import { useCookies } from "react-cookie"
 import { json } from "stream/consumers"
@@ -39,6 +41,8 @@ export const useSearchItem = ({
 
   const [cookies] = useCookies(["spotify_access_token"])
 
+  const session = useSession()
+
   const { isError, error, fetchNextPage, isSuccess, isLoading } =
     useInfiniteQuery({
       queryKey: ["search-items", sort_by, query],
@@ -50,6 +54,9 @@ export const useSearchItem = ({
           offset: pageParam,
         }
 
+        console.log(session)
+        const token = session.data!.accessToken
+
         const response: SearchItemsResponse = await spotifyApi.get("search", {
           params: {
             q: query,
@@ -59,7 +66,7 @@ export const useSearchItem = ({
             type: sort_by,
           },
           headers: {
-            Authorization: `Bearer ${cookies.spotify_access_token}`,
+            Authorization: `Bearer ${token}`,
           },
           cache: "no-cache",
         })

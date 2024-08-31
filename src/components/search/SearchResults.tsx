@@ -66,7 +66,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
               name={artist.name!}
               genres={artist.genres!}
               isAdded={false}
-              imageURL={artist.images![2].url}
+              imageURL={"images" in artist ? artist.images![2]?.url : ""}
               className="my-3 p-2"
             />
           </React.Fragment>
