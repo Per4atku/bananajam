@@ -55,7 +55,7 @@ export const useSearchItem = ({
         }
 
         console.log(session)
-        const token = session.data!.accessToken
+        const token = session.data.accessToken
 
         const response: SearchItemsResponse = await spotifyApi.get("search", {
           params: {
@@ -68,7 +68,6 @@ export const useSearchItem = ({
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          cache: "no-cache",
         })
 
         if (response.artists) {
@@ -98,7 +97,7 @@ export const useSearchItem = ({
     setAlbums([])
     setArtists([])
     setTracks([])
-  }, [query, sort_by])
+  }, [query])
 
   return {
     isLoading,

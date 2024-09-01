@@ -49,12 +49,6 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
         </div>
       )
   }
-  if (!artists?.length && !albums?.length && !tracks?.length)
-    return (
-      <div className="w-full flex justify-center my-12">
-        <BeatLoader color="#fff" size={15} className="" />
-      </div>
-    )
 
   if (artists?.length && sort_by === "artist") {
     return (
@@ -117,6 +111,12 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
         ))}
         <Loader loaderRef={ref} />
       </>
+    )
+  } else {
+    return (
+      <div className="w-full flex justify-center my-12">
+        <BeatLoader color="#fff" size={15} className="" />
+      </div>
     )
   }
 }
