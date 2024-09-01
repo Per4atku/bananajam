@@ -1,3 +1,4 @@
+import { auth } from "@/auth"
 import { ManyTracksResponse } from "@/generated/api"
 import { spotifyApi } from "@/utils/api/instance"
 import { cookies } from "next/headers"
@@ -11,12 +12,12 @@ interface TopTracksProps {
 }
 
 const TopTracks = async ({ artistId }: TopTracksProps) => {
-  const cookieStore = cookies()
+  const session = await auth()
   const topTracks: ManyTracksResponse = await spotifyApi.get(
     `artists/${artistId}/top-tracks`,
     {
       headers: {
-        Authorization: `Bearer ${cookieStore.get("spotify_access_token")?.value}`,
+        Authorization: `Bearer ${session!.accessToken}`,
       },
       cache: "no-cache",
     },

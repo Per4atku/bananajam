@@ -20,7 +20,7 @@ const ArtistCard = async ({ artistId }: ArtistCardProps) => {
     `artists/${artistId}`,
     {
       headers: {
-        Authorization: `Bearer ${session.accessToken}`,
+        Authorization: `Bearer ${session!.accessToken}`,
       },
       cache: "no-cache",
     },

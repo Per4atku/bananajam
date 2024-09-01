@@ -54,8 +54,7 @@ export const useSearchItem = ({
           offset: pageParam,
         }
 
-        console.log(session)
-        const token = session.data.accessToken
+        const token = session.data!.accessToken
 
         const response: SearchItemsResponse = await spotifyApi.get("search", {
           params: {

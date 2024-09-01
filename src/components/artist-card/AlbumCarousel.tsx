@@ -4,6 +4,7 @@ import { PagingArtistDiscographyAlbumObject } from "@/generated/api"
 import { spotifyApi } from "@/utils/api/instance"
 import { useMediaQuery } from "@siberiacancode/reactuse"
 import { useQuery } from "@tanstack/react-query"
+import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { ReactNode, useState } from "react"
 import { useCookies } from "react-cookie"
@@ -22,7 +23,7 @@ interface AlbumCarouselProps {
 export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
   const isSmallScreen = useMediaQuery("(max-width: 640px)")
   const [activeIndex, setActiveIndex] = useState<number>()
-  const [cookies] = useCookies(["spotify_access_token"])
+  const session = useSession()
 
   const { data } = useQuery({
     queryKey: [artistId, "get-artists-albums"],
@@ -32,7 +33,7 @@ export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
         {
           cache: "no-cache",
           headers: {
-            Authorization: `Bearer ${cookies.spotify_access_token}`,
+            Authorization: `Bearer ${session.data!.accessToken}`,
           },
         },
       )
