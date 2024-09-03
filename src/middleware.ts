@@ -1,6 +1,7 @@
 import { auth } from "@/auth"
 
 import {
+  PRIVATE_ROUTES,
   PUBLIC_ROUTES,
   REDIRECT_AFTER_LOGIN,
   REDIRECT_TO_LOGIN,
@@ -9,7 +10,7 @@ import {
 export default auth((req) => {
   const { nextUrl } = req
   const isAuthenticated = !!req.auth
-  const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname)
+  const isPublicRoute = !PRIVATE_ROUTES.includes(nextUrl.pathname)
   const isLoginRoute = nextUrl.pathname === "/login"
 
   console.log(isAuthenticated, isPublicRoute)
