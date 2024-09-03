@@ -30,7 +30,7 @@ export default async function RootLayout({
         )}
       >
         <Providers session={session || undefined}>
-          <main className="relative flex flex-col min-h-screen background-gradient ">
+          <main className="relative flex flex-col min-h-screen bg-slate-900 ">
             <Toaster />
             <div className="flex-grow flex-1 ">{children}</div>
           </main>
