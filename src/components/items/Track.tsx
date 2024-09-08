@@ -1,20 +1,21 @@
-"use client";
+"use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { toast } from "sonner";
-import { forwardRef, useState } from "react";
-import { BookmarkPlus, Check, Play } from "lucide-react";
-import { cn, getInitials } from "@/lib/utils";
-import FollowButton from "../FollowButton";
+import { cn, getInitials } from "@/lib/utils"
+import { BookmarkPlus, Check, Play } from "lucide-react"
+import { forwardRef, useState } from "react"
+import { toast } from "sonner"
+
+import FollowButton from "../FollowButton"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { Button } from "../ui/button"
 
 interface TrackProps extends React.HTMLAttributes<HTMLDivElement> {
-  id: string;
-  imageURL: string;
-  name: string;
-  isAdded: boolean;
-  artistName: string;
-  albumName: string;
+  id: string
+  imageURL: string
+  name: string
+  isAdded: boolean
+  artistName: string
+  albumName: string
 }
 
 const Track = ({
@@ -28,13 +29,13 @@ const Track = ({
   ...props
 }: TrackProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
-    useState<boolean>(isAdded);
+    useState<boolean>(isAdded)
   return (
     <>
       <div
         className={cn(
           "flex w-full rounded-md duration-200 items-center hover:bg-accent/30",
-          className
+          className,
         )}
         {...props}
       >
@@ -78,7 +79,7 @@ const Track = ({
         <FollowButton isAdded={isAdded} />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Track;
+export default Track

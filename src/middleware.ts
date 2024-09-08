@@ -13,9 +13,6 @@ export default auth((req) => {
   const isPublicRoute = !PRIVATE_ROUTES.includes(nextUrl.pathname)
   const isLoginRoute = nextUrl.pathname === "/login"
 
-  console.log(isAuthenticated, isPublicRoute)
-  console.log(nextUrl.pathname)
-
   if (!isAuthenticated && !isPublicRoute)
     return Response.redirect(new URL(REDIRECT_TO_LOGIN, nextUrl))
   else if (isAuthenticated && isLoginRoute)

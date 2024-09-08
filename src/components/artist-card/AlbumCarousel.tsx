@@ -1,13 +1,13 @@
 "use client"
 
 import { PagingArtistDiscographyAlbumObject } from "@/generated/api"
+import useParams from "@/hooks/useParams"
 import { spotifyApi } from "@/utils/api/instance"
 import { useMediaQuery } from "@siberiacancode/reactuse"
 import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { ReactNode, useState } from "react"
-import { useCookies } from "react-cookie"
 import "swiper/css"
 import "swiper/css/bundle"
 import { EffectCards, Keyboard, Mousewheel, Scrollbar } from "swiper/modules"
@@ -21,6 +21,7 @@ interface AlbumCarouselProps {
 }
 
 export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
+  const params = useParams()
   const isSmallScreen = useMediaQuery("(max-width: 640px)")
   const [activeIndex, setActiveIndex] = useState<number>()
   const session = useSession()
@@ -31,9 +32,12 @@ export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
       const response: PagingArtistDiscographyAlbumObject = await spotifyApi.get(
         `artists/${artistId}/albums`,
         {
-          cache: "no-cache",
           headers: {
             Authorization: `Bearer ${session.data!.accessToken}`,
+          },
+          params: {
+            include_groups: "album",
+            limit: 50,
           },
         },
       )
@@ -75,7 +79,14 @@ export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
       <div className="flex flex-col gap-3 text-center mt-4 items-center  ">
         <div>
           <Button>Play</Button>{" "}
-          <Button variant={"secondary"}>View Album</Button>
+          <Button
+            onClick={() =>
+              params.set("album", data.items!.at(activeIndex || 0)?.id!)
+            }
+            variant={"secondary"}
+          >
+            View Album
+          </Button>
         </div>
         <h3 className="text-xl font-bold w-5/6 overflow-hidden h-14 overflow-ellipsis line-clamp-2 sm:text-2xl sm:h-16 ">
           {data.items!.at(activeIndex || 0)?.name}
