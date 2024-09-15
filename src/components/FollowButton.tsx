@@ -1,14 +1,16 @@
+import { cn } from "@/lib/utils"
 import { BookmarkPlus, Check } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
 
 import { Button } from "./ui/button"
 
-interface FollowButtonProps {
+interface FollowButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isAdded: boolean
 }
 
-const FollowButton = ({ isAdded }: FollowButtonProps) => {
+const FollowButton = ({ isAdded, className, ...props }: FollowButtonProps) => {
   const [isOptimisticallyAdded, setIsOptimisticallyAdded] =
     useState<boolean>(isAdded)
   return (
@@ -18,9 +20,9 @@ const FollowButton = ({ isAdded }: FollowButtonProps) => {
       }}
     >
       <Button
+        className={cn(className, "")}
         size={"icon"}
         variant={isOptimisticallyAdded ? "secondary" : "default"}
-        onClick={() => toast("follow!")}
       >
         {isOptimisticallyAdded ? (
           <>

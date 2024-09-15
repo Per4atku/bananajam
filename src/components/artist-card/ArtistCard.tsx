@@ -2,18 +2,22 @@ import { auth } from "@/auth"
 import { OneArtistResponse } from "@/generated/api"
 import { getInitials } from "@/lib/utils"
 import { spotifyApi } from "@/utils/api/instance"
-import { cookies } from "next/headers"
 
 import Loader from "../Loader"
+import AlbumCard from "../album-card/AlbumCard"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { AlbumCarousel } from "./AlbumCarousel"
 import TopTracks from "./TopTracks"
 
 interface ArtistCardProps {
   artistId: string
+  album?: string
 }
-const ArtistCard = async ({ artistId }: ArtistCardProps) => {
-  const cookieStore = cookies()
+const ArtistCard = async ({ artistId, album }: ArtistCardProps) => {
+  if (album) return <AlbumCard id={album} />
+
+  console.log(album)
+
   const session = await auth()
 
   const artist: OneArtistResponse = await spotifyApi.get(

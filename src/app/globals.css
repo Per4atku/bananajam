@@ -59,6 +59,10 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0b2543",endColorstr="#224540",GradientType=1);
 }
 
+.glare-wrapper {
+  border-radius: var(--radius) !important;
+}
+
 @layer base {
   * {
     @apply border-border;

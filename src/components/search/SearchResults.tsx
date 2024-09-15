@@ -78,6 +78,7 @@ const SearchResults = ({ query, sort_by }: SearchContentProps) => {
             <Album
               id={album.id}
               name={album.name}
+              artistId={album.artists![0].id || ""}
               artistName={album
                 .artists!.map((artist) => artist.name)
                 .toString()}

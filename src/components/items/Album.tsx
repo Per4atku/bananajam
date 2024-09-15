@@ -1,17 +1,20 @@
-"use client";
+"use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { toast } from "sonner";
-import React from "react";
-import { cn, getInitials } from "@/lib/utils";
-import FollowButton from "../FollowButton";
+import { cn, getInitials } from "@/lib/utils"
+import Link from "next/link"
+import React from "react"
+import { toast } from "sonner"
+
+import FollowButton from "../FollowButton"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 
 interface AlbumProps extends React.HTMLAttributes<HTMLDivElement> {
-  id: string;
-  imageURL: string;
-  name: string;
-  isAdded: boolean;
-  artistName: string;
+  id: string
+  imageURL: string
+  name: string
+  isAdded: boolean
+  artistName: string
+  artistId: string
 }
 
 const Album = ({
@@ -21,6 +24,8 @@ const Album = ({
   isAdded,
   artistName,
   className,
+  artistId,
+
   ...props
 }: AlbumProps) => {
   return (
@@ -28,11 +33,12 @@ const Album = ({
       <div
         className={cn(
           "flex w-full rounded-md duration-200 items-center hover:bg-accent/30",
-          className
+          className,
         )}
         {...props}
       >
-        <button
+        <Link
+          href={`/artist/${artistId}?album=${id}`}
           onClick={() => toast(name)}
           className="flex items-center w-full py-2  overflow-hidden"
         >
@@ -55,11 +61,11 @@ const Album = ({
               {artistName}
             </p>
           </div>
-        </button>
+        </Link>
         <FollowButton isAdded={isAdded} />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Album;
+export default Album
