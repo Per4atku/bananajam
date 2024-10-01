@@ -1,7 +1,6 @@
 "use client"
 
 import useParams from "@/hooks/useParams"
-import { getInitials } from "@/lib/utils"
 import { ArrowLeft } from "lucide-react"
 import { useContext } from "react"
 
