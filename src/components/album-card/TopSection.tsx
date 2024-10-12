@@ -72,7 +72,7 @@ const TopSection = () => {
             </div>
             <div className="w-full flex overflow-hidden overflow-ellipsis h-full items-center ">
               <Textfit
-                className="flex font-bold overflow-ellipsis h-2/3 w-full  "
+                className="flex font-bold overflow-ellipsis h-full w-full  "
                 mode="multi"
               >
                 {album?.name}
