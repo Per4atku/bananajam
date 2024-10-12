@@ -4,7 +4,7 @@ import { OneAlbumResponse } from "@/generated/api"
 import { spotifyApi } from "@/utils/api/instance"
 import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
-import { createContext, useContext, useState } from "react"
+import { createContext } from "react"
 
 import Loader from "../Loader"
 import AlbumCardGradientWrapper from "./AlbumCardGradientWrapper"
