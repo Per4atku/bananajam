@@ -26,6 +26,7 @@ declare module "next-auth" {
     refreshToken: string
     tokenExpiresAt: number
     expires: string
+    expiresIn: number
   }
 }
 
