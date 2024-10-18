@@ -1,11 +1,9 @@
 "use client"
 
-import { PagingArtistDiscographyAlbumObject } from "@/generated/api"
 import useParams from "@/hooks/useParams"
-import { spotifyApi } from "@/utils/api/instance"
+import { getArtistsAlbums } from "@/lib/spotify/spotify"
 import { useMediaQuery } from "@siberiacancode/reactuse"
 import { useQuery } from "@tanstack/react-query"
-import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { ReactNode, useState } from "react"
 import "swiper/css"
@@ -24,24 +22,11 @@ export const AlbumCarousel = ({ artistId, fallback }: AlbumCarouselProps) => {
   const params = useParams()
   const isSmallScreen = useMediaQuery("(max-width: 640px)")
   const [activeIndex, setActiveIndex] = useState<number>()
-  const session = useSession()
 
   const { data } = useQuery({
     queryKey: [artistId, "get-artists-albums"],
     queryFn: async () => {
-      const response: PagingArtistDiscographyAlbumObject = await spotifyApi.get(
-        `artists/${artistId}/albums`,
-        {
-          headers: {
-            Authorization: `Bearer ${session.data!.accessToken}`,
-          },
-          params: {
-            include_groups: "album",
-            limit: 50,
-          },
-        },
-      )
-      return response
+      return await getArtistsAlbums(artistId)
     },
   })
 

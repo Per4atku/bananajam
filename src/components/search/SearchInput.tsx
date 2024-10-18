@@ -1,5 +1,6 @@
 "use client"
 
+import useAccessToken from "@/hooks/useAccessToken"
 import useParams from "@/hooks/useParams"
 import {
   useBoolean,

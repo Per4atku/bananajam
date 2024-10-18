@@ -1,7 +1,5 @@
-import { auth } from "@/auth"
-import { OneArtistResponse } from "@/generated/api"
+import { getAccessToken, getArtist } from "@/lib/spotify/spotify"
 import { getInitials } from "@/lib/utils"
-import { spotifyApi } from "@/utils/api/instance"
 
 import Loader from "../Loader"
 import AlbumCard from "../album-card/AlbumCard"
@@ -13,22 +11,14 @@ interface ArtistCardProps {
   artistId: string
   album?: string
 }
+
 const ArtistCard = async ({ artistId, album }: ArtistCardProps) => {
+  const token = await getAccessToken()
+  console.log("here is token, babe")
+  console.log(token)
   if (album) return <AlbumCard id={album} />
 
-  console.log(album)
-
-  const session = await auth()
-
-  const artist: OneArtistResponse = await spotifyApi.get(
-    `artists/${artistId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${session!.accessToken}`,
-      },
-      cache: "no-cache",
-    },
-  )
+  const artist = await getArtist(artistId)
 
   if (artist)
     return (

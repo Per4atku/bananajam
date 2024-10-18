@@ -1,9 +1,8 @@
 "use client"
 
 import { OneAlbumResponse } from "@/generated/api"
-import { spotifyApi } from "@/utils/api/instance"
+import { getAlbum } from "@/lib/spotify/spotify"
 import { useQuery } from "@tanstack/react-query"
-import { useSession } from "next-auth/react"
 import { createContext } from "react"
 
 import Loader from "../Loader"
@@ -21,16 +20,10 @@ interface AlbumCardProps {
 }
 
 const AlbumCard = ({ id }: AlbumCardProps) => {
-  const session = useSession()
   const albumfetch = useQuery({
     queryKey: [id],
     queryFn: async () => {
-      const data: OneAlbumResponse = await spotifyApi.get(`albums/${id}`, {
-        headers: {
-          Authorization: `Bearer ${session.data?.accessToken}`,
-        },
-      })
-      return data
+      return getAlbum(id)
     },
   })
   if (!albumfetch.data)

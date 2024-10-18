@@ -1,4 +1,3 @@
-import { auth } from "@/auth"
 import Providers from "@/components/Providers"
 import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
@@ -19,7 +18,6 @@ export default async function RootLayout({
 }: {
   children: ReactNode
 }) {
-  const session = await auth()
   return (
     <html lang="en">
       <body
@@ -28,7 +26,7 @@ export default async function RootLayout({
           "relative h-full font-sans antialiased ",
         )}
       >
-        <Providers session={session || undefined}>
+        <Providers>
           <main className="relative flex flex-col min-h-screen bg-slate-900 ">
             <Toaster />
             <div className="flex-grow flex-1 ">{children}</div>
