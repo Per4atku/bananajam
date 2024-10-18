@@ -1,3 +1,4 @@
+import { REDIRECT_AFTER_LOGIN } from "@/lib/routes"
 import { cookies } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 
@@ -32,7 +33,7 @@ export const GET = async (request: NextRequest) => {
     },
     body,
   }
-  url.pathname = "/"
+  url.pathname = REDIRECT_AFTER_LOGIN
   try {
     const response = await fetch(
       "https://accounts.spotify.com/api/token",

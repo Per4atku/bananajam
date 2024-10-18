@@ -1,10 +1,9 @@
-import { signIn } from "@/auth"
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { REDIRECT_AFTER_LOGIN } from "@/lib/routes"
 import Image from "next/image"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { FaSpotify } from "react-icons/fa6"
 
 interface BananaProps {
@@ -84,7 +83,7 @@ export default async function Login() {
             <form
               action={async () => {
                 "use server"
-                await signIn("spotify", { redirectTo: REDIRECT_AFTER_LOGIN })
+                redirect("/api/auth")
               }}
             >
               <Button type="submit" className="flex gap-2 py-8">
